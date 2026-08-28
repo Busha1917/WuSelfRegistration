@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-wu-maroon: #8C0F2A;
+  --color-wu-maroon-50: #FBEAEE;
+  --color-wu-maroon-100: #F3C6D0;
+  --color-wu-maroon-300: #D96A82;
+  --color-wu-maroon-500: #AC0B2C;
+  --color-wu-maroon-700: #8C0F2A;
+  --color-wu-maroon-900: #5C0A1C;
+
+  --color-wu-gold: #EDC935;
+  --color-wu-gold-50: #FEFAE8;
+  --color-wu-gold-300: #F5DE7A;
+  --color-wu-gold-500: #EDC935;
+  --color-wu-gold-700: #C9A61E;
+
+  --color-wu-blue: #5D9ADB;
+  --color-wu-blue-50: #EEF5FC;
+  --color-wu-blue-300: #A9CBEF;
+  --color-wu-blue-500: #5D9ADB;
+  --color-wu-blue-700: #3A73B0;
+
+  --color-wu-cream: #FBF6EC;
+  --color-wu-ink: #1A1A1A;
+
+  --color-success: #16A34A;
+  --color-success-light: #DCFCE7;
+  --color-warning: #D97706;
+  --color-warning-light: #FEF3C7;
+  --color-danger: #DC2626;
+  --color-danger-light: #FEE2E2;
+  --color-neutral: #6B7280;
+  --color-neutral-light: #F3F4F6;
+
+  --font-heading: 'Lora', 'Noto Sans Ethiopic', Georgia, serif;
+  --font-body: 'Inter', 'Noto Sans Ethiopic', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-wu-ink);
+  background: var(--color-wu-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+input, select, textarea, button {
+  font-family: var(--font-body);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-wu-gold);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-wu-maroon-100);
+  color: var(--color-wu-maroon-900);
+}

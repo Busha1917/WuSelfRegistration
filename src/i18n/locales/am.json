@@ -1,0 +1,427 @@
+{
+  "app": {
+    "name": "ዋይለጋ ዩኒቨርሲቲ",
+    "subtitle": "የተማሪ ራስ ማመዝጋቢያ ስርዓት",
+    "shortName": "WU-SSRS"
+  },
+  "nav": {
+    "home": "መነሻ",
+    "login": "ግባ",
+    "register": "ተመዝግብ",
+    "dashboard": "ዳሽቦርድ",
+    "applications": "ማመልከቻዎች",
+    "documents": "ሰዎች",
+    "status": "የማመልከቻ ሁኔታ",
+    "idCard": "መታወቂያ ካርድ",
+    "placement": "የክፍል ቦታ",
+    "reRegistration": "የሰምስትር እንደገና ምዝገባ",
+    "history": "የምዝገባ ታሪክ",
+    "profile": "የእኔ መገለጫ",
+    "queue": "የምርመራ ቅርንጫፍ",
+    "semesterQueue": "የሰምስትር ቅርንጫፍ",
+    "placementMgmt": "የቦታ አስተዳደር",
+    "users": "የተጠቃሚ አስተዳደር",
+    "import": "መረጃ ማስገቢያ",
+    "config": "የስርዓት ማስተዳደር",
+    "reports": "ሪፖርቶች",
+    "auditLog": "የስርዓት ታሪክ",
+    "assist": "የተማሪ እርዳታ",
+    "semesterStats": "የሰምስትር ስታቲስቲክስ",
+    "logout": "ውጣ",
+    "notifications": "ማንቂያዎች"
+  },
+  "public": {
+    "hero": {
+      "title": "ወደ ዋይለጋ ዩኒቨርሲቲ እንኳን በደህና መጡ",
+      "subtitle": "የተማሪ ራስ ማመዝጋቢያ ስርዓት",
+      "description": "ተመዝግበን የማመልከቻ ሁኔታዎን ተከታትለን የትምህርት ጉዞዎን በመስመር ላይ ያስተዳድሩ።",
+      "checkStatus": "የስራ ማስተካከያ ሁኔታ ይፈትሹ",
+      "registerNow": "አሁን ይመዝግቡ",
+      "learnMore": "ተጨማሪ ይወቁ"
+    },
+    "campuses": {
+      "title": "የእኛ ተቋማት",
+      "main": {
+        "name": "ዋና ተቋም",
+        "location": "ነቀምት",
+        "description": "የዩኒቨርሲቲውን አስተዳደር እና በፍጹም የሚሆኑትን ፕሮግራሞች ያቀርባል።"
+      },
+      "shambu": {
+        "name": "ሻምቡ ተቋም",
+        "location": "ሻምቡ",
+        "description": "በምስራቅ ዞን ያሉ ተማሪዎችን ለማገዝ ተስፋፋ ቤት አለው።"
+      },
+      "gimbi": {
+        "name": "ግምቢ ተቋም",
+        "location": "ግምቢ",
+        "description": "በሰሜን ዞን የትምህርት ተደራሽነት ይሰጣል።"
+      }
+    },
+    "lookup": {
+      "title": "የስራ ማስተካከያ ሁኔታ ማሰحج",
+      "description": "የስራ ማስተካከያ ሁኔታዎን ለማየት ስምዎን ወይም የጠርን ቁጥር ያስገቡ።",
+      "searchPlaceholder": "ስም ወይም ቁጥር ያስገቡ",
+      "search": "ፈልግ",
+      "notFound": "ምንም መረጃ አልተገኘም። ይፈትሹ።",
+      "resultTitle": "የስራ ማስተካከያ ውጤት"
+    },
+    "calendar": {
+      "title": "የምዝገባ ቀን መርሐ ግብር",
+      "description": "ለአሁኑ የምዝገባ ጊዜ ዋና ቀኖች።",
+      "regular": "መደበኛ ግባት",
+      "weekend": "የሳምንት ፕሮግራም",
+      "night": "የምሽት ፕሮግራም",
+      "summer": "흠ምር እና ጊዜ",
+      "masters": "ማስተርስ እና ፒኤዲ"
+    },
+    "requirements": {
+      "title": "የሰዎች መፈለጋ",
+      "description": "በፕሮግራም በኩል የሚፈለጉት ሰዎች። ማመልከት ከመቀጠል በፊት ሁሉንም ሰዎች ያስቀምጡ።"
+    },
+    "faq": {
+      "title": "ተደጋጋሚ ጥያቄዎች",
+      "description": "ስለ ምዝገባ ሂደት የሚነሱትን ጥያቄዎች ይወቁ።"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "ግባ",
+      "email": "ኢሜይል አድራሻ",
+      "password": "የይለፍ ቃል",
+      "rememberMe": "አስታውሰኝ",
+      "forgotPassword": "የይለፍ ቃል ረሳር?",
+      "noAccount": "መለያ የሎትም?",
+      "submit": "ግባ",
+      "success": "እንኳን ተመለስ!",
+      "invalid": "ኢሜይል ወይም የይለፍ ቃል ትክክለኛ አይደለም",
+      "locked": "በብዛት የተሳሳቱ ሙከራዎች ምክንያት መለያ ተመዝግቧል። በኋላ ይሞክሩ።"
+    },
+    "register": {
+      "title": "መለያ ይፍጠሩ",
+      "fullName": "ሙሉ ስም",
+      "email": "ኢሜይል አድራሻ",
+      "phone": "ስልክ ቁጥር",
+      "nationalId": "ብሔራዊ መታወቂያ (አማራጭ)",
+      "admissionType": "የግባት ዓይነት",
+      "password": "የይለፍ ቃል",
+      "confirmPassword": "የይለፍ ቃል ያረጋግጡ",
+      "submit": "መለያ ይፍጠሩ",
+      "hasAccount": "መለያ አለዎ?",
+      "success": "መለያ ተፈጥሯል! እባክዎን ይግቡ።",
+      "passwordMismatch": "የይለፍ ቃሎች አይመሳሰሉም"
+    },
+    "forgotPassword": {
+      "title": "የይለፍ ቃል ያድርጉ",
+      "description": "ኢሜይል አድራሻዎን ያስገቡ፣ የማረጋገጫ ኮድ እንልክልዎታለን።",
+      "email": "ኢሜይል አድራሻ",
+      "submit": "ኮድ ላክ",
+      "codeLabel": "ማረጋገጫ ኮድ",
+      "newPassword": "አዲስ የይለፍ ቃል",
+      "confirmPassword": "የይለፍ ቃል ያረጋግጡ",
+      "verify": "ያረጋግጡ እና ያድርጉ",
+      "success": "የይለፍ ቃል ማድረጊያ ተሳክቷል!",
+      "backToLogin": "ወደ ማገቢያ ተመለስ"
+    },
+    "forceChange": {
+      "title": "የይለፍ ቃልዎን ያድርጉ",
+      "description": "ለደህንነት፣ ከመቀጠል በፊት ቆንጆ የይለፍ ቃልዎን ይ 바꾸ዎ።"
+    }
+  },
+  "student": {
+    "dashboard": {
+      "welcome": "እንኳን በደህና መጡ, {{name}}",
+      "applicationStatus": "የማመልከቻ ሁኔታ",
+      "continueApplication": "ማመልከቻዎን ይቀጥሉ",
+      "startApplication": "ማመልከቻ ይጀምሩ",
+      "uploadDocuments": "ሰዎች ያስገቡ",
+      "viewIdCard": "መታወቂያ ይመልከቱ",
+      "viewPlacement": "ቦታ ይመልከቱ",
+      "recentNotifications": "የቅርብ ጊዜ ማንቂያዎች",
+      "quickActions": "ፈጣን ድርጊቶች",
+      "semesterReReg": "የሰምስትር እንደገና ምዝገባ",
+      "noApplication": "ምንም ማመልከቻ የለም። አሁን ማመልከቻዎን ይጀምሩ!",
+      "draftExists": "ረቂቅ ማመልከቻ አለዎት በሂደት ላይ።"
+    },
+    "application": {
+      "title": "የማመልከቻ ቅጽ",
+      "step1": "የግል መረጃ",
+      "step2": "የትምህርት ታሪክ",
+      "step3": "የፕሮግራም ምርጫ",
+      "step4": "ሰዎች ማስገቢያ",
+      "step5": "ግምገማ እና ማስገቢያ",
+      "next": "ቀጥል",
+      "back": "ተመለስ",
+      "saveDraft": "ረቂቅ አስቀምጥ",
+      "submit": "ማመልከቻ አስገብት",
+      "submitted": "ማመልከቻ ተገብቷል",
+      "submittedMessage": "ማመልከቻዎ በተሳካ ሁኔታ ተገብቷል።"
+    },
+    "documents": {
+      "title": "የሰዎች አስተዳደር",
+      "upload": "ሰዎች ያስገቡ",
+      "dragDrop": "ሰዎችዎን ይ🥵ህ ይሙሉ፣ ወይም ለመቃኘት ጠቅ ያድርጉ",
+      "acceptedTypes": "የሚቀበሉት: PDF, JPG, PNG (ከፍተኛ {{size}}MB)",
+      "uploaded": "የተሰጠ",
+      "pending": "በመጠበቅ ላይ",
+      "rejected": "ተቀምጧል",
+      "verified": "የተረጋግጧል",
+      "delete": "ያጥፉ",
+      "replacement": "ማስተካከያ ያስገቡ"
+    },
+    "status": {
+      "title": "የማመልከቻ ሁኔታ",
+      "submitted": "ተገብቧል",
+      "underReview": "በምርመራ ላይ",
+      "approved": "ተቀምጧል",
+      "rejected": "ተቀምጧል",
+      "rejectionReason": "የመተረከዝ ምክንያት",
+      "correctiveAction": "የሚፈለግ ድርጊት",
+      "resubmit": "ማመልከቻ እንደገና ያስገብቱ",
+      "resubmitDeadline": "የእንደገና ማስገቢያ ጊዜ: {{date}}",
+      "pending": "በምርመራ ላይ",
+      "congratulations": "እንኳን ደስ ይበላዎት! ማመልከቻዎ ተቀምጧል።",
+      "reviewInProgress": "ማመልከቻዎ አሁን በምርመራ ላይ ነው።"
+    },
+    "idCard": {
+      "title": "የተማሪ መታወቂያ ካርድ",
+      "download": "መታወቂያ ካርድ ያውርዱ",
+      "print": "መታወቂያ ካርድ አትም",
+      "notAvailable": "መታወቂያ ካርድ አሁን የለም። ማመልከቻዎ ከተቀመጠ በኋላ ይፈጠራል።",
+      "studentId": "የተማሪ መታወቂያ",
+      "program": "ፕሮግራም",
+      "campus": "ተቋም",
+      "validUntil": "የሚታወቀው እስከ"
+    },
+    "placement": {
+      "title": "የክፍል ቦታ",
+      "notAvailable": "የክፍል ቦታ ከተ ሲወጣ እዚህ ይታያል።",
+      "class": "ክፍል",
+      "section": "ክፍል",
+      "lectureHall": "የምርምር ቤት",
+      "publishedOn": "የተ በ{{date}}"
+    },
+    "reRegistration": {
+      "title": "የሰምስትር እንደገና ምዝገባ",
+      "banner": "የሰምስትር እንደገና ምዝገባ አሁን ክፍት ነው!",
+      "description": "ለሚቀጥለው ሰምስትር ተወዳጃችነትዎን ያረጋግጡ።",
+      "note": "ማስታወሻ: ይህ ለምዝገባ ማረጋገጫ ብቻ ነው።",
+      "program": "ፕሮግራም",
+      "year": "የትምህርት ዓመት",
+      "semester": "ሰምስትር",
+      "confirm": "ተወዳጃችነት ያረጋግጡ",
+      "status": "የእንደገና ምዝገባ ሁኔታ"
+    },
+    "history": {
+      "title": "የምዝገባ ታሪክ",
+      "semester": "ሰምስትር",
+      "academicYear": "የትምህርት ዓመት",
+      "status": "ሁኔታ",
+      "program": "ፕሮግራም",
+      "noHistory": "ምንም የምዝገባ ታሪክ አልተገኘም።"
+    },
+    "profile": {
+      "title": "መገለጫ እና ማስተካከያ",
+      "edit": "መገለጫ ያስተካክሉ",
+      "changePassword": "የይለፍ ቃል ያድርጉ",
+      "currentPassword": "የአሁን የይለፍ ቃል",
+      "newPassword": "አዲስ የይለፍ ቃል",
+      "saveChanges": "ለውጦችን አስቀምጥ"
+    }
+  },
+  "registrar": {
+    "dashboard": {
+      "title": "የተመዝጋቢ ዳሽቦርድ",
+      "pendingFirstTime": "በመጠበቅ ላይ ያሉ ማመልከቻዎች",
+      "pendingSemester": "በመጠበቅ ላይ ያሉ የሰምስትር ምዝገባዎች",
+      "todayProcessed": "ዛሬ የተከፈለ",
+      "totalApproved": "ጠቅላላ የተቀመጠ"
+    },
+    "queue": {
+      "title": "የምርመራ ቅርንጫፍ",
+      "semesterTitle": "የሰምስትር ምዝገባ ቅርንጫፍ",
+      "filter": {
+        "campus": "ተቋም",
+        "program": "ፕሮግራም",
+        "status": "ሁኔታ",
+        "intake": "ግባት",
+        "search": "በስም ወይም በID ፈልግ..."
+      },
+      "bulkApprove": "በብዛት ያስተካክሉ",
+      "bulkApproveConfirm": "{{count}} ማመልከቻዎችን ማስተካከል እርግጠኛ ነዎት?",
+      "selected": "{{count}} ተመረጠ"
+    },
+    "review": {
+      "title": "ማመልከቻ ምርመራ",
+      "personalData": "የግል መረጃ",
+      "documents": "ሰዎች",
+      "verification": "ማረጋገጫ",
+      "documentsComplete": "ሰዎች ተጠናቁ",
+      "documentsConsistent": "መረጃ ተመሳሳይ",
+      "flagIssue": "ችግር ማሳየት",
+      "decision": "ውሳኔ",
+      "approve": "ያስተካክሉ",
+      "reject": "ያምሙ",
+      "rejectionReason": "የመተረከዝ ምክንያት (አስፈላጊ)",
+      "correctiveAction": "የሚፈለግ ድርጊት",
+      "assignSection": "ክፍል ይመድዱ",
+      "approved": "ማመልከቻ ተቀምጧል",
+      "rejected": "ማመልከቻ ተቀምጧል"
+    },
+    "placement": {
+      "title": "ክፍል እና ክፍል አስተዳደር",
+      "createClass": "ክፍል ይፍጠሩ",
+      "createSection": "ክፍል ይፍጠሩ",
+      "assignStudents": "ተማሪዎችን ይመድዱ",
+      "publish": "ቦታዎችን ያውግዱ"
+    },
+    "history": {
+      "title": "የውሳኔ ታሪክ",
+      "action": "ድርጊት",
+      "timestamp": "ቀን እና ሰዓት",
+      "applicant": "አመልካች",
+      "outcome": "ውጤት"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "የአስተዳዳሪ ዳሽቦርድ",
+      "totalUsers": "ጠቅላላ ተጠቃሚዎች",
+      "totalApplications": "ጠቅላላ ማመልከቻዎች",
+      "totalImports": "ጠቅላላ አስገቢያዎች",
+      "systemHealth": "የስርዓት ጤና"
+    },
+    "users": {
+      "title": "የተጠቃሚ አስተዳደር",
+      "createUser": "ተጠቃሚ ይፍጠሩ",
+      "editUser": "ተጠቃሚ ያስተካክሉ",
+      "deactivate": "ያቦከኖ",
+      "activate": "ያስተካክሉ",
+      "role": "ሚSSION",
+      "status": "ሁኔታ",
+      "active": "ንቁ",
+      "inactive": "ንቁ"
+    },
+    "import": {
+      "title": "የስራ ማስተካከያ መረጃ ማስገቢያ",
+      "uploadFile": "ፋይል ያስገቡ",
+      "supportedFormats": "የሚቀበሉት ቅርጸ: *.xlsx, *.csv",
+      "preview": "ማስገቢያ መረጃ ይመልከቱ",
+      "validate": "ያረጋግጡ",
+      "import": "መረጃ ያስገቡ",
+      "importLog": "የማስገቢያ ታሪክ",
+      "success": "ማስገቢያ ተጠናቅቋል: {{created}} መረጃ ተፈጥሯል, {{flagged}} ተመዝግቧል",
+      "errors": "የማስገቢያ ስህተቶች ተገኝተዋል።"
+    },
+    "config": {
+      "title": "የስርዓት ማስተዳደር",
+      "campuses": "ተቋማት",
+      "programs": "ፕሮግራሞች",
+      "documentRequirements": "የሰዎች መፈለጋ",
+      "idCardTemplate": "የመታወቂያ ካርድ ቴምፕሌት"
+    },
+    "reports": {
+      "title": "ሪፖርቶች እና ትንታኔ",
+      "exportPdf": "ወደ PDF ያስተካክሉ",
+      "exportExcel": "ወደ Excel ያስተካክሉ",
+      "sendToAnalytics": "ወደ ትንታኔ መሣሪያዎች ያስገቡ"
+    },
+    "auditLog": {
+      "title": "የስርዓት ታሪክ",
+      "filter": "በድርጊት፣ ተጠቃሚ ወይም በቀን ያ管理条例",
+      "user": "ተጠቃሚ",
+      "action": "ድርጊት",
+      "target": "ዓላማ",
+      "timestamp": "ሰዓት"
+    }
+  },
+  "management": {
+    "dashboard": {
+      "title": "የአስተዳደር ዳሽቦርድ",
+      "readOnly": "የንባብ ብቻ ዕይታ",
+      "totalApplications": "ጠቅላላ ማመልከቻዎች",
+      "approved": "ተቀምጧል",
+      "rejected": "ተቀምጧል",
+      "pending": "በመጠበቅ ላይ",
+      "underReview": "በምርመራ ላይ",
+      "byCampus": "በተቋም በኩል",
+      "byProgram": "በፕሮግራም በኩል",
+      "byMonth": "ወርሃዊ ዝርዝር"
+    },
+    "semester": {
+      "title": "የሰምስትር እንደገና ምዝገባ ስታቲስቲክስ",
+      "registered": "ተመዝግቧል",
+      "pending": "በመጠበቅ ላይ",
+      "rejected": "ተቀምጧል"
+    },
+    "reports": {
+      "title": "ሪፖርቶች",
+      "export": "መረጃ ያስተካክሉ",
+      "readOnly": "ይህ የንባብ ብቻ ዕይታ ነው"
+    }
+  },
+  "council": {
+    "assist": {
+      "title": "የተማሪ እርዳታ መሣሪያ",
+      "description": "ተማሪ ለማገዝ ፍልግ ያድርጉ የምዝገባ ሁኔታ፣ ተቋም እና ክፍል እንዲያገኙ።",
+      "searchPlaceholder": "በስም፣ በID ወይም በማ ቁጥር ፈልግ",
+      "search": "ፈልግ",
+      "found": "ተማሪ ተገኝቷል",
+      "name": "ስም",
+      "campus": "ተቋም",
+      "program": "ፕሮግራም",
+      "section": "ክፍል",
+      "status": "ሁኔታ",
+      "notFound": "ምንም ተማሪ አልተገኘም።"
+    }
+  },
+  "common": {
+    "loading": "በመጫን ላይ...",
+    "error": "ችግር ተፈጥሯል",
+    "retry": "እንደገና ሞክር",
+    "save": "አስቀምጥ",
+    "cancel": "ሰርዝ",
+    "delete": "ያጥፉ",
+    "edit": "ያስተካክሉ",
+    "create": "ይፍጠሩ",
+    "close": "ዝጋ",
+    "confirm": "ያረጋግጡ",
+    "yes": "አዎ",
+    "no": "አይ",
+    "back": "ተመለስ",
+    "next": "ቀጥል",
+    "submit": "ያስገብቱ",
+    "search": "ፈልግ",
+    "filter": "ያ管理条例",
+    "clearFilters": "ማ管理条例 ያጥፉ",
+    "noData": "ምንም መረጃ የለም",
+    "actions": "ድርጊቶች",
+    "status": "ሁኔታ",
+    "date": "ቀን",
+    "name": "ስም",
+    "email": "ኢሜይል",
+    "phone": "ስልክ",
+    "required": "አስፈላጊ",
+    "optional": "አማራጭ",
+    "of": "ከ",
+    "page": "ገጹ",
+    "previous": "ቀዳሚ",
+    "showing": "ማሳየት",
+    "entries": "ማስገቢያዎች",
+    "selectAll": "ሁሉንም ይምረጡ",
+    "deselectAll": "ምንም አይምረጡ",
+    "copySuccess": "ወደ clipboard ተቀምጧል",
+    "success": "ተሳክቷል",
+    "warning": "ማስጠንቀቂያ",
+    "errorTitle": "ስህተት",
+    "info": "መረጃ",
+    "export": "ያስተካክሉ",
+    "import": "ያስገብቱ",
+    "viewAll": "ሁሉንም ይመልከቱ",
+    "viewDetails": "ዝርዝሮችን ይመልከቱ",
+    "welcomeBack": "እንኳን ተመለሱ!",
+    "accessDenied": "ተደራሽነት እርፋታ",
+    "accessDeniedMessage": "ይህን ገጹን ለመድረስ ፈቃድ የለዎትም።",
+    "goHome": "ወደ መነሻ ሂድ",
+    "goToDashboard": "ወደ ዳሽቦርድ ሂድ"
+  }
+}

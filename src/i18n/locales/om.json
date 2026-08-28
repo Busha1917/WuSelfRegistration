@@ -1,0 +1,461 @@
+{
+  "app": {
+    "name": "Wollega University",
+    "subtitle": "Sirrii Guraarsaa Baasuu Arabbaa",
+    "shortName": "WU-SSRS"
+  },
+  "nav": {
+    "home": "Fuula Dhuunfaa",
+    "login": "Seenzii",
+    "register": "Maxxansuu",
+    "dashboard": "Gabatee",
+    "applications": "Isinabbaasiinsa",
+    "documents": "Qabiyyee",
+    "status": "Haala Isinabbaasiinsa",
+    "idCard": "Kaardii meeshaa",
+    "placement": "Kutaa",
+    "reRegistration": "Maxxansuu Wareegamti",
+    "history": "Seenaa Maxxansuu",
+    "profile": "Akkaataa Koo",
+    "queue": "Tarree Sadaqaa",
+    "semesterQueue": "Tarree Wareegamti",
+    "placementMgmt": "Bulchiinsa Goftuu",
+    "users": "Bulchiinsa Fayyadamaa",
+    "import": "Daangessuu Odeebannaa",
+    "config": "Hayyamamuu Sirnaa",
+    "reports": "Gabaasna",
+    "auditLog": "Keessa Log",
+    "assist": "Gargaarsa Arabbii",
+    "semesterStats": "Ispaatistiksii Wareegamti",
+    "logout": "Ba'i",
+    "notifications": "Beeksiinsa"
+  },
+  "public": {
+    "hero": {
+      "title": "Wollega University Baga nagaan Dhuftan",
+      "subtitle": "Sirrii Guraarsaa Baasuu Arabbii",
+      "description": "Maxxansi, haala isinabbaasiinsa kee hordofi, gannaan kan barnoota kee ijaaradhaa.",
+      "checkStatus": "Haala Baasuu Dorgomii Barbaadisi",
+      "registerNow": "Amma Maxxansi",
+      "learnMore": "Dabalataa Barbaadisi"
+    },
+    "campuses": {
+      "title": "Keenyani Idaaraalee",
+      "main": {
+        "name": "Citaawaa Guddaa",
+        "location": "Nekemte",
+        "description": "Citaawaa guddaa hirmaanaa bulchiinsa yunivarsiitii fi herrega barnoota kenneta."
+      },
+      "shambu": {
+        "name": "Citaawaa Shambuu",
+        "location": "Shambuu",
+        "description": "Arabbii biroo hawwii fi herrega fiidhaa argamsiisa."
+      },
+      "gimbi": {
+        "name": "Citaawaa Gimbi",
+        "location": "Gimbi",
+        "description": "Barnoota baasuu biroo hawwii argamsiisa."
+      }
+    },
+    "lookup": {
+      "title": "Barbaadinsa Haala Baasuu",
+      "description": "Haala baasuu kee ilaaluuf maqaa kee yk lakkoofsa dorgomii galchi.",
+      "searchPlaceholder": "Maqaa yk lakkoofsa galchi",
+      "search": "Barbaadisi",
+      "notFound": "Odeebannaa hin argamne. Maqaa kee mirkaneeffadhu.",
+      "resultTitle": "Bu'aa Baasuu"
+    },
+    "calendar": {
+      "title": "Kalendaa Maxxansuu",
+      "description": "Guyyoota xaxamoo maxxansuu ammaa.",
+      "regular": " maxxansuu Hermannoo",
+      "weekend": "Sababa Hermannoo",
+      "night": "Harmee Hermannoo",
+      "summer": "Barkaannoo fi GuYYaa",
+      "masters": "Master fi PhD"
+    },
+    "requirements": {
+      "title": "Hayyamaamuu Qabiyyee",
+      "description": "Hirmaanaa barnoota waliigalaa qabiyyee haqamu. Isinabbaasinsa kee keessa galchuun dura qabiyyee hunda cimsi."
+    },
+    "faq": {
+      "title": "Gaaffilee Dabalaa",
+      "description": "Gaaffilee caannoo isinabbaasiinsa waliin barbaadisi."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Seenzii",
+      "email": "Imeeyilaan",
+      "password": "Jechi Darbee",
+      "rememberMe": "Na yaadadi",
+      "forgotPassword": "Jechi darbee irraa irraanfaa?",
+      "noAccount": "Herrega hin qabdu?",
+      "submit": "Seenzii",
+      "success": "Baga nagaan deebi'e!",
+      "invalid": "Imeeyilaan yk jechi darbee sirrii miti",
+      "locked": "Herrega irratti yeroo heddu dorgomoota keessa ergamaa. Sochoffisi."
+    },
+    "register": {
+      "title": "Herrega Uumi",
+      "fullName": "Maqaa Keenya",
+      "email": "Imeeyilaan",
+      "phone": "Lakkoofsa Bilbila",
+      "nationalId": "Meeshaa Qawwaraa (effeeroota)",
+      "admissionType": "Akaakuu Baasuu",
+      "password": "Jechi Darbee",
+      "confirmPassword": "Jechi Darbee Mirkaneessi",
+      "submit": "Herrega Uumi",
+      "hasAccount": "Herrega qabdaa?",
+      "success": "Herrega uumame! Seenzii kaa'i.",
+      "passwordMismatch": "Jechi darbee hin walin fakkaatan"
+    },
+    "forgotPassword": {
+      "title": "Jechi Darbee Haqadhu",
+      "description": "Imeeyilaan kee galchi, koodii mirkaneeffamaa erginu.",
+      "email": "Imeeyilaan",
+      "submit": "Koodii Ergi",
+      "codeLabel": "Koodii Mirkaneeffamaa",
+      "newPassword": "Jechi Darbee Haaraa",
+      "confirmPassword": "Jechi Darbee Mirkaneessi",
+      "verify": "Mirkaneessi fi Haqadhu",
+      "success": "Jechi darbee haqamsiisi sirrii ta'e! Amma seenzuu dandeessu.",
+      "backToLogin": "Deebi'i Seenzii"
+    },
+    "forceChange": {
+      "title": "Jechi Darbee Keetii Haqadhu",
+      "description": "Safuu kanaaf, jechi darbee yeroo keetii dura haqadhu."
+    }
+  },
+  "student": {
+    "dashboard": {
+      "welcome": "Baga nagaan dhuftan, {{name}}",
+      "applicationStatus": "Haala Isinabbaasiinsa",
+      "continueApplication": "Isinabbaasiinsa Keetti Qabi",
+      "startApplication": "Isinabbaasiinsa Eegali",
+      "uploadDocuments": "Qabiyyee Galchi",
+      "viewIdCard": "Kaardii Meeshaa Ilaali",
+      "viewPlacement": "Goftuu Ilaali",
+      "recentNotifications": "Beeksiinsa Guyyaa Fakkaataa",
+      "quickActions": "Gochaatii Cimsaa",
+      "semesterReReg": "Maxxansuu Wareegamti Haaraa",
+      "noApplication": "Isinabbaasiinsa hin qabne. Amma maxxansi!",
+      "draftExists": "Isinabbaasiinsa goonee qabda."
+    },
+    "application": {
+      "title": "Unka Isinabbaasiinsa",
+      "step1": "Odeebannaa Dhuunfaa",
+      "step2": "Seenaa Barnoota",
+      "step3": "Magariisa Hermannoo",
+      "step4": "Galchi Qabiyyee",
+      "step5": "Xiyyeeffachiisi fi Galchi",
+      "next": "Itti Aanu",
+      "back": "Deebi'i",
+      "saveDraft": "Goonee Cuqqaasi",
+      "submit": "Isinabbaasiinsa Galchi",
+      "submitted": "Isinabbaasiinsa Galchame",
+      "submittedMessage": "Isinabbaasiinsa kee sirrii galchama. Haala isinabbaasiinsa kee waliin beeksifama.",
+      "personalInfo": {
+        "firstName": "Maqaa Jalqabaa",
+        "lastName": "Maqaa Abbaa",
+        "firstNameAm": "Maqaa Jalqabaa (Amharic)",
+        "lastNameAm": "Maqaa Abbaa (Amharic)",
+        "dateOfBirth": "GuYYaa Dhalootaa",
+        "gender": "Keeffaa",
+        "nationality": "Qawwaraa",
+        "phone": "Bilbila",
+        "email": "Imeeyilaan",
+        "region": "Naannoo",
+        "zone": "Aanaa",
+        "woreda": "Woredaa",
+        "kebele": "Kebelee",
+        "address": "Teessoo Koo"
+      },
+      "academic": {
+        "previousSchool": "Mana barnootaa jalqabaa",
+        "examType": "Akaakuu Dorgomii",
+        "examYear": "Waggaa Dorgomii",
+        "examScore": "Kabajamoo Dorgomii",
+        "subjects": "Bu'aa Hobboo"
+      },
+      "program": {
+        "program": "Herrega",
+        "campus": "Citaawaa",
+        "admissionType": "Akaakuu Baasuu",
+        "intakeYear": "Waggaa Baasuu",
+        "intakeSemester": "Wareegamti Baasuu",
+        "firstChoice": "Hermannoo 1",
+        "secondChoice": "Hermannoo 2 (Effeeroota)",
+        "semester1": "Wareegamti 1",
+        "semester2": "Wareegamti 2"
+      }
+    },
+    "documents": {
+      "title": "Bulchiinsa Qabiyyee",
+      "upload": "Qabiyyee Galchi",
+      "dragDrop": "Qabiyyee kee karaa hagii godhi, yk qabduu ilaali galchiif",
+      "acceptedTypes": "Kan fudhannaa: PDF, JPG, PNG (ol {{size}}MB)",
+      "uploaded": "Galchame",
+      "pending": "Eegamaa",
+      "rejected": "Dorgomame",
+      "verified": "Mirkaneeffame",
+      "delete": "Haqi",
+      "replacement": "Adda Haarsifii Galchi"
+    },
+    "status": {
+      "title": "Haala Isinabbaasiinsa",
+      "submitted": "Galchame",
+      "underReview": "Waaqeeffamaa keessa",
+      "approved": "Fudhannaa",
+      "rejected": "Dorgomame",
+      "rejectionReason": "Kabala Dorgomii",
+      "correctiveAction": "Gochaa Haqamu",
+      "resubmit": "Isinabbaasiinsa Haaraa Galchi",
+      "resubmitDeadline": "Yeroo galchinsaa haaraa: {{date}}",
+      "pending": "Waaqeeffamaa Eegamaa",
+      "congratulations": "Baga nagaan dhuftan! Isinabbaasiinsa kee fudhannaa.",
+      "reviewInProgress": "Isinabbaasiinsa kee amma waaqeeffamaa keessa jira."
+    },
+    "idCard": {
+      "title": "Kaardii Meeshaa Arabbii",
+      "download": "Kaardii Meeshaa Hergii",
+      "print": "Kaardii Meeshaa Maxxansi",
+      "notAvailable": "Kaardii meeshaa amma hin jirre. Isinabbaasiinsa kee fudhannaa sochoffisi uumama.",
+      "studentId": "Meeshaa Arabbii",
+      "program": "Herrega",
+      "campus": "Citaawaa",
+      "validUntil": "Haqqamamaa hanga"
+    },
+    "placement": {
+      "title": "Goftuu Kutaa",
+      "notAvailable": "Goftuu kutaa bulchiinsa yeroo uumamu armaan tuqi.",
+      "class": "Kutaa",
+      "section": "Kutaa",
+      "lectureHall": "Man barnootaa",
+      "publishedOn": "Iyyabe {{date}}"
+    },
+    "reRegistration": {
+      "title": "Maxxansuu Wareegamti Haaraa",
+      "banner": "Maxxansuu wareegamti amma banaa jira!",
+      "description": "Waamiinsa kee wareegamti itti aanuuf mirkaneessi.",
+      "note": "Absoon: Kuni mirkaneessuuf kan qofa. Hermannoo keessaa alagaa akkasumas kan biroo.",
+      "program": "Herrega",
+      "year": "Waggaa Barnootaa",
+      "semester": "Wareegamti",
+      "confirm": "Waamiinsa Mirkaneessi",
+      "status": "Haala Maxxansuu Haaraa"
+    },
+    "history": {
+      "title": "Seenaa Maxxansuu",
+      "semester": "Wareegamti",
+      "academicYear": "Waggaa Barnootaa",
+      "status": "Haala",
+      "program": "Herrega",
+      "noHistory": "Seenaa maxxansuu hin argamne."
+    },
+    "profile": {
+      "title": "Akkaataa fi Hayyamamuu",
+      "edit": "Akkaataa Haqadhu",
+      "changePassword": "Jechi Darbee Haqadhu",
+      "currentPassword": "Jechi Darbee Ammaa",
+      "newPassword": "Jechi Darbee Haaraa",
+      "saveChanges": "Jijjiiramaa Cuqqaasi"
+    }
+  },
+  "registrar": {
+    "dashboard": {
+      "title": "Gabatee Bulchiinsa",
+      "pendingFirstTime": "Isinabbaasiinsa Amma Eegamaa",
+      "pendingSemester": "Maxxansuu Wareegamti Eegamaa",
+      "todayProcessed": "Har'a Roorrisi",
+      "totalApproved": "Waliigalaa Fudhannaa"
+    },
+    "queue": {
+      "title": "Tarree Waaqeeffamaa",
+      "semesterTitle": "Tarree Maxxansuu Wareegamti",
+      "filter": {
+        "campus": "Citaawaa",
+        "program": "Herrega",
+        "status": "Haala",
+        "intake": "Baasuu",
+        "search": "Maqaa yk ID barbaadisi..."
+      },
+      "bulkApprove": "Bulaa Fudhannaa",
+      "bulkApproveConfirm": "{{count}} isinabbaasiinsa fudhachuuf mirkaneefta?",
+      "selected": "{{count}} filatame"
+    },
+    "review": {
+      "title": "Waaqeeffamaa Isinabbaasiinsa",
+      "personalData": "Odeebannaa Dhuunfaa",
+      "documents": "Qabiyyee",
+      "verification": "Mirkaneeffamaa",
+      "documentsComplete": "Qabiyyee Ta'amaa",
+      "documentsConsistent": "Odeebannaa Waliigalaa",
+      "flagIssue": "Rakkoo Agarsiisi",
+      "decision": "Waliigalaa",
+      "approve": "Fudhannaa",
+      "reject": "Dorgomii",
+      "rejectionReason": "Kabala Dorgomii (haqamu)",
+      "correctiveAction": "Gochaa Haqamu",
+      "assignSection": "Kutaa Meyyessi",
+      "approved": "Isinabbaasiinsa fudhannaa",
+      "rejected": "Isinabbaasiinsa dorgomame"
+    },
+    "placement": {
+      "title": "Bulchiinsa Kutaa fi Kutaa",
+      "createClass": "Kutaa Uumi",
+      "createSection": "Kutaa Uumi",
+      "assignStudents": "Arabbii Meyyessi",
+      "publish": "Goftuu Iyya"
+    },
+    "history": {
+      "title": "Seenaa Waliigalaa",
+      "action": "Gochaa",
+      "timestamp": "GuYYaa fi Yeroo",
+      "applicant": "Isinabbaasiinsa kaa'e",
+      "outcome": "Bu'aa"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Gabatee Bulchiinsa",
+      "totalUsers": "Waliigalaa Fayyadamaa",
+      "totalApplications": "Waliigalaa Isinabbaasiinsa",
+      "totalImports": "Waliigalaa Galchinsaa",
+      "systemHealth": "Hayyamamuu Sirnaa"
+    },
+    "users": {
+      "title": "Bulchiinsa Fayyadamaa",
+      "createUser": "Fayyadamaa Uumi",
+      "editUser": "Fayyadamaa Haqadhu",
+      "deactivate": "Dhinxi",
+      "activate": "Kakaasi",
+      "role": "Gahee",
+      "status": "Haala",
+      "active": "Kaka'aa",
+      "inactive": "Dhinxi'aa"
+    },
+    "import": {
+      "title": "Galchinsaa Odeebannaa Baasuu",
+      "uploadFile": "Faayilii Galchi",
+      "supportedFormats": "Kan fudhannaa: .xlsx, .csv",
+      "preview": "Odeebannaa Galchinsaa Ilaali",
+      "validate": "Mirkaneessi",
+      "import": "Odeebannaa Galchi",
+      "importLog": "Seenaa Galchinsaa",
+      "success": "Galchinsaa ta'e: {{created}} odeebannaa uumame, {{flagged}} cuqqaafame",
+      "errors": "Dogoggala galchinsaa argame. Haqadhu akkasumas deebi'i yaali."
+    },
+    "config": {
+      "title": "Hayyamamuu Sirnaa",
+      "campuses": "Citaawalee",
+      "programs": "Herregalee",
+      "documentRequirements": "Hayyamaamuu Qabiyyee",
+      "idCardTemplate": "Caasalaa Kaardii Meeshaa"
+    },
+    "reports": {
+      "title": "Gabaasna fi Haasawwaa",
+      "exportPdf": "PDF Kabachiisi",
+      "exportExcel": "Excel Kabachiisi",
+      "sendToAnalytics": "Haasawwaa Toolsiiffa Ergi"
+    },
+    "auditLog": {
+      "title": "Keessa Log Sirnaa",
+      "filter": "Gochaa, Fayyadamaa yk GuYYaa karaa",
+      "user": "Fayyadamaa",
+      "action": "Gochaa",
+      "target": "Iddoo",
+      "timestamp": "Yeroo"
+    }
+  },
+  "management": {
+    "dashboard": {
+      "title": "Gabatee Bulchiinsa",
+      "readOnly": "Ilaaluu Kanqofa",
+      "totalApplications": "Waliigalaa Isinabbaasiinsa",
+      "approved": "Fudhannaa",
+      "rejected": "Dorgomame",
+      "pending": "Eegamaa",
+      "underReview": "Waaqeeffamaa keessa",
+      "byCampus": "Citaawaa Kaa'u",
+      "byProgram": "Herrega Kaa'u",
+      "byMonth": "Ji'a Ispaatistiksii"
+    },
+    "semester": {
+      "title": "Ispaatistiksii Maxxansuu Wareegamti",
+      "registered": "Maxxansame",
+      "pending": "Eegamaa",
+      "rejected": "Dorgomame"
+    },
+    "reports": {
+      "title": "Gabaasna",
+      "export": "Odeebannaa Kabachiisi",
+      "readOnly": "Kuni ilaaluu kanqofa dha"
+    }
+  },
+  "council": {
+    "assist": {
+      "title": "Meeshaa Gargaarsa Arabbii",
+      "description": "Arabbii barbaadisi haala maxxansuu, citaawaa, kutaa gargaarsuuf.",
+      "searchPlaceholder": "Maqaa, ID yk heera barbaadisi",
+      "search": "Barbaadisi",
+      "found": "Arabbii Argame",
+      "name": "Maqaa",
+      "campus": "Citaawaa",
+      "program": "Herrega",
+      "section": "Kutaa",
+      "status": "Haala",
+      "notFound": "Arabbii hin argamne."
+    }
+  },
+  "common": {
+    "loading": "Fe'amaa jira...",
+    "error": "Rakkoo uumame",
+    "retry": "Deebi'i Yaali",
+    "save": "Cuqqaasi",
+    "cancel": "Haqii",
+    "delete": "Haqi",
+    "edit": "Haqadhu",
+    "create": "Uumi",
+    "close": "Cufi",
+    "confirm": "Mirkaneessi",
+    "yes": "Eeyyee",
+    "no": "Lakki",
+    "back": "Deebi'i",
+    "next": "Itti Aanu",
+    "submit": "Galchi",
+    "search": "Barbaadisi",
+    "filter": "Galaali",
+    "clearFilters": "Galaali Haqi",
+    "noData": "Odeebannaa hin jirre",
+    "actions": "Gochaalee",
+    "status": "Haala",
+    "date": "GuYYaa",
+    "name": "Maqaa",
+    "email": "Imeeyilaan",
+    "phone": "Bilbila",
+    "required": "Haqamu",
+    "optional": "Effeeroota",
+    "of": "Kaa'u",
+    "page": "Fuula",
+    "previous": "Dura",
+    "showing": "Agarsiisu",
+    "entries": "Galchinsaa",
+    "selectAll": "Hunda Filadhu",
+    "deselectAll": "Hin Filadin",
+    "copySuccess": "Clipboard keessa cuqqaafame",
+    "success": "Ta'e",
+    "warning": "Iyyaafataa",
+    "errorTitle": "Dogoggala",
+    "info": "Odeebannaa",
+    "export": "Kabachiisi",
+    "import": "Galchi",
+    "viewAll": "Hunda Ilaali",
+    "viewDetails": "Bal'ina Ilaali",
+    "welcomeBack": "Baga nagaan Deebi'e!",
+    "accessDenied": "Baasuu Diqame",
+    "accessDeniedMessage": "Fuula kana argachuuf hayyamaa hin qabdu.",
+    "goHome": "Fuula Dhuunfaa Ta'i",
+    "goToDashboard": "Gabateetti Ta'i"
+  }
+}

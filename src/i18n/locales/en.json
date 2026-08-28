@@ -1,0 +1,461 @@
+{
+  "app": {
+    "name": "Wollega University",
+    "subtitle": "Student Self-Registration System",
+    "shortName": "WU-SSRS"
+  },
+  "nav": {
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "dashboard": "Dashboard",
+    "applications": "Applications",
+    "documents": "Documents",
+    "status": "Application Status",
+    "idCard": "ID Card",
+    "placement": "Class Placement",
+    "reRegistration": "Semester Re-registration",
+    "history": "Registration History",
+    "profile": "My Profile",
+    "queue": "Review Queue",
+    "semesterQueue": "Semester Queue",
+    "placementMgmt": "Placement Management",
+    "users": "User Management",
+    "import": "Data Import",
+    "config": "System Configuration",
+    "reports": "Reports",
+    "auditLog": "Audit Log",
+    "assist": "Student Assist",
+    "semesterStats": "Semester Statistics",
+    "logout": "Logout",
+    "notifications": "Notifications"
+  },
+  "public": {
+    "hero": {
+      "title": "Welcome to Wollega University",
+      "subtitle": "Student Self-Registration System",
+      "description": "Register, track your application, and manage your academic journey online.",
+      "checkStatus": "Check Admission Status",
+      "registerNow": "Register Now",
+      "learnMore": "Learn More"
+    },
+    "campuses": {
+      "title": "Our Campuses",
+      "main": {
+        "name": "Main Campus",
+        "location": "Nekemte",
+        "description": "The main campus housing the university administration and majority of programs."
+      },
+      "shambu": {
+        "name": "Shambu Campus",
+        "location": "Shambu",
+        "description": "Serving students in the eastern zone with dedicated facilities."
+      },
+      "gimbi": {
+        "name": "Gimbi Campus",
+        "location": "Gimbi",
+        "description": "Providing education access in the northern zone."
+      }
+    },
+    "lookup": {
+      "title": "Admission Status Lookup",
+      "description": "Enter your name or exam reference number to check your admission status.",
+      "searchPlaceholder": "Enter name or reference number",
+      "search": "Search",
+      "notFound": "No records found. Please check your input and try again.",
+      "resultTitle": "Admission Result"
+    },
+    "calendar": {
+      "title": "Registration Calendar",
+      "description": "Key dates for the current registration period.",
+      "regular": "Regular Intake",
+      "weekend": "Weekend Program",
+      "night": "Night Program",
+      "summer": "Distance & Summer",
+      "masters": "Masters & PhD"
+    },
+    "requirements": {
+      "title": "Document Requirements",
+      "description": "Required documents by program. Ensure all documents are ready before applying."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Find answers to common questions about the registration process."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In",
+      "email": "Email Address",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "submit": "Sign In",
+      "success": "Welcome back!",
+      "invalid": "Invalid email or password",
+      "locked": "Account locked due to multiple failed attempts. Try again later."
+    },
+    "register": {
+      "title": "Create Account",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "nationalId": "National ID (optional)",
+      "admissionType": "Admission Type",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "success": "Account created! Please sign in.",
+      "passwordMismatch": "Passwords do not match"
+    },
+    "forgotPassword": {
+      "title": "Reset Password",
+      "description": "Enter your email address and we'll send you a verification code.",
+      "email": "Email Address",
+      "submit": "Send Code",
+      "codeLabel": "Verification Code",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "verify": "Verify & Reset",
+      "success": "Password reset successful! You can now sign in.",
+      "backToLogin": "Back to Login"
+    },
+    "forceChange": {
+      "title": "Change Your Password",
+      "description": "For security, please change your temporary password before continuing."
+    }
+  },
+  "student": {
+    "dashboard": {
+      "welcome": "Welcome, {{name}}",
+      "applicationStatus": "Application Status",
+      "continueApplication": "Continue Your Application",
+      "startApplication": "Start Application",
+      "uploadDocuments": "Upload Documents",
+      "viewIdCard": "View ID Card",
+      "viewPlacement": "View Placement",
+      "recentNotifications": "Recent Notifications",
+      "quickActions": "Quick Actions",
+      "semesterReReg": "Semester Re-registration",
+      "noApplication": "No application yet. Start your application now!",
+      "draftExists": "You have a draft application in progress."
+    },
+    "application": {
+      "title": "Application Form",
+      "step1": "Personal Information",
+      "step2": "Academic Background",
+      "step3": "Program Selection",
+      "step4": "Document Upload",
+      "step5": "Review & Submit",
+      "next": "Next",
+      "back": "Back",
+      "saveDraft": "Save Draft",
+      "submit": "Submit Application",
+      "submitted": "Application Submitted",
+      "submittedMessage": "Your application has been submitted successfully. You will receive updates on your application status.",
+      "personalInfo": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "firstNameAm": "First Name (Amharic)",
+        "lastNameAm": "Last Name (Amharic)",
+        "dateOfBirth": "Date of Birth",
+        "gender": "Gender",
+        "nationality": "Nationality",
+        "phone": "Phone Number",
+        "email": "Email Address",
+        "region": "Region",
+        "zone": "Zone",
+        "woreda": "Woreda",
+        "kebele": "Kebele",
+        "address": "Street Address"
+      },
+      "academic": {
+        "previousSchool": "Previous School",
+        "examType": "Exam Type",
+        "examYear": "Exam Year",
+        "examScore": "Exam Score",
+        "subjects": "Subject Results"
+      },
+      "program": {
+        "program": "Program",
+        "campus": "Campus",
+        "admissionType": "Admission Type",
+        "intakeYear": "Intake Year",
+        "intakeSemester": "Intake Semester",
+        "firstChoice": "First Choice Program",
+        "secondChoice": "Second Choice (Optional)",
+        "semester1": "Semester 1",
+        "semester2": "Semester 2"
+      }
+    },
+    "documents": {
+      "title": "Document Management",
+      "upload": "Upload Documents",
+      "dragDrop": "Drag & drop your files here, or click to browse",
+      "acceptedTypes": "Accepted: PDF, JPG, PNG (max {{size}}MB)",
+      "uploaded": "Uploaded",
+      "pending": "Pending Upload",
+      "rejected": "Rejected",
+      "verified": "Verified",
+      "delete": "Delete",
+      "replacement": "Upload Replacement"
+    },
+    "status": {
+      "title": "Application Status",
+      "submitted": "Submitted",
+      "underReview": "Under Review",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "rejectionReason": "Rejection Reason",
+      "correctiveAction": "Required Action",
+      "resubmit": "Resubmit Application",
+      "resubmitDeadline": "Resubmission deadline: {{date}}",
+      "pending": "Awaiting Review",
+      "congratulations": "Congratulations! Your application has been approved.",
+      "reviewInProgress": "Your application is currently under review."
+    },
+    "idCard": {
+      "title": "Student ID Card",
+      "download": "Download ID Card",
+      "print": "Print ID Card",
+      "notAvailable": "ID Card not yet available. It will be generated after your application is approved.",
+      "studentId": "Student ID",
+      "program": "Program",
+      "campus": "Campus",
+      "validUntil": "Valid Until"
+    },
+    "placement": {
+      "title": "Class Placement",
+      "notAvailable": "Class placement will appear here once it has been published by the registrar.",
+      "class": "Class",
+      "section": "Section",
+      "lectureHall": "Lecture Hall",
+      "publishedOn": "Published on {{date}}"
+    },
+    "reRegistration": {
+      "title": "Semester Re-registration",
+      "banner": "Semester re-registration is now open!",
+      "description": "Confirm your continued enrollment for the upcoming semester.",
+      "note": "Note: This is for enrollment confirmation only. Course selection is handled separately.",
+      "program": "Program",
+      "year": "Academic Year",
+      "semester": "Semester",
+      "confirm": "Confirm Enrollment",
+      "status": "Re-registration Status"
+    },
+    "history": {
+      "title": "Registration History",
+      "semester": "Semester",
+      "academicYear": "Academic Year",
+      "status": "Status",
+      "program": "Program",
+      "noHistory": "No registration history found."
+    },
+    "profile": {
+      "title": "Profile & Settings",
+      "edit": "Edit Profile",
+      "changePassword": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "saveChanges": "Save Changes"
+    }
+  },
+  "registrar": {
+    "dashboard": {
+      "title": "Registrar Dashboard",
+      "pendingFirstTime": "Pending First-time Applications",
+      "pendingSemester": "Pending Semester Re-registrations",
+      "todayProcessed": "Processed Today",
+      "totalApproved": "Total Approved"
+    },
+    "queue": {
+      "title": "Application Review Queue",
+      "semesterTitle": "Semester Re-registration Queue",
+      "filter": {
+        "campus": "Campus",
+        "program": "Program",
+        "status": "Status",
+        "intake": "Intake",
+        "search": "Search by name or ID..."
+      },
+      "bulkApprove": "Bulk Approve",
+      "bulkApproveConfirm": "Are you sure you want to approve {{count}} applications?",
+      "selected": "{{count}} selected"
+    },
+    "review": {
+      "title": "Application Review",
+      "personalData": "Personal Data",
+      "documents": "Documents",
+      "verification": "Verification",
+      "documentsComplete": "Documents Complete",
+      "documentsConsistent": "Data Consistent",
+      "flagIssue": "Flag Issue",
+      "decision": "Decision",
+      "approve": "Approve",
+      "reject": "Reject",
+      "rejectionReason": "Rejection Reason (required)",
+      "correctiveAction": "Corrective Action Required",
+      "assignSection": "Assign Class/Section",
+      "approved": "Application approved successfully",
+      "rejected": "Application rejected"
+    },
+    "placement": {
+      "title": "Class & Section Management",
+      "createClass": "Create Class",
+      "createSection": "Create Section",
+      "assignStudents": "Assign Students",
+      "publish": "Publish Placements"
+    },
+    "history": {
+      "title": "Decision History",
+      "action": "Action",
+      "timestamp": "Date & Time",
+      "applicant": "Applicant",
+      "outcome": "Outcome"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "totalUsers": "Total Users",
+      "totalApplications": "Total Applications",
+      "totalImports": "Total Imports",
+      "systemHealth": "System Health"
+    },
+    "users": {
+      "title": "User Management",
+      "createUser": "Create User",
+      "editUser": "Edit User",
+      "deactivate": "Deactivate",
+      "activate": "Activate",
+      "role": "Role",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "import": {
+      "title": "Admission Data Import",
+      "uploadFile": "Upload File",
+      "supportedFormats": "Supported formats: .xlsx, .csv",
+      "preview": "Preview Import Data",
+      "validate": "Validate",
+      "import": "Import Data",
+      "importLog": "Import History",
+      "success": "Import completed: {{created}} records created, {{flagged}} flagged",
+      "errors": "Import errors found. Please fix and try again."
+    },
+    "config": {
+      "title": "System Configuration",
+      "campuses": "Campuses",
+      "programs": "Programs",
+      "documentRequirements": "Document Requirements",
+      "idCardTemplate": "ID Card Template"
+    },
+    "reports": {
+      "title": "Reports & Analytics",
+      "exportPdf": "Export to PDF",
+      "exportExcel": "Export to Excel",
+      "sendToAnalytics": "Send to Analytics Tools"
+    },
+    "auditLog": {
+      "title": "System Audit Log",
+      "filter": "Filter by action, user, or date",
+      "user": "User",
+      "action": "Action",
+      "target": "Target",
+      "timestamp": "Timestamp"
+    }
+  },
+  "management": {
+    "dashboard": {
+      "title": "Management Dashboard",
+      "readOnly": "Read-only View",
+      "totalApplications": "Total Applications",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pending": "Pending",
+      "underReview": "Under Review",
+      "byCampus": "By Campus",
+      "byProgram": "By Program",
+      "byMonth": "Monthly Trend"
+    },
+    "semester": {
+      "title": "Semester Re-registration Statistics",
+      "registered": "Registered",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    },
+    "reports": {
+      "title": "Reports",
+      "export": "Export Data",
+      "readOnly": "This is a read-only view"
+    }
+  },
+  "council": {
+    "assist": {
+      "title": "Student Assist Tool",
+      "description": "Search for a student to help them find their registration status, campus, and section.",
+      "searchPlaceholder": "Search by name, ID, or reference number",
+      "search": "Search",
+      "found": "Student Found",
+      "name": "Name",
+      "campus": "Campus",
+      "program": "Program",
+      "section": "Section",
+      "status": "Status",
+      "notFound": "No student found matching your search."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "clearFilters": "Clear Filters",
+    "noData": "No data available",
+    "actions": "Actions",
+    "status": "Status",
+    "date": "Date",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "required": "Required",
+    "optional": "Optional",
+    "of": "of",
+    "page": "Page",
+    "previous": "Previous",
+    "showing": "Showing",
+    "entries": "entries",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "copySuccess": "Copied to clipboard",
+    "success": "Success",
+    "warning": "Warning",
+    "errorTitle": "Error",
+    "info": "Information",
+    "export": "Export",
+    "import": "Import",
+    "viewAll": "View All",
+    "viewDetails": "View Details",
+    "welcomeBack": "Welcome back!",
+    "accessDenied": "Access Denied",
+    "accessDeniedMessage": "You don't have permission to access this page.",
+    "goHome": "Go to Home",
+    "goToDashboard": "Go to Dashboard"
+  }
+}
