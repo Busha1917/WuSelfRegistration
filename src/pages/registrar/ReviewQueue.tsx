@@ -11,8 +11,7 @@ import DataTable from '@/components/shared/DataTable';
 import type { Column } from '@/components/shared/DataTable';
 import StatusBadge from '@/components/shared/StatusBadge';
 import ConfirmDialog from '@/components/shared/ConfirmDialog';
-import Dialog from '@/components/ui/Dialog';
-import Textarea from '@/components/ui/Textarea';
+import RejectReasonModal from '@/components/modals/RejectReasonModal';
 import { useToast } from '@/components/ui/Toast';
 
 export default function ReviewQueue() {
@@ -121,14 +120,15 @@ export default function ReviewQueue() {
         />
       </Card>
 
-      {/* Reject Dialog */}
-      <Dialog open={rejectOpen} onClose={() => setRejectOpen(false)} title={t('registrar.review.reject')}>
-        <Textarea label={t('registrar.review.rejectionReason')} value={rejectReason} onChange={(e) => setRejectReason(e.target.value)} required />
-        <div className="flex justify-end gap-2 mt-4">
-          <Button variant="ghost" onClick={() => setRejectOpen(false)}>Cancel</Button>
-          <Button variant="destructive" onClick={handleReject}>Reject</Button>
-        </div>
-      </Dialog>
+      {/* Reject Reason Modal */}
+      <RejectReasonModal
+        open={rejectOpen}
+        onClose={() => setRejectOpen(false)}
+        reason={rejectReason}
+        onReasonChange={setRejectReason}
+        onConfirm={handleReject}
+        title={t('registrar.review.reject')}
+      />
 
       {/* Bulk Approve Confirm */}
       <ConfirmDialog
