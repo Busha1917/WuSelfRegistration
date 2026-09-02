@@ -25,6 +25,20 @@
   --color-wu-cream: #FBF6EC;
   --color-wu-ink: #1A1A1A;
 
+  /* AAU (Addis Ababa University) Color Palette */
+  --color-aau-navy: #00486E;
+  --color-aau-navy-dark: #00334E;
+  --color-aau-midnight: #002B40;
+  --color-aau-blue: #0073AA;
+  --color-aau-blue-hover: #005C8A;
+  --color-aau-blue-light: #EBF3F8;
+  --color-aau-red: #D9251D;
+  --color-aau-red-hover: #B71C1C;
+  --color-aau-orange: #E65100;
+  --color-aau-gray: #F4F6F8;
+  --color-aau-gray-card: #F8F9FA;
+  --color-aau-border: #E2E8F0;
+
   --color-success: #16A34A;
   --color-success-light: #DCFCE7;
   --color-warning: #D97706;
@@ -67,4 +81,65 @@ input, select, textarea, button {
 ::selection {
   background: var(--color-wu-maroon-100);
   color: var(--color-wu-maroon-900);
+}
+
+/* ─── Animations ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(140, 15, 42, 0.3); }
+  50% { box-shadow: 0 0 20px 4px rgba(140, 15, 42, 0.1); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-wu-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-wu-maroon-100);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-wu-maroon-300);
 }

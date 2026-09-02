@@ -1,17 +1,23 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive' | 'outline';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'destructive' | 'outline' | 'aauPrimary' | 'aauNavy' | 'aauRed' | 'white' | 'whiteOutline';
   size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
 }
 
 const variants = {
-  primary: 'bg-wu-maroon text-white hover:bg-wu-maroon-900 shadow-sm',
-  secondary: 'bg-wu-blue text-white hover:bg-wu-blue-700 shadow-sm',
-  ghost: 'bg-transparent text-wu-ink hover:bg-wu-maroon-50',
+  primary: 'bg-[#0073AA] text-white hover:bg-[#005C8A] shadow-sm',
+  secondary: 'bg-[#00486E] text-white hover:bg-[#003855] shadow-sm',
+  tertiary: 'bg-[#D9251D] text-white hover:bg-[#B71C1C] shadow-sm',
+  ghost: 'bg-transparent text-gray-700 hover:bg-gray-100',
   destructive: 'bg-danger text-white hover:bg-red-700 shadow-sm',
-  outline: 'border-2 border-wu-maroon text-wu-maroon hover:bg-wu-maroon-50',
+  outline: 'border-2 border-[#0073AA] text-[#0073AA] hover:bg-[#0073AA]/10',
+  aauPrimary: 'bg-[#0073AA] text-white hover:bg-[#005C8A] shadow-sm',
+  aauNavy: 'bg-[#00486E] text-white hover:bg-[#003855] shadow-sm',
+  aauRed: 'bg-[#D9251D] text-white hover:bg-[#B71C1C] shadow-sm',
+  white: 'bg-white text-[#00486E] hover:bg-gray-100 shadow-sm font-semibold',
+  whiteOutline: 'border-2 border-white text-white hover:bg-white/10 shadow-sm font-semibold',
 };
 
 const sizes = {
