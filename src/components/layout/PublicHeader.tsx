@@ -18,27 +18,6 @@ export default function PublicHeader() {
 
   return (
     <>
-      {/* ─── Top Utility Strip (AAU Style) ─── */}
-      <div className="bg-[#002B40] text-gray-300 text-xs py-1.5 px-4 sm:px-6 lg:px-12 border-b border-[#003B57]">
-        <div className="max-w-[90rem] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-          <div className="flex items-center gap-4 text-[11px] sm:text-xs">
-            <span className="flex items-center gap-1.5 text-white/90">
-              <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-              <span>Fall 2026 / 2027 Registration Active</span>
-            </span>
-            <span className="hidden md:inline text-gray-500">|</span>
-            <span className="hidden md:inline text-gray-300">Nekemte • Shambu • Gimbi Campuses</span>
-          </div>
-          <div className="flex items-center gap-4 text-[11px] sm:text-xs">
-            <a href="mailto:registrar@wu.edu.et" className="hover:text-white transition-colors">
-              📧 registrar@wu.edu.et
-            </a>
-            <span className="text-gray-500">|</span>
-            <span className="text-[#00A3E0] font-medium">Hotline: +251-571-11-04-00</span>
-          </div>
-        </div>
-      </div>
-
       {/* ─── Main Header (AAU White Navbar) ─── */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12">
