@@ -5,7 +5,6 @@ import CampusLifeBanner from '@/components/home/CampusLifeBanner';
 import NewsSection from '@/components/home/NewsSection';
 import RegistrationSteps from '@/components/home/RegistrationSteps';
 import CampusesShowcase from '@/components/home/CampusesShowcase';
-import NewsletterBar from '@/components/home/NewsletterBar';
 
 export default function HomePage() {
   return (
@@ -30,9 +29,6 @@ export default function HomePage() {
 
       {/* 7. Three Campuses Showcase (Nekemte, Shambu, Gimbi) */}
       <CampusesShowcase />
-
-      {/* 8. Admission Bulletins & Newsletter Bar */}
-      <NewsletterBar />
     </div>
   );
 }

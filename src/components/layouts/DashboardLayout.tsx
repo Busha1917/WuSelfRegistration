@@ -2,8 +2,7 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
-import { useState, useEffect } from 'react';
-import PageLoader from '@/components/shared/PageLoader';
+import { useState } from 'react';
 
 const roleMenus: Record<string, { labelKey: string; path: string; icon: string }[]> = {
   student: [
@@ -56,14 +55,7 @@ export default function DashboardLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const menuItems = roleMenus[user?.role || 'student'];
-
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 400);
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
 
   const handleLogout = () => {
     logout();
@@ -72,7 +64,6 @@ export default function DashboardLayout() {
 
   return (
     <div className="min-h-screen bg-wu-cream flex">
-      <PageLoader show={loading} />
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/50 z-30 lg:hidden" onClick={() => setSidebarOpen(false)} />

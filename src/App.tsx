@@ -49,9 +49,12 @@ import ManagementReports from '@/pages/management/ManagementReports';
 // Council pages
 import CouncilAssist from '@/pages/council/CouncilAssist';
 
+import NavigationLoader from '@/components/shared/NavigationLoader';
+
 export default function App() {
   return (
     <BrowserRouter>
+      <NavigationLoader />
       <Routes>
         {/* Public routes */}
         <Route element={<PublicLayout />}>
