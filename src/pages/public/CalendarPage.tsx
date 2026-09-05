@@ -123,8 +123,8 @@ export default function CalendarPage() {
           />
         </div>
 
-        <div className="max-w-[90rem] mx-auto relative z-10">
-          <div className="flex items-center gap-2 text-xs font-semibold text-gray-300 mb-4">
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <div className="flex items-center justify-center gap-2 text-xs font-semibold text-gray-300 mb-4">
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
             <span className="text-[#66C2FF]">Academic Calendar</span>
@@ -138,7 +138,7 @@ export default function CalendarPage() {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white tracking-tight">
             Official Academic Calendar & Key Dates
           </h1>
-          <p className="text-sm sm:text-base text-gray-200 mt-3 max-w-3xl leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-200 mt-3 max-w-3xl mx-auto leading-relaxed">
             Important dates for student arrival, online self-registration, lecture schedules, exam periods, and graduation ceremonies across all study modalities.
           </p>
         </div>
@@ -147,7 +147,7 @@ export default function CalendarPage() {
       {/* ─── Filter Tabs ─── */}
       <section className="bg-white border-b border-gray-200 sticky top-20 z-30 shadow-xs">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="flex items-center gap-2 overflow-x-auto py-3">
+          <div className="flex items-center justify-center gap-2 overflow-x-auto py-3">
             {[
               { id: 'all', label: 'All Dates (7)' },
               { id: 'sem1', label: 'Semester I (Fall 2026)' },
