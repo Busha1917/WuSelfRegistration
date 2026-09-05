@@ -1,44 +1,59 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SectionHeader from '@/components/shared/SectionHeader';
 
-const steps = [
-  {
-    step: '01',
-    title: 'Create Account & Apply',
-    desc: 'Register online with your national ID or entrance exam number, enter your biodata, and choose your preferred study program.',
-    link: '/register',
-    linkText: 'Create Account',
-  },
-  {
-    step: '02',
-    title: 'Attach Credentials',
-    desc: 'Upload clear scans of your Grade 12 national examination results, secondary school transcripts, and recent passport-style photograph.',
-    link: '/login',
-    linkText: 'Upload Scans',
-  },
-  {
-    step: '03',
-    title: 'Registrar Review & Section',
-    desc: 'The university admissions office verifies your credentials and assigns you to your campus cohort and classroom section.',
-    link: '/lookup',
-    linkText: 'Check Status',
-  },
-  {
-    step: '04',
-    title: 'Digital ID & Class Enrollment',
-    desc: 'Download your official Wollega University digital student ID card with verification QR code and report for freshman orientation.',
-    link: '/login',
-    linkText: 'View ID Card',
-  },
-];
-
 export default function RegistrationSteps() {
+  const { t } = useTranslation();
+
+  const steps = [
+    {
+      step: '01',
+      title: t('portal.steps.step1Title', '1. Create Portal Account'),
+      desc: t(
+        'portal.steps.step1Desc',
+        'Sign up using your official student admission number, national exam credentials, and email.'
+      ),
+      link: '/register',
+      linkText: t('portal.nav.beginRegistration', 'Create Account'),
+    },
+    {
+      step: '02',
+      title: t('portal.steps.step2Title', '2. Verify Details & Uploads'),
+      desc: t(
+        'portal.steps.step2Desc',
+        'Review pre-loaded Grade 12 results, upload ID photograph, and confirm personal contact information.'
+      ),
+      link: '/login',
+      linkText: t('portal.nav.portalLogin', 'Upload Scans'),
+    },
+    {
+      step: '03',
+      title: t('portal.steps.step3Title', '3. Choose Stream & Campus'),
+      desc: t(
+        'portal.steps.step3Desc',
+        'Select available freshman cohort streams across Nekemte, Shambu, or Gimbi campuses.'
+      ),
+      link: '/lookup',
+      linkText: t('portal.campusesPage.checkPlacement', 'Check Status'),
+    },
+    {
+      step: '04',
+      title: t('portal.steps.step4Title', '4. Receive Digital ID & Schedule'),
+      desc: t(
+        'portal.steps.step4Desc',
+        'Instantly download your validated digital student ID card, class schedule, and reporting instructions.'
+      ),
+      link: '/login',
+      linkText: t('portal.nav.portalLogin', 'View ID Card'),
+    },
+  ];
+
   return (
     <section className="py-20 bg-[#F4F6F8] border-y border-gray-200">
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12">
         <SectionHeader
-          category="DIGITAL ADMISSIONS WORKFLOW"
-          title="Four Steps to Complete Your Self-Registration"
+          category={t('portal.steps.category', 'HOW TO ENROLL')}
+          title={t('portal.steps.title', 'Four-Step Digital Self-Registration Workflow')}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -31,20 +31,23 @@ const campuses = [
   },
 ];
 
+import { useTranslation } from 'react-i18next';
+
 export default function CampusesShowcase() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12">
         <SectionHeader
-          category="UNIVERSITY INFRASTRUCTURE"
-          title="Explore Our Three Thriving Campuses"
+          category={t('portal.campusesShowcase.category', 'UNIVERSITY INFRASTRUCTURE')}
+          title={t('portal.campusesShowcase.title', 'Explore Our Three Thriving Campuses')}
           action={
             <Link
               to="/campuses"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0073AA] hover:text-[#005C8A] uppercase tracking-wider transition-colors"
             >
-              <span>Detailed Campus Guide</span>
-              <span>↗</span>
+              <span>{t('portal.campusesShowcase.guide', 'Detailed Campus Guide ↗')}</span>
             </Link>
           }
         />
@@ -102,8 +105,7 @@ export default function CampusesShowcase() {
                   to="/campuses"
                   className="w-full bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold uppercase tracking-wider py-3 rounded flex items-center justify-center gap-2 transition-all shadow-sm"
                 >
-                  <span>Explore Campus Facilities</span>
-                  <span>↗</span>
+                  <span>{t('portal.campusesShowcase.explore', 'Explore Campus Facilities ↗')}</span>
                 </Link>
               </div>
             </div>

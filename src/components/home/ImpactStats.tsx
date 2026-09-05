@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function useCounter(target: number, duration: number = 2000, trigger: boolean = true) {
   const [count, setCount] = useState(0);
@@ -22,6 +23,7 @@ function useCounter(target: number, duration: number = 2000, trigger: boolean = 
 }
 
 export default function ImpactStats() {
+  const { t } = useTranslation();
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -52,13 +54,13 @@ export default function ImpactStats() {
           <div className="bg-[#00486E] text-white p-8 rounded-sm shadow flex flex-col justify-between relative overflow-hidden">
             <div className="space-y-3 relative z-10">
               <span className="text-xs font-bold uppercase tracking-wider text-[#00A3E0]">
-                INSTITUTIONAL METRICS
+                {t('portal.impact.badge', 'INSTITUTIONAL METRICS')}
               </span>
               <h3 className="text-2xl font-extrabold font-heading leading-tight">
-                Our Impact in Numbers
+                {t('portal.impact.title', 'Our Impact in Numbers')}
               </h3>
               <p className="text-xs text-gray-300 leading-relaxed">
-                Wollega University is dedicated to human capital development, technological innovation, and societal transformation.
+                {t('portal.impact.subtitle', 'Pioneering Higher Education & Innovation in Western Ethiopia')}
               </p>
             </div>
             <div className="pt-6 relative z-10">
@@ -79,7 +81,7 @@ export default function ImpactStats() {
               {countCampuses}
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-[#D9251D] mt-2">
-              Campuses
+              {t('portal.impact.campuses', 'Campuses')}
             </span>
             <span className="text-xs text-gray-500 mt-1">Nekemte • Shambu • Gimbi</span>
           </div>
@@ -90,7 +92,7 @@ export default function ImpactStats() {
               {countPrograms}+
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-[#D9251D] mt-2">
-              Programs
+              {t('portal.impact.programs', 'Programs')}
             </span>
             <span className="text-xs text-gray-500 mt-1">Undergraduate & Postgrad</span>
           </div>
@@ -101,7 +103,7 @@ export default function ImpactStats() {
               {countStudents.toLocaleString()}+
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-[#D9251D] mt-2">
-              Active Learners
+              {t('portal.impact.students', 'Enrolled Students')}
             </span>
             <span className="text-xs text-gray-500 mt-1">Regular, Evening & Summer</span>
           </div>
@@ -112,7 +114,7 @@ export default function ImpactStats() {
               {countFaculty.toLocaleString()}+
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-[#D9251D] mt-2">
-              Instructors & Staff
+              {t('portal.impact.faculty', 'Academic Faculty')}
             </span>
             <span className="text-xs text-gray-500 mt-1">Professors, Doctors & Lecturers</span>
           </div>

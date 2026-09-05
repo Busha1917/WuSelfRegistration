@@ -1,16 +1,47 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-const campusDetails = [
+interface CampusData {
+  id: string;
+  nameEn: string;
+  nameAm: string;
+  nameOm: string;
+  locationEn: string;
+  locationAm: string;
+  locationOm: string;
+  establishedEn: string;
+  establishedAm: string;
+  establishedOm: string;
+  coverImage: string;
+  descEn: string;
+  descAm: string;
+  descOm: string;
+  stats: { programs: string; students: string; faculty: string; acres: string };
+  faculties: string[];
+  facilities: string[];
+  contact: { phone: string; email: string; office: string };
+}
+
+const campusDetails: CampusData[] = [
   {
     id: 'nekemte',
-    name: 'Nekemte Main Campus',
-    amharic: 'ነቀምቴ ዋናው ግቢ',
-    location: 'Nekemte City, East Wollega, Oromia (310 km west of Addis Ababa)',
-    established: 'Established 2007',
+    nameEn: 'Nekemte Main Campus',
+    nameAm: 'ነቀምቴ ዋናው ግቢ',
+    nameOm: 'Citaawaa Naqamtee',
+    locationEn: 'Nekemte City, East Wollega, Oromia (310 km west of Addis Ababa)',
+    locationAm: 'ነቀምቴ ከተማ፣ ምሥራቅ ወለጋ፣ ኦሮሚያ (ከአዲስ አበባ 310 ኪ.ሜ በስተምዕራብ)',
+    locationOm: 'Magaalaa Naqamtee, Dhiha Wallaggaa, Oromiyaa (Finfinneerraa km 310)',
+    establishedEn: 'Established 2007',
+    establishedAm: 'በ2007 የተመሰረተ',
+    establishedOm: 'Bara 2007 Hundeeffame',
     coverImage: '/image1.jpg',
-    description:
+    descEn:
       'The administrative headquarters and largest academic center of Wollega University. Housing major schools of Technology, Health Sciences, Business, Natural Sciences, and Law with extensive modern research laboratories.',
+    descAm:
+      'የወለጋ ዩኒቨርሲቲ ዋና መቀመጫ እና ትልቁ የትምህርት ማዕከል። የቴክኖሎጂ፣ የጤና ሳይንስ፣ የቢዝነስ፣ የተፈጥሮ ሳይንስ እና የህግ ትምህርት ቤቶችን ከዘመናዊ የምርምር ላቦራቶሪዎች ጋር ያካትታል።',
+    descOm:
+      'Wiirtuu teessoo olaanaa fi giddugala barnootaa guddaa Yuunivarsiitii Wallaggaa. Kolleejjii Teeknooloojii, Saayinsii Fayyaa, Daldalaa, fi Seeraa qaba.',
     stats: { programs: '80+ Programs', students: '18,500+ Students', faculty: '850+ Faculty', acres: '150 Hectares' },
     faculties: [
       'College of Engineering & Technology',
@@ -30,13 +61,22 @@ const campusDetails = [
   },
   {
     id: 'shambu',
-    name: 'Shambu Campus',
-    amharic: 'ሻምቡ ግቢ',
-    location: 'Shambu Town, Horro Guduru Wollega, Oromia (Near Finchaa)',
-    established: 'Established 2011',
+    nameEn: 'Shambu Campus',
+    nameAm: 'ሻምቡ ግቢ',
+    nameOm: 'Citaawaa Shaambuu',
+    locationEn: 'Shambu Town, Horro Guduru Wollega, Oromia (Near Finchaa)',
+    locationAm: 'ሻምቡ ከተማ፣ ሆሮ ጉዱሩ ወለጋ፣ ኦሮሚያ (ፊንጫ አቅራቢያ)',
+    locationOm: 'Magaalaa Shaambuu, Horroo Guduruu Wallaggaa, Oromiyaa',
+    establishedEn: 'Established 2011',
+    establishedAm: 'በ2011 የተመሰረተ',
+    establishedOm: 'Bara 2011 Hundeeffame',
     coverImage: '/image5.jpg',
-    description:
+    descEn:
       'A specialized eco-campus dedicated to agricultural transformation, veterinary medicine, natural resource preservation, and applied computational sciences, situated in the fertile highlands of Horro Guduru.',
+    descAm:
+      'ለግብርና ልማት፣ ለእንስሳት ህክምና፣ ለተፈጥሮ ሀብት ጥበቃ እና ለተግባራዊ ኮምፒውተር ሳይንስ የተዘጋጀ ልዩ የኢኮ-ካምፓስ በሆሮ ጉዱሩ ለም ደጋማ ስፍራ ላይ ይገኛል።',
+    descOm:
+      'Giddugala addaa misooma qonnaa, yaala beeyladaa, eegumsa qabeenya uumamaa fi saayinsii kompitarraatti xiyyeeffate gaarreen qonnaa Horroo Guduruu keessatti.',
     stats: { programs: '25+ Programs', students: '6,000+ Students', faculty: '240+ Faculty', acres: '85 Hectares' },
     faculties: [
       'College of Agriculture & Natural Resource Management',
@@ -55,13 +95,22 @@ const campusDetails = [
   },
   {
     id: 'gimbi',
-    name: 'Gimbi Campus',
-    amharic: 'ጊምቢ ግቢ',
-    location: 'Gimbi Town, West Wollega, Oromia (Along Ethio-Sudan Highway)',
-    established: 'Established 2014',
+    nameEn: 'Gimbi Campus',
+    nameAm: 'ጊምቢ ግቢ',
+    nameOm: 'Citaawaa Gimbii',
+    locationEn: 'Gimbi Town, West Wollega, Oromia (Along Ethio-Sudan Highway)',
+    locationAm: 'ጊምቢ ከተማ፣ ምዕራብ ወለጋ፣ ኦሮሚያ (በኢትዮ-ሱዳን አውራ ጎዳና)',
+    locationOm: 'Magaalaa Gimbii, Dhiha Wallaggaa, Oromiyaa (Daandii Itoophiyaa-Sudaan)',
+    establishedEn: 'Established 2014',
+    establishedAm: 'በ2014 የተመሰረተ',
+    establishedOm: 'Bara 2014 Hundeeffame',
     coverImage: '/image4.jpg',
-    description:
+    descEn:
       'A rapidly growing academic hub specializing in Teacher Education, Behavioral Studies, Mining & Mineral Exploration, and Continuing Education across Western Oromia.',
+    descAm:
+      'በመምህራን ትምህርት፣ በማዕድን ፍለጋ እና በተከታታይ ትምህርት ላይ ያተኮረ በፍጥነት በማደግ ላይ ያለ የትምህርት ማዕከል።',
+    descOm:
+      'Giddugala barnootaa saffisaan guddachaa jiru, barnoota barsiisotaa, albuudaa fi qorannoo lafaa, fi barnoota itti fufiinsaatiin beekama.',
     stats: { programs: '20+ Programs', students: '4,500+ Students', faculty: '180+ Faculty', acres: '60 Hectares' },
     faculties: [
       'College of Education & Behavioral Sciences',
@@ -81,7 +130,40 @@ const campusDetails = [
 ];
 
 export default function CampusesPage() {
+  const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState('all');
+
+  const lang = i18n.language;
+
+  const getCampusName = (c: CampusData) => {
+    if (lang === 'am') return c.nameAm;
+    if (lang === 'om') return c.nameOm;
+    return c.nameEn;
+  };
+
+  const getCampusSubtitle = (c: CampusData) => {
+    if (lang === 'om') return c.nameAm;
+    if (lang === 'am') return c.nameOm;
+    return c.nameAm;
+  };
+
+  const getCampusDesc = (c: CampusData) => {
+    if (lang === 'am') return c.descAm;
+    if (lang === 'om') return c.descOm;
+    return c.descEn;
+  };
+
+  const getCampusLocation = (c: CampusData) => {
+    if (lang === 'am') return c.locationAm;
+    if (lang === 'om') return c.locationOm;
+    return c.locationEn;
+  };
+
+  const getCampusEstablished = (c: CampusData) => {
+    if (lang === 'am') return c.establishedAm;
+    if (lang === 'om') return c.establishedOm;
+    return c.establishedEn;
+  };
 
   const filteredCampuses =
     activeTab === 'all'
@@ -110,40 +192,40 @@ export default function CampusesPage() {
 
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <div className="flex items-center justify-center gap-2 text-xs font-semibold text-gray-300 mb-4">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <Link to="/" className="hover:text-white transition-colors">{t('portal.nav.home', 'Home')}</Link>
             <span>/</span>
-            <span className="text-[#66C2FF]">Campuses & Facilities</span>
+            <span className="text-[#66C2FF]">{t('portal.campusesPage.breadcrumb', 'Campuses & Facilities')}</span>
           </div>
 
           <div className="inline-flex items-center gap-2 bg-[#002B40] text-gray-200 border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-            <span>Western Oromia Academic Infrastructure</span>
+            <span>{t('portal.campusesPage.badge', 'Western Oromia Academic Infrastructure')}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white tracking-tight leading-tight">
-            Our Campuses & Learning Environments
+            {t('portal.campusesPage.title', 'Our Campuses & Learning Environments')}
           </h1>
           <p className="text-sm sm:text-base text-gray-200 mt-3 max-w-3xl mx-auto leading-relaxed">
-            Wollega University operates three integrated campuses in Nekemte, Shambu, and Gimbi, each tailored to distinct regional development, agricultural research, and technological advancement needs.
+            {t('portal.campusesPage.desc', 'Wollega University operates three integrated campuses in Nekemte, Shambu, and Gimbi, each tailored to distinct regional development, agricultural research, and technological advancement needs.')}
           </p>
 
           {/* Quick Metrics Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-white/15 max-w-3xl mx-auto text-center">
             <div>
               <div className="text-2xl sm:text-3xl font-black text-white">3</div>
-              <div className="text-xs text-gray-300">Campuses</div>
+              <div className="text-xs text-gray-300">{t('portal.campusesPage.metrics.campuses', 'Campuses')}</div>
             </div>
             <div>
               <div className="text-2xl sm:text-3xl font-black text-white">120+</div>
-              <div className="text-xs text-gray-300">Degree Programs</div>
+              <div className="text-xs text-gray-300">{t('portal.campusesPage.metrics.programs', 'Degree Programs')}</div>
             </div>
             <div>
               <div className="text-2xl sm:text-3xl font-black text-white">28,500+</div>
-              <div className="text-xs text-gray-300">Active Students</div>
+              <div className="text-xs text-gray-300">{t('portal.campusesPage.metrics.students', 'Active Students')}</div>
             </div>
             <div>
               <div className="text-2xl sm:text-3xl font-black text-[#10B981]">295 Ha</div>
-              <div className="text-xs text-gray-300">Total Land Area</div>
+              <div className="text-xs text-gray-300">{t('portal.campusesPage.metrics.landArea', 'Total Land Area')}</div>
             </div>
           </div>
         </div>
@@ -154,10 +236,10 @@ export default function CampusesPage() {
         <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="flex items-center justify-center gap-2 overflow-x-auto py-3">
             {[
-              { id: 'all', label: 'All Campuses (3)' },
-              { id: 'nekemte', label: 'Nekemte Main Campus' },
-              { id: 'shambu', label: 'Shambu Campus' },
-              { id: 'gimbi', label: 'Gimbi Campus' },
+              { id: 'all', label: t('portal.campusesPage.filterAll', 'All Campuses (3)') },
+              { id: 'nekemte', label: t('portal.campusesPage.filterNekemte', 'Nekemte Main Campus') },
+              { id: 'shambu', label: t('portal.campusesPage.filterShambu', 'Shambu Campus') },
+              { id: 'gimbi', label: t('portal.campusesPage.filterGimbi', 'Gimbi Campus') },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -179,13 +261,19 @@ export default function CampusesPage() {
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12 pt-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 pb-4 border-b border-gray-200">
           <div>
-            <span className="text-xs font-bold text-[#D9251D] uppercase tracking-wider block">CAMPUS NETWORK</span>
+            <span className="text-xs font-bold text-[#D9251D] uppercase tracking-wider block">
+              {t('portal.campusesPage.network', 'CAMPUS NETWORK')}
+            </span>
             <h2 className="text-2xl font-extrabold text-[#00486E] font-heading">
-              {activeTab === 'all' ? 'All Three University Campuses' : filteredCampuses[0]?.name}
+              {activeTab === 'all'
+                ? t('portal.campusesPage.allCampuses', 'All Three University Campuses')
+                : getCampusName(filteredCampuses[0])}
             </h2>
           </div>
           <div className="text-xs text-gray-500 font-medium">
-            Showing <span className="font-bold text-[#00486E]">{filteredCampuses.length}</span> of 3 Campuses
+            {t('portal.campusesPage.showing', 'Showing')}{' '}
+            <span className="font-bold text-[#00486E]">{filteredCampuses.length}</span>{' '}
+            {t('portal.campusesPage.of', 'of')} 3 {t('portal.campusesPage.totalCampuses', 'Campuses')}
           </div>
         </div>
 
@@ -202,11 +290,11 @@ export default function CampusesPage() {
                   <div className="relative h-52 overflow-hidden bg-gray-100">
                     <img
                       src={campus.coverImage}
-                      alt={campus.name}
+                      alt={getCampusName(campus)}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <span className="absolute top-3 left-3 bg-[#002B40]/90 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded shadow">
-                      {campus.established}
+                      {getCampusEstablished(campus)}
                     </span>
                     <span className="absolute top-3 right-3 bg-white/95 text-[#00486E] text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
                       {campus.stats.acres}
@@ -216,37 +304,45 @@ export default function CampusesPage() {
                   {/* Card Content */}
                   <div className="p-5 sm:p-6">
                     <div className="flex items-center justify-between gap-2 mb-1">
-                      <span className="text-xs font-semibold text-[#0073AA] font-heading">{campus.amharic}</span>
+                      <span className="text-xs font-semibold text-[#0073AA] font-heading">{getCampusSubtitle(campus)}</span>
                       <span className="text-[11px] text-[#D9251D] font-semibold flex items-center gap-1">
                         <span>📍</span>
-                        <span className="truncate max-w-[160px]">{campus.location.split(',')[0]}</span>
+                        <span className="truncate max-w-[160px]">{getCampusLocation(campus).split(',')[0]}</span>
                       </span>
                     </div>
 
                     <h3 className="text-xl font-extrabold text-[#00486E] group-hover:text-[#0073AA] font-heading transition-colors mb-2">
-                      {campus.name}
+                      {getCampusName(campus)}
                     </h3>
 
                     <p className="text-xs text-gray-600 leading-relaxed mb-4 line-clamp-2">
-                      {campus.description}
+                      {getCampusDesc(campus)}
                     </p>
 
                     {/* 4 Stat Badges in a Horizontal Strip */}
                     <div className="grid grid-cols-4 gap-1.5 p-2.5 bg-[#F4F6F8] rounded border border-gray-200 text-center mb-4">
                       <div>
-                        <div className="text-[9px] text-gray-500 uppercase font-semibold">Programs</div>
+                        <div className="text-[9px] text-gray-500 uppercase font-semibold">
+                          {t('portal.campusesPage.cardPrograms', 'Programs')}
+                        </div>
                         <div className="text-xs font-bold text-[#00486E] truncate">{campus.stats.programs}</div>
                       </div>
                       <div>
-                        <div className="text-[9px] text-gray-500 uppercase font-semibold">Students</div>
+                        <div className="text-[9px] text-gray-500 uppercase font-semibold">
+                          {t('portal.campusesPage.cardStudents', 'Students')}
+                        </div>
                         <div className="text-xs font-bold text-[#00486E] truncate">{campus.stats.students}</div>
                       </div>
                       <div>
-                        <div className="text-[9px] text-gray-500 uppercase font-semibold">Faculty</div>
+                        <div className="text-[9px] text-gray-500 uppercase font-semibold">
+                          {t('portal.campusesPage.cardFaculty', 'Faculty')}
+                        </div>
                         <div className="text-xs font-bold text-[#00486E] truncate">{campus.stats.faculty}</div>
                       </div>
                       <div>
-                        <div className="text-[9px] text-gray-500 uppercase font-semibold">Area</div>
+                        <div className="text-[9px] text-gray-500 uppercase font-semibold">
+                          {t('portal.campusesPage.cardArea', 'Area')}
+                        </div>
                         <div className="text-xs font-bold text-[#00486E] truncate">{campus.stats.acres}</div>
                       </div>
                     </div>
@@ -256,7 +352,7 @@ export default function CampusesPage() {
                       <div>
                         <h4 className="font-bold uppercase tracking-wider text-[#00486E] mb-1.5 flex items-center gap-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#0073AA]" />
-                          <span className="truncate">Colleges</span>
+                          <span className="truncate">{t('portal.campusesPage.colleges', 'Colleges')}</span>
                         </h4>
                         <ul className="space-y-1 text-gray-700">
                           {campus.faculties.slice(0, 3).map((f) => (
@@ -271,7 +367,7 @@ export default function CampusesPage() {
                       <div>
                         <h4 className="font-bold uppercase tracking-wider text-[#00486E] mb-1.5 flex items-center gap-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#D9251D]" />
-                          <span className="truncate">Facilities</span>
+                          <span className="truncate">{t('portal.campusesPage.facilities', 'Facilities')}</span>
                         </h4>
                         <ul className="space-y-1 text-gray-700">
                           {campus.facilities.slice(0, 3).map((fac) => (
@@ -298,7 +394,7 @@ export default function CampusesPage() {
                     onClick={() => setActiveTab(campus.id)}
                     className="w-full bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded transition-all shadow-sm flex items-center justify-center gap-1.5"
                   >
-                    <span>View Campus Details</span>
+                    <span>{t('portal.campusesPage.viewDetails', 'View Campus Details')}</span>
                     <span>↗</span>
                   </button>
                 </div>
@@ -316,52 +412,60 @@ export default function CampusesPage() {
                 <div className="lg:col-span-5 relative min-h-[320px] lg:min-h-full">
                   <img
                     src={campus.coverImage}
-                    alt={campus.name}
+                    alt={getCampusName(campus)}
                     className="w-full h-full object-cover"
                   />
                   <span className="absolute top-4 left-4 bg-[#D9251D] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded shadow">
-                    {campus.established}
+                    {getCampusEstablished(campus)}
                   </span>
                 </div>
 
                 <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-[#0073AA] font-heading">{campus.amharic}</span>
+                      <span className="text-xs font-semibold text-[#0073AA] font-heading">{getCampusSubtitle(campus)}</span>
                       <button
                         onClick={() => setActiveTab('all')}
                         className="text-xs font-bold text-[#0073AA] hover:text-[#005C8A] hover:underline"
                       >
-                        ← Back to All Campuses
+                        {t('portal.campusesPage.backToAll', '← Back to All Campuses')}
                       </button>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-[#00486E] font-heading mb-2">
-                      {campus.name}
+                      {getCampusName(campus)}
                     </h2>
                     <p className="text-xs sm:text-sm text-[#D9251D] font-semibold flex items-center gap-1.5 mb-4">
                       <span>📍</span>
-                      <span>{campus.location}</span>
+                      <span>{getCampusLocation(campus)}</span>
                     </p>
                     <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
-                      {campus.description}
+                      {getCampusDesc(campus)}
                     </p>
 
                     {/* 4 Stat Badges */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-[#F4F6F8] rounded border border-gray-200 text-center">
                       <div>
-                        <div className="text-[10px] text-gray-500 uppercase font-semibold">Programs</div>
+                        <div className="text-[10px] text-gray-500 uppercase font-semibold">
+                          {t('portal.campusesPage.cardPrograms', 'Programs')}
+                        </div>
                         <div className="text-base font-bold text-[#00486E]">{campus.stats.programs}</div>
                       </div>
                       <div>
-                        <div className="text-[10px] text-gray-500 uppercase font-semibold">Students</div>
+                        <div className="text-[10px] text-gray-500 uppercase font-semibold">
+                          {t('portal.campusesPage.cardStudents', 'Students')}
+                        </div>
                         <div className="text-base font-bold text-[#00486E]">{campus.stats.students}</div>
                       </div>
                       <div>
-                        <div className="text-[10px] text-gray-500 uppercase font-semibold">Faculty</div>
+                        <div className="text-[10px] text-gray-500 uppercase font-semibold">
+                          {t('portal.campusesPage.cardFaculty', 'Faculty')}
+                        </div>
                         <div className="text-base font-bold text-[#00486E]">{campus.stats.faculty}</div>
                       </div>
                       <div>
-                        <div className="text-[10px] text-gray-500 uppercase font-semibold">Campus Area</div>
+                        <div className="text-[10px] text-gray-500 uppercase font-semibold">
+                          {t('portal.campusesPage.campusArea', 'Campus Area')}
+                        </div>
                         <div className="text-base font-bold text-[#00486E]">{campus.stats.acres}</div>
                       </div>
                     </div>
@@ -372,13 +476,13 @@ export default function CampusesPage() {
                       to="/lookup"
                       className="bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all"
                     >
-                      Check Placement Status ↗
+                      {t('portal.campusesPage.checkPlacement', 'Check Placement Status ↗')}
                     </Link>
                     <button
                       onClick={() => setActiveTab('all')}
                       className="border border-gray-300 hover:border-[#00486E] text-gray-700 text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded transition-all"
                     >
-                      ← Back to All Campuses
+                      {t('portal.campusesPage.backToAll', '← Back to All Campuses')}
                     </button>
                   </div>
                 </div>
@@ -389,7 +493,7 @@ export default function CampusesPage() {
                 <div>
                   <h4 className="text-sm font-bold uppercase tracking-wider text-[#00486E] mb-3 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#0073AA]" />
-                    <span>Academic Colleges & Schools</span>
+                    <span>{t('portal.campusesPage.academicColleges', 'Academic Colleges & Schools')}</span>
                   </h4>
                   <ul className="space-y-2 text-xs sm:text-sm text-gray-700">
                     {campus.faculties.map((f) => (
@@ -404,7 +508,7 @@ export default function CampusesPage() {
                 <div>
                   <h4 className="text-sm font-bold uppercase tracking-wider text-[#00486E] mb-3 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#D9251D]" />
-                    <span>Key Infrastructure & Facilities</span>
+                    <span>{t('portal.campusesPage.keyFacilities', 'Key Infrastructure & Facilities')}</span>
                   </h4>
                   <ul className="space-y-2 text-xs sm:text-sm text-gray-700">
                     {campus.facilities.map((fac) => (

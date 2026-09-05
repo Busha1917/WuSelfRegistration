@@ -1,38 +1,46 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-const heroSlides = [
-  {
-    image: '/image1.jpg',
-    tag: 'OFFICIAL ADMISSIONS 2026/2027',
-    headline: 'Welcome to Wollega University Self-Registration Portal',
-    subtext:
-      'Seamless digital self-service for freshmen admissions, class section placement, digital student ID card issuance, and academic verification across all 3 campuses.',
-    primaryBtn: { text: 'Begin Self-Registration', to: '/register' },
-    secondaryBtn: { text: 'Explore Campuses', to: '/campuses' },
-  },
-  {
-    image: '/image2.jpg',
-    tag: 'ACADEMIC EXCELLENCE & RESEARCH',
-    headline: 'Over 120 Accredited Degree Programs & Modern Facilities',
-    subtext:
-      'Offering undergraduate, postgraduate, evening, weekend, and summer Kiremt programs anchored in state-of-the-art laboratories and digital libraries.',
-    primaryBtn: { text: 'View Program Offerings', to: '/campuses' },
-    secondaryBtn: { text: 'Academic Calendar', to: '/calendar' },
-  },
-  {
-    image: '/image3.jpg',
-    tag: 'THREE VIBRANT CAMPUSES',
-    headline: 'Serving Western Oromia at Nekemte, Shambu, and Gimbi',
-    subtext:
-      'State-of-the-art lecture halls, high-speed campus networks, full student accommodation, and an inspiring academic community.',
-    primaryBtn: { text: 'Verify Admission Status', to: '/lookup' },
-    secondaryBtn: { text: 'Student Helpdesk', to: '/faq' },
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function HeroBanner() {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const heroSlides = [
+    {
+      image: '/image1.jpg',
+      tag: t('portal.hero.slide1Tag', 'OFFICIAL ADMISSIONS 2026/2027'),
+      headline: t('portal.hero.slide1Title', 'Welcome to Wollega University Self-Registration Portal'),
+      subtext: t(
+        'portal.hero.slide1Sub',
+        'Seamless digital self-service for freshmen admissions, class section placement, digital student ID card issuance, and academic verification across all 3 campuses.'
+      ),
+      primaryBtn: { text: t('portal.hero.slide1BtnPrimary', 'Begin Self-Registration'), to: '/register' },
+      secondaryBtn: { text: t('portal.hero.slide1BtnSecondary', 'Explore Campuses'), to: '/campuses' },
+    },
+    {
+      image: '/image2.jpg',
+      tag: t('portal.hero.slide2Tag', 'ACADEMIC EXCELLENCE & RESEARCH'),
+      headline: t('portal.hero.slide2Title', 'Over 120 Accredited Degree Programs & Modern Facilities'),
+      subtext: t(
+        'portal.hero.slide2Sub',
+        'Offering undergraduate, postgraduate, evening, weekend, and summer Kiremt programs anchored in state-of-the-art laboratories and digital libraries.'
+      ),
+      primaryBtn: { text: t('portal.hero.slide2BtnPrimary', 'View Program Offerings'), to: '/campuses' },
+      secondaryBtn: { text: t('portal.hero.slide2BtnSecondary', 'Academic Calendar'), to: '/calendar' },
+    },
+    {
+      image: '/image3.jpg',
+      tag: t('portal.hero.slide3Tag', 'THREE VIBRANT CAMPUSES'),
+      headline: t('portal.hero.slide3Title', 'Serving Western Oromia at Nekemte, Shambu, and Gimbi'),
+      subtext: t(
+        'portal.hero.slide3Sub',
+        'State-of-the-art lecture halls, high-speed campus networks, full student accommodation, and an inspiring academic community.'
+      ),
+      primaryBtn: { text: t('portal.hero.slide3BtnPrimary', 'Verify Admission Status'), to: '/lookup' },
+      secondaryBtn: { text: t('portal.hero.slide3BtnSecondary', 'Student Helpdesk'), to: '/faq' },
+    },
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {

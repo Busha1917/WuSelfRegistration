@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function PublicFooter() {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-[#002B40] text-white pt-16 pb-12 border-t-4 border-[#0073AA]">
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12">
@@ -19,7 +22,7 @@ export default function PublicFooter() {
               </div>
             </div>
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-              Office of the Registrar • Student Self-Registration System (WU-SSRS). Empowering learners across Western Oromia through digital academic management.
+              {t('portal.footer.mission', 'Office of the Registrar • Student Self-Registration System (WU-SSRS). Empowering learners across Western Oromia through digital academic management.')}
             </p>
             <div className="pt-2">
               <div className="inline-flex items-center gap-2 bg-[#001D2C] px-3 py-1.5 rounded-full text-xs text-gray-300 border border-[#003B57]">
@@ -33,32 +36,32 @@ export default function PublicFooter() {
           <div>
             <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
               <span className="w-1.5 h-4 bg-[#D9251D] rounded-sm" />
-              <span>Student Self-Service</span>
+              <span>{t('portal.footer.quickLinksTitle', 'Student Self-Service')}</span>
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm text-gray-300">
               <li>
                 <Link to="/lookup" className="hover:text-[#66C2FF] transition-colors flex items-center gap-1.5">
-                  <span>›</span> <span>Verify Admission Status</span>
+                  <span>›</span> <span>{t('portal.nav.lookup', 'Verify Admission Status')}</span>
                 </Link>
               </li>
               <li>
                 <Link to="/register" className="hover:text-[#66C2FF] transition-colors flex items-center gap-1.5">
-                  <span>›</span> <span>Apply for New Admission</span>
+                  <span>›</span> <span>{t('portal.nav.beginRegistration', 'Apply for New Admission')}</span>
                 </Link>
               </li>
               <li>
                 <Link to="/login" className="hover:text-[#66C2FF] transition-colors flex items-center gap-1.5">
-                  <span>›</span> <span>Student Portal Login</span>
+                  <span>›</span> <span>{t('portal.nav.portalLogin', 'Student Portal Login')}</span>
                 </Link>
               </li>
               <li>
                 <Link to="/calendar" className="hover:text-[#66C2FF] transition-colors flex items-center gap-1.5">
-                  <span>›</span> <span>2026/2027 Academic Calendar</span>
+                  <span>›</span> <span>{t('portal.nav.calendar', 'Academic Calendar')}</span>
                 </Link>
               </li>
               <li>
                 <Link to="/faq" className="hover:text-[#66C2FF] transition-colors flex items-center gap-1.5">
-                  <span>›</span> <span>Frequently Asked Questions</span>
+                  <span>›</span> <span>{t('portal.nav.faq', 'Frequently Asked Questions')}</span>
                 </Link>
               </li>
             </ul>
@@ -68,7 +71,7 @@ export default function PublicFooter() {
           <div>
             <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
               <span className="w-1.5 h-4 bg-[#0073AA] rounded-sm" />
-              <span>Academic Programs</span>
+              <span>{t('portal.campusesPage.colleges', 'Academic Programs')}</span>
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm text-gray-300">
               <li>
@@ -103,7 +106,7 @@ export default function PublicFooter() {
           <div>
             <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
               <span className="w-1.5 h-4 bg-[#D9251D] rounded-sm" />
-              <span>Campuses & Contact</span>
+              <span>{t('portal.footer.campusesTitle', 'Campuses & Contact')}</span>
             </h4>
             <div className="space-y-3 text-xs sm:text-sm text-gray-300">
               <p className="flex items-start gap-2">
@@ -129,7 +132,7 @@ export default function PublicFooter() {
         {/* Bottom Bar: Copyright & Social Links */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
           <div>
-            © {new Date().getFullYear()} Wollega University. All Rights Reserved. Built with AAU Design Architecture.
+            © {new Date().getFullYear()} Wollega University. {t('portal.footer.rights', 'All rights reserved. Wollega University Registrar Directorate.')}
           </div>
           <div className="flex items-center gap-6">
             <span className="hover:text-white cursor-pointer transition-colors">Facebook</span>

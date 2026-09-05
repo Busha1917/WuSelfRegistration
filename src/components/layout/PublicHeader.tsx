@@ -9,11 +9,11 @@ export default function PublicHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { to: '/', label: t('nav.home'), exact: true },
-    { to: '/campuses', label: 'Campuses' },
-    { to: '/lookup', label: 'Admission Lookup' },
-    { to: '/calendar', label: 'Academic Calendar' },
-    { to: '/faq', label: 'FAQ & Help' },
+    { to: '/', label: t('portal.nav.home', 'Home'), exact: true },
+    { to: '/campuses', label: t('portal.nav.campuses', 'Campuses') },
+    { to: '/lookup', label: t('portal.nav.lookup', 'Admission Lookup') },
+    { to: '/calendar', label: t('portal.nav.calendar', 'Academic Calendar') },
+    { to: '/faq', label: t('portal.nav.faq', 'FAQ & Help') },
   ];
 
   return (
@@ -39,7 +39,7 @@ export default function PublicHeader() {
                   WOLLEGA UNIVERSITY
                 </span>
                 <span className="text-[10px] tracking-widest uppercase font-semibold text-[#555555] mt-0.5">
-                  Student Self-Registration Portal
+                  {t('portal.brand.subtitle', 'Student Self-Registration Portal')}
                 </span>
               </div>
             </Link>
@@ -77,14 +77,14 @@ export default function PublicHeader() {
                 to="/login"
                 className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-[#00486E] hover:text-[#0073AA] px-3 py-2 rounded transition-colors"
               >
-                <span>Portal Login</span>
+                <span>{t('portal.nav.portalLogin', 'Portal Login')}</span>
               </Link>
 
               <Link
                 to="/register"
                 className="inline-flex items-center justify-center gap-1.5 text-sm font-bold bg-[#0073AA] hover:bg-[#005C8A] text-white px-4 py-2.5 rounded shadow-sm hover:shadow transition-all"
               >
-                <span>Apply Now</span>
+                <span>{t('portal.nav.beginRegistration', 'Begin Registration')}</span>
                 <span className="text-xs">↗</span>
               </Link>
 
@@ -126,14 +126,14 @@ export default function PublicHeader() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full text-center py-2.5 border border-gray-300 rounded font-semibold text-[#00486E]"
               >
-                Portal Login
+                {t('portal.nav.portalLogin', 'Portal Login')}
               </Link>
               <Link
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full text-center py-2.5 bg-[#0073AA] text-white rounded font-bold"
               >
-                Apply Now ↗
+                {t('portal.nav.beginRegistration', 'Begin Registration')} ↗
               </Link>
             </div>
           </div>

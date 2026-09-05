@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface MetricItem {
   value: string;
@@ -18,15 +19,22 @@ interface AuthBrandPanelProps {
 }
 
 export default function AuthBrandPanel({
-  badgeText = 'Official University Academic Portal',
-  category = 'ACADEMIC SELF-SERVICE',
+  badgeText,
+  category,
   title,
   description,
   metrics,
   children,
-  quote = '"Seek Wisdom, Pursue Excellence and Empower Nations"',
-  campuses = 'Nekemte • Shambu • Gimbi',
+  quote,
+  campuses,
 }: AuthBrandPanelProps) {
+  const { t } = useTranslation();
+
+  const finalBadge = badgeText || t('portal.authBrand.badge', 'Official University Academic Portal');
+  const finalCategory = category !== undefined ? category : t('portal.authBrand.category', 'ACADEMIC SELF-SERVICE');
+  const finalQuote = quote || t('portal.authBrand.quote', '"Seek Wisdom, Pursue Excellence and Empower Nations"');
+  const finalCampuses = campuses || t('portal.authBrand.campuses', 'Nekemte • Shambu • Gimbi');
+
   return (
     <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 relative bg-[#00486E] text-white flex-col justify-between p-12 xl:p-16 overflow-hidden">
       {/* Background Image with Dark Navy Gradient Mask */}
@@ -50,7 +58,7 @@ export default function AuthBrandPanel({
       <div className="relative z-10">
         <div className="inline-flex items-center gap-2 bg-[#002B40]/80 border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-bold text-gray-200 uppercase tracking-wider mb-6">
           <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-          <span>{badgeText}</span>
+          <span>{finalBadge}</span>
         </div>
 
         <div className="flex items-center gap-4">
@@ -63,7 +71,7 @@ export default function AuthBrandPanel({
               WOLLEGA UNIVERSITY
             </div>
             <div className="text-xs text-gray-300 font-medium tracking-wide mt-1">
-              Student Self-Registration Portal (WU-SSRS)
+              {t('portal.brand.subtitle', 'Student Self-Registration Portal (WU-SSRS)')}
             </div>
           </div>
         </div>
@@ -71,9 +79,9 @@ export default function AuthBrandPanel({
 
       {/* Center Content */}
       <div className="relative z-10 my-auto py-6 max-w-md">
-        {category && (
+        {finalCategory && (
           <p className="text-xs font-bold tracking-widest text-[#00A3E0] uppercase mb-2">
-            {category}
+            {finalCategory}
           </p>
         )}
         <h2 className="text-2xl xl:text-3xl font-extrabold text-white font-heading leading-tight mb-3">
@@ -103,8 +111,8 @@ export default function AuthBrandPanel({
 
       {/* Bottom Note */}
       <div className="relative z-10 pt-6 border-t border-white/15 flex items-center justify-between text-xs text-gray-300">
-        <span>* {quote}</span>
-        <span className="text-[#66C2FF]">{campuses}</span>
+        <span>* {finalQuote}</span>
+        <span className="text-[#66C2FF]">{finalCampuses}</span>
       </div>
     </div>
   );

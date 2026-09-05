@@ -38,7 +38,10 @@ const newsItems = [
   },
 ];
 
+import { useTranslation } from 'react-i18next';
+
 export default function NewsSection() {
+  const { t } = useTranslation();
   const featuredNews = newsItems.find((n) => n.featured) || newsItems[0];
   const sideNews = newsItems.filter((n) => !n.featured);
 
@@ -46,15 +49,14 @@ export default function NewsSection() {
     <section className="py-20 bg-white">
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12">
         <SectionHeader
-          category="NEWS & ANNOUNCEMENTS"
-          title="What's New at Wollega University"
+          category={t('portal.news.category', 'NEWS & ANNOUNCEMENTS')}
+          title={t('portal.news.title', "What's New at Wollega University")}
           action={
             <Link
               to="/faq"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0073AA] hover:text-[#005C8A] uppercase tracking-wider transition-colors"
             >
-              <span>View All News & Circulars</span>
-              <span>↗</span>
+              <span>{t('portal.news.viewAll', 'View All News & Circulars ↗')}</span>
             </Link>
           }
         />

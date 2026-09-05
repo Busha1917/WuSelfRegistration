@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { publicService } from '@/mocks/services';
 import type { LookupResult } from '@/types';
 import StatusBadge from '@/components/shared/StatusBadge';
 
 export default function LookupPage() {
+  const { t } = useTranslation();
   const [query, setQuery] = useState('');
   const [result, setResult] = useState<LookupResult | null>(null);
   const [searched, setSearched] = useState(false);
@@ -55,21 +57,21 @@ export default function LookupPage() {
 
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <div className="flex items-center justify-center gap-2 text-xs font-semibold text-gray-300 mb-4">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <Link to="/" className="hover:text-white transition-colors">{t('portal.nav.home', 'Home')}</Link>
             <span>/</span>
-            <span className="text-[#66C2FF]">Admission Status Lookup</span>
+            <span className="text-[#66C2FF]">{t('portal.lookupPage.breadcrumb', 'Admission Status Lookup')}</span>
           </div>
 
           <div className="inline-flex items-center gap-2 bg-[#002B40] text-gray-200 border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-            <span>2026/2027 Admissions Verification Active</span>
+            <span>{t('portal.lookupPage.badge', '2026/2027 Admissions Verification Active')}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white tracking-tight">
-            Student Admission & Placement Lookup
+            {t('portal.lookupPage.title', 'Student Admission & Placement Lookup')}
           </h1>
           <p className="text-sm sm:text-base text-gray-200 mt-3 max-w-2xl mx-auto leading-relaxed">
-            Verify your admission acceptance, assigned campus, study modality, and classroom cohort section using your official student name or application ID.
+            {t('portal.lookupPage.desc', 'Verify your admission acceptance, assigned campus, study modality, and classroom cohort section using your official student name or application ID.')}
           </p>
         </div>
       </section>
@@ -79,17 +81,17 @@ export default function LookupPage() {
         <div className="bg-white rounded-sm border border-gray-200 shadow-xl p-6 sm:p-10">
           <div className="mb-6">
             <span className="text-xs font-bold text-[#D9251D] uppercase tracking-wider block mb-1">
-              INSTITUTIONAL REGISTRATION DATABASE
+              {t('portal.lookupPage.database', 'INSTITUTIONAL REGISTRATION DATABASE')}
             </span>
             <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#00486E]">
-              Verify Your Admission Status
+              {t('portal.lookupPage.verifyTitle', 'Verify Your Admission Status')}
             </h2>
             <div className="flex items-center gap-1 mt-2 mb-2">
               <div className="h-1 w-8 bg-[#D9251D]" />
               <div className="h-1 w-14 bg-[#0073AA]" />
             </div>
             <p className="text-xs text-gray-500">
-              Enter full student legal name (e.g. Alemayehu Bezabeh) or your assigned ID code.
+              {t('portal.lookupPage.instructions', 'Enter full student legal name (e.g. Alemayehu Bezabeh) or your assigned ID code.')}
             </p>
           </div>
 
@@ -99,7 +101,7 @@ export default function LookupPage() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="e.g., Alemayehu Bezabeh or stu-001"
+                placeholder={t('portal.lookupPage.searchPlaceholder', 'e.g., Alemayehu Bezabeh or stu-001')}
                 required
                 className="w-full pl-10 pr-4 py-3.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#0073AA] focus:border-[#0073AA] transition-colors"
               />
@@ -117,11 +119,11 @@ export default function LookupPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  <span>Verifying...</span>
+                  <span>{t('portal.lookupPage.verifying', 'Verifying...')}</span>
                 </span>
               ) : (
                 <>
-                  <span>Verify Status</span>
+                  <span>{t('portal.lookupPage.searchBtn', 'Verify Status')}</span>
                   <span className="text-xs">↗</span>
                 </>
               )}
@@ -130,7 +132,7 @@ export default function LookupPage() {
 
           {/* Quick Demo Test Pills */}
           <div className="flex items-center gap-2 mt-4 text-xs text-gray-500 flex-wrap">
-            <span className="font-semibold text-gray-700">Quick Samples:</span>
+            <span className="font-semibold text-gray-700">{t('portal.lookupPage.quickSamples', 'Quick Samples:')}</span>
             {['Alemayehu Bezabeh', 'Bikila Tadesse', 'Chala Gemeda'].map((sample) => (
               <button
                 key={sample}
@@ -156,13 +158,13 @@ export default function LookupPage() {
                       </div>
                       <div>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-[#D9251D]">
-                          OFFICIAL VERIFICATION RECORD
+                          {t('portal.lookupPage.recordTitle', 'OFFICIAL VERIFICATION RECORD')}
                         </span>
                         <h3 className="text-xl font-bold font-heading text-[#00486E]">
                           {result.student.name}
                         </h3>
                         <div className="text-xs text-gray-500 font-mono">
-                          Ref: {query.toUpperCase()}
+                          {t('portal.lookupPage.ref', 'Ref')}: {query.toUpperCase()}
                         </div>
                       </div>
                     </div>
@@ -174,39 +176,49 @@ export default function LookupPage() {
                   {/* Placement Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 text-xs sm:text-sm border-b border-gray-200">
                     <div className="p-3 bg-white rounded border border-gray-100">
-                      <span className="text-gray-400 block text-[11px] uppercase font-semibold">Campus Placement</span>
+                      <span className="text-gray-400 block text-[11px] uppercase font-semibold">
+                        {t('portal.lookupPage.campusPlacement', 'Campus Placement')}
+                      </span>
                       <span className="font-bold text-[#00486E] text-base capitalize">{result.student.campus} Campus</span>
                     </div>
 
                     <div className="p-3 bg-white rounded border border-gray-100">
-                      <span className="text-gray-400 block text-[11px] uppercase font-semibold">Degree Program</span>
+                      <span className="text-gray-400 block text-[11px] uppercase font-semibold">
+                        {t('portal.lookupPage.degreeProgram', 'Degree Program')}
+                      </span>
                       <span className="font-bold text-[#00486E] text-base">{result.student.program}</span>
                     </div>
 
                     <div className="p-3 bg-white rounded border border-gray-100">
-                      <span className="text-gray-400 block text-[11px] uppercase font-semibold">Class Section / Cohort</span>
+                      <span className="text-gray-400 block text-[11px] uppercase font-semibold">
+                        {t('portal.lookupPage.classSection', 'Class Section / Cohort')}
+                      </span>
                       <span className="font-bold text-[#0073AA] text-base">
-                        {result.student.section || 'Pending Section Allocation'}
+                        {result.student.section || t('portal.lookupPage.pendingSection', 'Pending Section Allocation')}
                       </span>
                     </div>
 
                     <div className="p-3 bg-white rounded border border-gray-100">
-                      <span className="text-gray-400 block text-[11px] uppercase font-semibold">Admission Modality</span>
-                      <span className="font-bold text-gray-800 text-base">Undergraduate Regular</span>
+                      <span className="text-gray-400 block text-[11px] uppercase font-semibold">
+                        {t('portal.lookupPage.admissionModality', 'Admission Modality')}
+                      </span>
+                      <span className="font-bold text-gray-800 text-base">
+                        {t('portal.lookupPage.undergradRegular', 'Undergraduate Regular')}
+                      </span>
                     </div>
                   </div>
 
                   {/* Next Step Action CTA */}
                   <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="text-xs text-gray-500">
-                      * Bring printed copy or screenshot of this record to registrar office.
+                      {t('portal.lookupPage.recordNote', '* Bring printed copy or screenshot of this record to registrar office.')}
                     </div>
                     <div className="flex items-center gap-3">
                       <Link
                         to="/login"
                         className="bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all"
                       >
-                        Sign In to Student Portal ↗
+                        {t('portal.lookupPage.signInPortal', 'Sign In to Student Portal ↗')}
                       </Link>
                     </div>
                   </div>
@@ -216,9 +228,11 @@ export default function LookupPage() {
                   <div className="flex items-start gap-3">
                     <span className="text-xl">⚠️</span>
                     <div>
-                      <h4 className="text-sm font-bold text-[#D9251D]">Application Record Not Found</h4>
+                      <h4 className="text-sm font-bold text-[#D9251D]">
+                        {t('portal.lookupPage.notFoundTitle', 'Application Record Not Found')}
+                      </h4>
                       <p className="text-xs text-red-700 mt-1">
-                        No admission record matched "{query}". If you submitted an application recently, review may take up to 3 business days. Please contact the registrar at <a href="mailto:registrar@wu.edu.et" className="underline font-bold">registrar@wu.edu.et</a>.
+                        {t('portal.lookupPage.notFoundDesc', 'No admission record matched your query. If you submitted an application recently, review may take up to 3 business days. Please contact the registrar at registrar@wu.edu.et.')}
                       </p>
                     </div>
                   </div>
