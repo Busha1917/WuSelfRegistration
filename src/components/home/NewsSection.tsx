@@ -9,7 +9,7 @@ const newsItems = [
     date: 'SEPTEMBER 02, 2026',
     excerpt:
       'The Office of the Registrar announces the launch of the new self-registration system for undergraduate regular, weekend, evening, and summer Kiremt programs across all campuses.',
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
+    image: '/image1.jpg',
     featured: true,
   },
   {
@@ -18,7 +18,7 @@ const newsItems = [
     title: 'Senate Approves New Curriculum Guidelines for Engineering & Health Sciences',
     date: 'AUGUST 28, 2026',
     excerpt: 'Comprehensive modular curriculum modernization approved for 2026/2027 academic session.',
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=500&q=80',
+    image: '/image2.jpg',
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const newsItems = [
     title: 'Expansion of Digital Laboratories and High-Speed Fiber Completed at Shambu Campus',
     date: 'AUGUST 21, 2026',
     excerpt: 'Enhancing student internet access, computer labs, and e-learning facilities.',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80',
+    image: '/image3.jpg',
   },
   {
     id: 4,
@@ -34,7 +34,7 @@ const newsItems = [
     title: 'Freshman Orientation Week and Student ID Card Pickup Schedule Announced',
     date: 'AUGUST 15, 2026',
     excerpt: 'All placed freshmen are invited to participate in campus tour sessions and collect verified cards.',
-    image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=500&q=80',
+    image: '/image1.jpg',
   },
 ];
 

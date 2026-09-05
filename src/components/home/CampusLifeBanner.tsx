@@ -4,7 +4,7 @@ export default function CampusLifeBanner() {
   return (
     <section className="relative min-h-[440px] flex items-center bg-gray-900 overflow-hidden">
       <img
-        src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1800&q=80"
+        src="/image2.jpg"
         alt="Wollega University Campus Life"
         className="absolute inset-0 w-full h-full object-cover object-center opacity-60"
       />

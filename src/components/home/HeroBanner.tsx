@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80',
+    image: '/image1.jpg',
     tag: 'OFFICIAL ADMISSIONS 2026/2027',
     headline: 'Welcome to Wollega University Self-Registration Portal',
     subtext:
@@ -12,7 +12,7 @@ const heroSlides = [
     secondaryBtn: { text: 'Explore Campuses', to: '/campuses' },
   },
   {
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80',
+    image: '/image2.jpg',
     tag: 'ACADEMIC EXCELLENCE & RESEARCH',
     headline: 'Over 120 Accredited Degree Programs & Modern Facilities',
     subtext:
@@ -21,7 +21,7 @@ const heroSlides = [
     secondaryBtn: { text: 'Academic Calendar', to: '/calendar' },
   },
   {
-    image: 'https://images.unsplash.com/photo-1592280771190-3e2e4d571952?auto=format&fit=crop&w=1600&q=80',
+    image: '/image3.jpg',
     tag: 'THREE VIBRANT CAMPUSES',
     headline: 'Serving Western Oromia at Nekemte, Shambu, and Gimbi',
     subtext:
