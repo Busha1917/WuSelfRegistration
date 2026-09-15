@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export default function CampusLifeBanner() {
@@ -21,26 +20,12 @@ export default function CampusLifeBanner() {
           <h3 className="text-2xl sm:text-3xl font-extrabold text-[#00486E] font-heading leading-tight mb-4">
             {t('portal.campusLife.title', 'A Supportive, Engaging Academic Community')}
           </h3>
-          <p className="text-xs sm:text-sm text-gray-700 leading-relaxed mb-6">
+          <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
             {t(
               'portal.campusLife.desc',
               'From modern university dormitories and dining halls to high-speed digital research libraries and student sports clubs, Wallaga University provides a complete ecosystem for intellectual and personal growth.'
             )}
           </p>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              to="/campuses"
-              className="bg-[#0073AA] hover:bg-[#005C8A] text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded shadow transition-all"
-            >
-              {t('portal.campusLife.explore', 'Explore Campus Life ↗')}
-            </Link>
-            <Link
-              to="/faq"
-              className="border border-gray-400 hover:border-[#00486E] text-gray-800 font-semibold text-xs uppercase tracking-wider px-5 py-3 rounded transition-all"
-            >
-              {t('portal.campusLife.faq', 'Student Dormitory FAQ')}
-            </Link>
-          </div>
         </div>
       </div>
     </section>

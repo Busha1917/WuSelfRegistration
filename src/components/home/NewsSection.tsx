@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import SectionHeader from '@/components/shared/SectionHeader';
 
 const newsItems = [
@@ -51,14 +50,6 @@ export default function NewsSection() {
         <SectionHeader
           category={t('portal.news.category', 'NEWS & ANNOUNCEMENTS')}
           title={t('portal.news.title', "What's New at Wallaga University")}
-          action={
-            <Link
-              to="/faq"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0073AA] hover:text-[#005C8A] uppercase tracking-wider transition-colors"
-            >
-              <span>{t('portal.news.viewAll', 'View All News & Circulars ↗')}</span>
-            </Link>
-          }
         />
 
         {/* 2-Column AAU News Layout */}
@@ -122,12 +113,6 @@ export default function NewsSection() {
                     <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed">
                       {news.excerpt}
                     </p>
-                  </div>
-                  <div className="pt-2">
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#0073AA] uppercase tracking-wide">
-                      <span>Learn More</span>
-                      <span>›</span>
-                    </span>
                   </div>
                 </div>
               </div>
