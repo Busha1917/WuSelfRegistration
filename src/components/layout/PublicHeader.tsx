@@ -13,7 +13,6 @@ export default function PublicHeader() {
     { to: '/campuses', label: t('portal.nav.campuses', 'Campuses') },
     { to: '/lookup', label: t('portal.nav.lookup', 'Admission Lookup') },
     { to: '/calendar', label: t('portal.nav.calendar', 'Academic Calendar') },
-    { to: '/faq', label: t('portal.nav.faq', 'FAQ & Help') },
   ];
 
   return (

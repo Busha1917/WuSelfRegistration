@@ -38,7 +38,7 @@ export default function HeroBanner() {
         'State-of-the-art lecture halls, high-speed campus networks, full student accommodation, and an inspiring academic community.'
       ),
       primaryBtn: { text: t('portal.hero.slide3BtnPrimary', 'Verify Admission Status'), to: '/lookup' },
-      secondaryBtn: { text: t('portal.hero.slide3BtnSecondary', 'Student Helpdesk'), to: '/faq' },
+      secondaryBtn: { text: t('portal.nav.campuses', 'Explore Campuses'), to: '/campuses' },
     },
   ];
 

@@ -59,11 +59,6 @@ export default function PublicFooter() {
                   <span>›</span> <span>{t('portal.nav.calendar', 'Academic Calendar')}</span>
                 </Link>
               </li>
-              <li>
-                <Link to="/faq" className="hover:text-[#66C2FF] transition-colors flex items-center gap-1.5">
-                  <span>›</span> <span>{t('portal.nav.faq', 'Frequently Asked Questions')}</span>
-                </Link>
-              </li>
             </ul>
           </div>
 

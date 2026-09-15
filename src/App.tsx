@@ -13,7 +13,6 @@ import HomePage from '@/pages/public/HomePage';
 import CampusesPage from '@/pages/public/CampusesPage';
 import LookupPage from '@/pages/public/LookupPage';
 import CalendarPage from '@/pages/public/CalendarPage';
-import FaqPage from '@/pages/public/FaqPage';
 
 // Student pages
 import StudentDashboard from '@/pages/student/StudentDashboard';
@@ -62,7 +61,6 @@ export default function App() {
           <Route path="/campuses" element={<CampusesPage />} />
           <Route path="/lookup" element={<LookupPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/faq" element={<FaqPage />} />
         </Route>
 
         {/* Auth routes */}

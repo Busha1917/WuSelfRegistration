@@ -9,7 +9,6 @@ export default function QuickLinksBar() {
     { label: t('portal.hero.slide3BtnPrimary', 'Check Admission Status'), to: '/lookup' },
     { label: t('portal.nav.calendar', 'Academic Calendar'), to: '/calendar' },
     { label: t('portal.quickLinks.dorm', 'Campus Placement'), to: '/lookup' },
-    { label: t('portal.hero.slide3BtnSecondary', 'Registrar Helpdesk'), to: '/faq' },
   ];
 
   return (
