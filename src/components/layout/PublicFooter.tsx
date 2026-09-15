@@ -12,12 +12,12 @@ export default function PublicFooter() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/40 bg-white p-0.5 shrink-0">
-                <img src="/logo1.png" alt="Wollega University" className="w-full h-full object-cover" />
+                <img src="/logo1.png" alt="Wallaga University" className="w-full h-full object-cover" />
               </div>
               <div>
                 <div className="text-xs font-semibold text-[#66C2FF] font-heading">ወለጋ ዩኒቨርሲቲ</div>
                 <div className="text-base font-extrabold text-[#D9251D] tracking-tight bg-white px-1.5 py-0.2 rounded-sm inline-block leading-tight">
-                  WOLLEGA UNIVERSITY
+                  Wallaga UNIVERSITY
                 </div>
               </div>
             </div>
@@ -132,7 +132,7 @@ export default function PublicFooter() {
         {/* Bottom Bar: Copyright & Social Links */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
           <div>
-            © {new Date().getFullYear()} Wollega University. {t('portal.footer.rights', 'All rights reserved. Wollega University Registrar Directorate.')}
+            © {new Date().getFullYear()} Wallaga University. {t('portal.footer.rights', 'All rights reserved. Wallaga University Registrar Directorate.')}
           </div>
           <div className="flex items-center gap-6">
             <span className="hover:text-white cursor-pointer transition-colors">Facebook</span>

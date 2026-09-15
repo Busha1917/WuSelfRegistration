@@ -15,7 +15,7 @@ interface FaqItem {
 const faqs: FaqItem[] = [
   {
     category: 'admissions',
-    qEn: 'How do I apply for new student admission at Wollega University?',
+    qEn: 'How do I apply for new student admission at Wallaga University?',
     qAm: 'በወለጋ ዩኒቨርሲቲ ለአዲስ ተማሪዎች መግቢያ እንዴት ማመልከት እችላለሁ?',
     qOm: 'Yuunivarsiitii Wallaggaatti seensa barattoota haaraatiif akkamittiin iyyadha?',
     aEn: 'To apply, navigate to the portal registration page, enter your personal identity details, select your preferred campus (Nekemte, Shambu, or Gimbi) and your chosen degree program. After creating your account, upload your academic certificates and submit. You can monitor your application status in real-time from your applicant dashboard.',
@@ -51,7 +51,7 @@ const faqs: FaqItem[] = [
   },
   {
     category: 'idcard',
-    qEn: 'When and how do I receive my official Wollega University student ID card?',
+    qEn: 'When and how do I receive my official Wallaga University student ID card?',
     qAm: 'ይፋዊ የወለጋ ዩኒቨርሲቲ የተማሪ መታወቂያዬን መቼ እና እንዴት እቀበላለሁ?',
     qOm: 'Kaardii eenyummaa barattummaa koo yoomiifi akkamittiin argadha?',
     aEn: 'Your digital student ID card is generated immediately upon registrar document approval. You can view, download, and print your verified digital ID card with secure QR code directly from the ID Card section of your student dashboard.',
@@ -81,7 +81,7 @@ const faqs: FaqItem[] = [
     qEn: 'Who should I contact if I encounter technical issues during registration?',
     qAm: 'በምዝገባ ወቅት ቴክኒካዊ ችግሮች ካጋጠሙኝ ማን ማነጋገር አለብኝ?',
     qOm: 'Yeroo galmee rakkoon teeknikaa yoo na mudate eenyuun qunnamuu qaba?',
-    aEn: 'You can reach the Wollega University Registrar ICT Helpdesk at registrar@wu.edu.et or via the student hotline at +251-571-11-04-00. You may also visit the Registrar Service Wing in Administration Building Room 104 at the Nekemte Main Campus.',
+    aEn: 'You can reach the Wallaga University Registrar ICT Helpdesk at registrar@wu.edu.et or via the student hotline at +251-571-11-04-00. You may also visit the Registrar Service Wing in Administration Building Room 104 at the Nekemte Main Campus.',
     aAm: 'የወለጋ ዩኒቨርሲቲ ሬጅስትራር አይሲቲ ድጋፍን በ registrar@wu.edu.et ወይም በስልክ ቁጥር +251-571-11-04-00 ማግኘት ይችላሉ። እንዲሁም በነቀምቴ ዋናው ግቢ አስተዳደር ህንፃ ቢሮ ቁጥር 104 መጎብኘት ይችላሉ።',
     aOm: 'Gargaarsa ICT Reejistiraara Yuunivarsiitii Wallaggaa registrar@wu.edu.et yookiin sarara bilbilaa +251-571-11-04-00 irratti qunnamuu dandeessu. Akkasumas Citaawaa Naqamtee Gamoo Bulchiinsaa Kutaa 104 daawwachuu dandeessu.',
   },
@@ -187,11 +187,10 @@ export default function FaqPage() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
-                  activeCategory === cat.id
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${activeCategory === cat.id
                     ? 'bg-[#0073AA] text-white shadow-sm'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 {cat.label}
               </button>
@@ -208,24 +207,21 @@ export default function FaqPage() {
             return (
               <div
                 key={idx}
-                className={`bg-white rounded-sm border transition-all overflow-hidden ${
-                  isOpen ? 'border-[#0073AA] shadow-sm' : 'border-gray-200 hover:border-gray-300'
-                }`}
+                className={`bg-white rounded-sm border transition-all overflow-hidden ${isOpen ? 'border-[#0073AA] shadow-sm' : 'border-gray-200 hover:border-gray-300'
+                  }`}
               >
                 <button
                   type="button"
                   onClick={() => setOpenIdx(isOpen ? null : idx)}
                   className="w-full text-left px-6 py-4.5 flex items-center justify-between gap-4 transition-colors"
                 >
-                  <span className={`text-sm sm:text-base font-bold font-heading ${
-                    isOpen ? 'text-[#0073AA]' : 'text-[#00486E]'
-                  }`}>
+                  <span className={`text-sm sm:text-base font-bold font-heading ${isOpen ? 'text-[#0073AA]' : 'text-[#00486E]'
+                    }`}>
                     {getFaqQ(faq)}
                   </span>
                   <div
-                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-sm font-bold transition-all ${
-                      isOpen ? 'bg-[#0073AA] text-white' : 'bg-gray-100 text-gray-500'
-                    }`}
+                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-sm font-bold transition-all ${isOpen ? 'bg-[#0073AA] text-white' : 'bg-gray-100 text-gray-500'
+                      }`}
                   >
                     {isOpen ? '−' : '+'}
                   </div>

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Wollega University",
+    "name": "Wallaga University",
     "subtitle": "Student Self-Registration System",
     "shortName": "WU-SSRS"
   },
@@ -32,7 +32,7 @@
   },
   "public": {
     "hero": {
-      "title": "Welcome to Wollega University",
+      "title": "Welcome to Wallaga University",
       "subtitle": "Student Self-Registration System",
       "description": "Register, track your application, and manage your academic journey online.",
       "checkStatus": "Check Admission Status",
@@ -411,7 +411,7 @@
   "portal": {
     "brand": {
       "amharicName": "ወለጋ ዩኒቨርሲቲ",
-      "englishName": "WOLLEGA UNIVERSITY",
+      "englishName": "Wallaga UNIVERSITY",
       "subtitle": "Student Self-Registration Portal",
       "motto": "Excellence & Truth in Service of Society",
       "established": "Established 2007 • Western Oromia"
@@ -427,7 +427,7 @@
     },
     "hero": {
       "slide1Tag": "OFFICIAL ADMISSIONS 2026/2027",
-      "slide1Title": "Welcome to Wollega University Self-Registration Portal",
+      "slide1Title": "Welcome to Wallaga University Self-Registration Portal",
       "slide1Sub": "Seamless digital self-service for freshmen admissions, class section placement, digital student ID card issuance, and academic verification across all 3 campuses.",
       "slide1BtnPrimary": "Begin Self-Registration",
       "slide1BtnSecondary": "Explore Campuses",
@@ -464,13 +464,13 @@
     "campusLife": {
       "tag": "CAMPUS LIFE & STUDENT FACILITIES",
       "title": "A Supportive, Engaging Academic Community",
-      "desc": "From modern university dormitories and dining halls to high-speed digital research libraries and student sports clubs, Wollega University provides a complete ecosystem for intellectual and personal growth.",
+      "desc": "From modern university dormitories and dining halls to high-speed digital research libraries and student sports clubs, Wallaga University provides a complete ecosystem for intellectual and personal growth.",
       "explore": "Explore Campus Life ↗",
       "faq": "Student Dormitory FAQ"
     },
     "news": {
       "category": "NEWS & ANNOUNCEMENTS",
-      "title": "What's New at Wollega University",
+      "title": "What's New at Wallaga University",
       "viewAll": "View All News & Circulars ↗"
     },
     "steps": {
@@ -496,7 +496,7 @@
       "breadcrumb": "Campuses & Facilities",
       "badge": "Western Oromia Academic Infrastructure",
       "title": "Our Campuses & Learning Environments",
-      "desc": "Wollega University operates three integrated campuses in Nekemte, Shambu, and Gimbi, each tailored to distinct regional development, agricultural research, and technological advancement needs.",
+      "desc": "Wallaga University operates three integrated campuses in Nekemte, Shambu, and Gimbi, each tailored to distinct regional development, agricultural research, and technological advancement needs.",
       "metrics": {
         "campuses": "Campuses",
         "programs": "Degree Programs",
@@ -564,7 +564,7 @@
       "senateTitle": "Download Full Academic Calendar Circular (PDF)",
       "senateDesc": "Includes full semester schedules, national holidays, drop/add deadlines, and Senate graduation sessions.",
       "downloadPdf": "Download Calendar PDF",
-      "downloadAlert": "Wollega University Academic Calendar 2026/2027 PDF downloaded.",
+      "downloadAlert": "Wallaga University Academic Calendar 2026/2027 PDF downloaded.",
       "statusOpen": "Open",
       "statusUpcoming": "Upcoming",
       "statusScheduled": "Scheduled",
@@ -602,11 +602,11 @@
       "campuses": "Nekemte • Shambu • Gimbi"
     },
     "footer": {
-      "mission": "Wollega University is an autonomous premier public research university in western Ethiopia, committed to excellence in education, groundbreaking research, and transformative community engagement.",
+      "mission": "Wallaga University is an autonomous premier public research university in western Ethiopia, committed to excellence in education, groundbreaking research, and transformative community engagement.",
       "quickLinksTitle": "Self-Registration Portal",
       "campusesTitle": "Campuses & Facilities",
       "contactTitle": "Official Registrar Contact",
-      "rights": "All rights reserved. Wollega University Registrar Directorate."
+      "rights": "All rights reserved. Wallaga University Registrar Directorate."
     }
   },
   "common": {

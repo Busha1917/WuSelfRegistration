@@ -21,9 +21,8 @@ export default function PageLoader({ show, message = 'Loading page...' }: PageLo
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-white/95 backdrop-blur-md transition-opacity duration-300 font-sans ${
-        show ? 'opacity-100' : 'opacity-0 pointer-events-none'
-      }`}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-white/95 backdrop-blur-md transition-opacity duration-300 font-sans ${show ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
       role="status"
       aria-live="polite"
     >
@@ -42,7 +41,7 @@ export default function PageLoader({ show, message = 'Loading page...' }: PageLo
           <div className="w-16 h-16 rounded-full overflow-hidden shadow-md bg-white border-2 border-gray-100 p-0.5">
             <img
               src="/logo1.png"
-              alt="Wollega University"
+              alt="Wallaga University"
               className="w-full h-full object-cover"
             />
           </div>
@@ -51,7 +50,7 @@ export default function PageLoader({ show, message = 'Loading page...' }: PageLo
         {/* University Brand Lockup */}
         <div className="space-y-0.5">
           <div className="text-xs font-bold text-[#00486E] font-heading">ወለጋ ዩኒቨርሲቲ</div>
-          <div className="text-base font-extrabold text-[#D9251D] tracking-tight">WOLLEGA UNIVERSITY</div>
+          <div className="text-base font-extrabold text-[#D9251D] tracking-tight">Wallaga UNIVERSITY</div>
           <div className="text-[11px] text-gray-500 font-medium tracking-wide">
             Student Self-Registration System (WU-SSRS)
           </div>

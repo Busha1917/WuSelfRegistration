@@ -85,7 +85,7 @@ export default function RegisterPage() {
       <AuthBrandPanel
         badgeText="2026/2027 Admissions Open"
         category="ONLINE ADMISSIONS 2026/27"
-        title="Start Your Academic Journey at Wollega"
+        title="Start Your Academic Journey at Wallaga"
         description="Complete your self-registration online in four simple steps without waiting in campus lines."
         metrics={[
           { value: '3', label: 'Campuses' },
@@ -102,9 +102,8 @@ export default function RegisterPage() {
           ].map((s) => (
             <div key={s.num} className="flex items-center gap-3.5 text-sm">
               <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${
-                  s.current ? 'bg-[#D9251D] text-white shadow' : 'bg-white/15 text-gray-300'
-                }`}
+                className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${s.current ? 'bg-[#D9251D] text-white shadow' : 'bg-white/15 text-gray-300'
+                  }`}
               >
                 {s.num}
               </div>
@@ -123,10 +122,10 @@ export default function RegisterPage() {
         <div className="w-full max-w-xl mx-auto my-8">
           {/* Mobile Logo Header */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
-            <img src="/logo1.png" alt="Wollega University" className="w-10 h-10 rounded-full border border-gray-200" />
+            <img src="/logo1.png" alt="Wallaga University" className="w-10 h-10 rounded-full border border-gray-200" />
             <div>
               <div className="text-xs font-semibold text-[#00486E] font-heading">ወለጋ ዩኒቨርሲቲ</div>
-              <div className="text-base font-extrabold text-[#D9251D] leading-none">WOLLEGA UNIVERSITY</div>
+              <div className="text-base font-extrabold text-[#D9251D] leading-none">Wallaga UNIVERSITY</div>
             </div>
           </div>
 
@@ -287,7 +286,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="text-center text-xs text-gray-400 pt-4 border-t border-gray-200">
-          <span>© {new Date().getFullYear()} Wollega University</span>
+          <span>© {new Date().getFullYear()} Wallaga University</span>
         </div>
       </div>
     </div>

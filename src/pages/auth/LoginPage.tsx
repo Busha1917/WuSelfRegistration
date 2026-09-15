@@ -61,10 +61,10 @@ export default function LoginPage() {
         <div className="w-full max-w-md mx-auto my-8">
           {/* Mobile Logo Header */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
-            <img src="/logo1.png" alt="Wollega University" className="w-10 h-10 rounded-full border border-gray-200" />
+            <img src="/logo1.png" alt="Wallaga University" className="w-10 h-10 rounded-full border border-gray-200" />
             <div>
               <div className="text-xs font-semibold text-[#00486E] font-heading">ወለጋ ዩኒቨርሲቲ</div>
-              <div className="text-base font-extrabold text-[#D9251D] leading-none">WOLLEGA UNIVERSITY</div>
+              <div className="text-base font-extrabold text-[#D9251D] leading-none">Wallaga UNIVERSITY</div>
             </div>
           </div>
 
@@ -173,7 +173,7 @@ export default function LoginPage() {
         </div>
 
         <div className="text-center text-xs text-gray-400 pt-6 border-t border-gray-200">
-          <span>© {new Date().getFullYear()} Wollega University. Protected by WU Institutional Identity Services.</span>
+          <span>© {new Date().getFullYear()} Wallaga University. Protected by WU Institutional Identity Services.</span>
         </div>
       </div>
     </div>

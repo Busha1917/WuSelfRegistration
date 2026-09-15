@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Wollega University",
+    "name": "Wallaga University",
     "subtitle": "Sirrii Guraarsaa Baasuu Arabbaa",
     "shortName": "WU-SSRS"
   },
@@ -32,7 +32,7 @@
   },
   "public": {
     "hero": {
-      "title": "Wollega University Baga nagaan Dhuftan",
+      "title": "Wallaga University Baga nagaan Dhuftan",
       "subtitle": "Sirrii Guraarsaa Baasuu Arabbii",
       "description": "Maxxansi, haala isinabbaasiinsa kee hordofi, gannaan kan barnoota kee ijaaradhaa.",
       "checkStatus": "Haala Baasuu Dorgomii Barbaadisi",
@@ -411,7 +411,7 @@
   "portal": {
     "brand": {
       "amharicName": "ወለጋ ዩኒቨርሲቲ",
-      "englishName": "WOLLEGA UNIVERSITY",
+      "englishName": "Wallaga UNIVERSITY",
       "subtitle": "Poortaalii Ofiin Galmee Barattootaa",
       "motto": "Barsiisuu fi Dhugaa Tajaajila Hawaasaatiif",
       "established": "Hundeeffama 1999 A.L.I • Oromiyaa Dhihaa"

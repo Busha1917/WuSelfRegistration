@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { applicationService, programs } from '@/mocks/services';
 import type { Application, ApplicationFilters } from '@/types';
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import DataTable from '@/components/shared/DataTable';
@@ -13,6 +12,7 @@ import StatusBadge from '@/components/shared/StatusBadge';
 import ConfirmDialog from '@/components/shared/ConfirmDialog';
 import RejectReasonModal from '@/components/modals/RejectReasonModal';
 import { useToast } from '@/components/ui/Toast';
+import DashboardHero from '@/components/shared/DashboardHero';
 
 export default function ReviewQueue() {
   const { t } = useTranslation();
@@ -41,14 +41,14 @@ export default function ReviewQueue() {
 
   const handleApprove = async (id: string) => {
     await applicationService.approveApplication(id);
-    addToast(t('registrar.review.approved'), 'success');
+    addToast(t('registrar.review.approved', 'Application approved and candidate matriculated.'), 'success');
     fetchData();
   };
 
   const handleReject = async () => {
     if (!rejectTarget || !rejectReason.trim()) return;
     await applicationService.rejectApplication(rejectTarget, { reason: rejectReason });
-    addToast(t('registrar.review.rejected'), 'success');
+    addToast(t('registrar.review.rejected', 'Correction notice sent to applicant.'), 'success');
     setRejectOpen(false);
     setRejectReason('');
     fetchData();
@@ -56,29 +56,92 @@ export default function ReviewQueue() {
 
   const handleBulkApprove = async () => {
     await applicationService.bulkApprove(selectedIds);
-    addToast(`${selectedIds.length} applications approved`, 'success');
+    addToast(`${selectedIds.length} applications approved in batch.`, 'success');
     setSelectedIds([]);
     setBulkConfirmOpen(false);
     fetchData();
   };
 
   const columns: Column<Application>[] = [
-    { key: 'name', header: 'Name', render: (a) => `${a.personalInfo.firstName} ${a.personalInfo.lastName}` },
-    { key: 'campus', header: 'Campus', render: (a) => a.programInfo.campusId },
-    { key: 'program', header: 'Program', render: (a) => programs.find((p: { id: string }) => p.id === a.programInfo.programId)?.name || a.programInfo.programId },
-    { key: 'type', header: 'Type', render: (a) => a.programInfo.admissionType },
-    { key: 'status', header: 'Status', render: (a) => <StatusBadge status={a.status} /> },
-    { key: 'date', header: 'Date', render: (a) => new Date(a.createdAt).toLocaleDateString(), sortable: true },
     {
-      key: 'actions', header: 'Actions', render: (a) => (
-        <div className="flex gap-1">
+      key: 'name',
+      header: 'Applicant Legal Name',
+      render: (a) => (
+        <div>
+          <span className="font-bold text-[#00486E] block">{a.personalInfo.firstName} {a.personalInfo.lastName}</span>
+          <span className="text-[10px] text-gray-400 font-mono">ID: {a.id}</span>
+        </div>
+      ),
+    },
+    {
+      key: 'campus',
+      header: 'Campus Choice',
+      render: (a) => (
+        <span className="capitalize font-semibold text-gray-700">
+          {a.programInfo.campusId === 'main' ? 'Nekemte Main' : a.programInfo.campusId}
+        </span>
+      ),
+    },
+    {
+      key: 'program',
+      header: 'Degree Program',
+      render: (a) => (
+        <span className="text-xs font-medium text-[#0073AA]">
+          {programs.find((p: { id: string }) => p.id === a.programInfo.programId)?.name || a.programInfo.programId}
+        </span>
+      ),
+    },
+    {
+      key: 'type',
+      header: 'Study Modality',
+      render: (a) => (
+        <span className="capitalize text-xs font-bold text-gray-600">
+          {a.programInfo.admissionType}
+        </span>
+      ),
+    },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (a) => <StatusBadge status={a.status} />,
+    },
+    {
+      key: 'date',
+      header: 'Submitted Date',
+      render: (a) => (
+        <span className="text-xs font-mono text-gray-500">
+          {new Date(a.createdAt).toLocaleDateString()}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
+      key: 'actions',
+      header: 'Actions',
+      render: (a) => (
+        <div className="flex items-center gap-1.5">
           {a.status === 'submitted' && (
             <>
-              <Button size="sm" onClick={() => handleApprove(a.id)}>Approve</Button>
-              <Button size="sm" variant="destructive" onClick={() => { setRejectTarget(a.id); setRejectOpen(true); }}>Reject</Button>
+              <button
+                onClick={() => handleApprove(a.id)}
+                className="bg-[#0073AA] hover:bg-[#005C8A] text-white text-[11px] font-bold px-2.5 py-1 rounded transition-colors shadow-2xs"
+              >
+                Approve
+              </button>
+              <button
+                onClick={() => { setRejectTarget(a.id); setRejectOpen(true); }}
+                className="bg-[#D9251D] hover:bg-[#B71C1C] text-white text-[11px] font-bold px-2.5 py-1 rounded transition-colors shadow-2xs"
+              >
+                Notice
+              </button>
             </>
           )}
-          <Button size="sm" variant="ghost" onClick={() => navigate(`/registrar/queue/${a.id}`)}>View</Button>
+          <button
+            onClick={() => navigate(`/registrar/queue/${a.id}`)}
+            className="border border-gray-300 hover:border-gray-400 text-gray-700 text-[11px] font-semibold px-2 py-1 rounded transition-colors"
+          >
+            Inspect
+          </button>
         </div>
       ),
     },
@@ -86,25 +149,62 @@ export default function ReviewQueue() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="font-heading text-2xl font-bold text-wu-ink">{t('registrar.queue.title')}</h1>
-        {selectedIds.length > 0 && (
-          <Button variant="secondary" onClick={() => setBulkConfirmOpen(true)}>
-            {t('registrar.queue.bulkApprove')} ({selectedIds.length})
-          </Button>
-        )}
-      </div>
+      {/* ─── Hero ─── */}
+      <DashboardHero
+        badge="FRESHMEN CREDENTIALS AUDIT"
+        title={t('registrar.queue.title', 'Freshmen Application Verification Queue')}
+        description="Review Grade 12 educational assessment records, verify passport photographs, issue formal approvals, or send correction notices to candidates."
+        stats={[
+          { label: 'Total in Queue', value: total, highlight: true },
+          { label: 'Batch Selected', value: selectedIds.length },
+          { label: 'Page', value: page },
+        ]}
+        actions={
+          selectedIds.length > 0 ? (
+            <button
+              onClick={() => setBulkConfirmOpen(true)}
+              className="bg-[#10B981] hover:bg-[#059669] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow transition-all flex items-center gap-1.5"
+            >
+              <span>Batch Approve Selected ({selectedIds.length})</span>
+              <span>✓</span>
+            </button>
+          ) : undefined
+        }
+      />
 
       <Card>
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4">
-          <Select label="Campus" value={filters.campusId || ''} onChange={(e) => { setFilters({ ...filters, campusId: e.target.value as any || undefined }); setPage(1); }}
-            options={[{ value: '', label: 'All' }, { value: 'main', label: 'Main' }, { value: 'shambu', label: 'Shambu' }, { value: 'gimbi', label: 'Gimbi' }]} />
-          <Select label="Status" value={filters.status || ''} onChange={(e) => { setFilters({ ...filters, status: e.target.value as any || undefined }); setPage(1); }}
-            options={[{ value: '', label: 'All' }, { value: 'submitted', label: 'Submitted' }, { value: 'under_review', label: 'Under Review' }, { value: 'approved', label: 'Approved' }, { value: 'rejected', label: 'Rejected' }]} />
-          <Select label="Admission" value={filters.admissionType || ''} onChange={(e) => { setFilters({ ...filters, admissionType: e.target.value as any || undefined }); setPage(1); }}
-            options={[{ value: '', label: 'All' }, { value: 'regular', label: 'Regular' }, { value: 'weekend', label: 'Weekend' }, { value: 'night', label: 'Night' }]} />
-          <Input label="Search" placeholder="Search by name or ID..." value={filters.search || ''} onChange={(e) => { setFilters({ ...filters, search: e.target.value }); setPage(1); }} />
+        <div className="p-4 bg-[#FAFBFD] rounded-sm border border-gray-200 mb-6">
+          <span className="text-xs font-bold text-[#00486E] uppercase tracking-wider block mb-3">
+            QUEUE SEARCH & MULTI-CAMPUS FILTERS
+          </span>
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <Select
+              label="Filter Campus"
+              value={filters.campusId || ''}
+              onChange={(e) => { setFilters({ ...filters, campusId: (e.target.value as any) || undefined }); setPage(1); }}
+              options={[{ value: '', label: 'All Campuses (3)' }, { value: 'main', label: 'Nekemte Main' }, { value: 'shambu', label: 'Shambu' }, { value: 'gimbi', label: 'Gimbi' }]}
+            />
+            <Select
+              label="Review Status"
+              value={filters.status || ''}
+              onChange={(e) => { setFilters({ ...filters, status: (e.target.value as any) || undefined }); setPage(1); }}
+              options={[{ value: '', label: 'All Statuses' }, { value: 'submitted', label: 'Submitted' }, { value: 'under_review', label: 'Under Review' }, { value: 'approved', label: 'Approved' }, { value: 'rejected', label: 'Notice Issued' }]}
+            />
+            <Select
+              label="Study Modality"
+              value={filters.admissionType || ''}
+              onChange={(e) => { setFilters({ ...filters, admissionType: (e.target.value as any) || undefined }); setPage(1); }}
+              options={[{ value: '', label: 'All Streams' }, { value: 'regular', label: 'Regular Undergrad' }, { value: 'weekend', label: 'Weekend' }, { value: 'night', label: 'Night' }]}
+            />
+            <Input
+              label="Search Candidate"
+              placeholder="Name or ID reference..."
+              value={filters.search || ''}
+              onChange={(e) => { setFilters({ ...filters, search: e.target.value }); setPage(1); }}
+            />
+          </div>
         </div>
+
         <DataTable
           columns={columns}
           data={applications as any[]}
@@ -127,7 +227,7 @@ export default function ReviewQueue() {
         reason={rejectReason}
         onReasonChange={setRejectReason}
         onConfirm={handleReject}
-        title={t('registrar.review.reject')}
+        title={t('registrar.review.reject', 'Issue Application Correction Notice')}
       />
 
       {/* Bulk Approve Confirm */}
@@ -135,9 +235,9 @@ export default function ReviewQueue() {
         open={bulkConfirmOpen}
         onClose={() => setBulkConfirmOpen(false)}
         onConfirm={handleBulkApprove}
-        title={t('registrar.queue.bulkApprove')}
+        title={t('registrar.queue.bulkApprove', 'Bulk Matriculation Endorsement')}
         message={t('registrar.queue.bulkApproveConfirm', { count: selectedIds.length })}
-        confirmLabel="Approve All"
+        confirmLabel="Approve All Selected"
         variant="primary"
       />
     </div>

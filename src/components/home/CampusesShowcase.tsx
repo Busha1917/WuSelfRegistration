@@ -23,7 +23,7 @@ const campuses = [
   {
     name: 'Gimbi Campus',
     established: 'ESTABLISHED 2014',
-    desc: 'Dynamic educational center specializing in Education, Behavioral Sciences, Mineral Resources, and Continuing Education in West Wollega.',
+    desc: 'Dynamic educational center specializing in Education, Behavioral Sciences, Mineral Resources, and Continuing Education in West Wallaga.',
     image: '/image4.jpg',
     programs: '20+ Programs',
     students: '4,500+ Students',

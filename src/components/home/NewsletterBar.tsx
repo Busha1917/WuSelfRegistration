@@ -8,7 +8,7 @@ export default function NewsletterBar() {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    addToast('Thank you for subscribing to Wollega University admission circulars!', 'success');
+    addToast('Thank you for subscribing to Wallaga University admission circulars!', 'success');
     setEmail('');
   };
 

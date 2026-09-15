@@ -10,7 +10,7 @@ export default function HeroBanner() {
     {
       image: '/image1.jpg',
       tag: t('portal.hero.slide1Tag', 'OFFICIAL ADMISSIONS 2026/2027'),
-      headline: t('portal.hero.slide1Title', 'Welcome to Wollega University Self-Registration Portal'),
+      headline: t('portal.hero.slide1Title', 'Welcome to Wallaga University Self-Registration Portal'),
       subtext: t(
         'portal.hero.slide1Sub',
         'Seamless digital self-service for freshmen admissions, class section placement, digital student ID card issuance, and academic verification across all 3 campuses.'
@@ -59,7 +59,7 @@ export default function HeroBanner() {
           <img
             key={slide.image}
             src={slide.image}
-            alt="Wollega University Campus"
+            alt="Wallaga University Campus"
             className="w-full h-full object-cover object-center transition-all duration-1000 transform scale-105"
             style={{
               clipPath: 'polygon(0 0, 100% 0, 88% 100%, 0 100%)',
@@ -114,9 +114,8 @@ export default function HeroBanner() {
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    currentSlide === idx ? 'w-8 bg-[#D9251D]' : 'w-2 bg-white/40 hover:bg-white/70'
-                  }`}
+                  className={`h-2 rounded-full transition-all ${currentSlide === idx ? 'w-8 bg-[#D9251D]' : 'w-2 bg-white/40 hover:bg-white/70'
+                    }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}

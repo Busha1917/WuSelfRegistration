@@ -41,7 +41,7 @@ export default function AuthBrandPanel({
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80"
-          alt="Wollega University Campus"
+          alt="Wallaga University Campus"
           className="w-full h-full object-cover object-center opacity-20"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#002B40] via-[#00486E]/95 to-[#00486E]/90" />
@@ -63,12 +63,12 @@ export default function AuthBrandPanel({
 
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/30 shadow-lg bg-white p-0.5 shrink-0">
-            <img src="/logo1.png" alt="Wollega University" className="w-full h-full object-cover" />
+            <img src="/logo1.png" alt="Wallaga University" className="w-full h-full object-cover" />
           </div>
           <div>
             <div className="text-sm font-semibold text-[#66C2FF] font-heading">ወለጋ ዩኒቨርሲቲ</div>
             <div className="text-2xl font-extrabold text-[#D9251D] tracking-tight font-heading leading-tight bg-white px-2 py-0.5 rounded-sm inline-block">
-              WOLLEGA UNIVERSITY
+              Wallaga UNIVERSITY
             </div>
             <div className="text-xs text-gray-300 font-medium tracking-wide mt-1">
               {t('portal.brand.subtitle', 'Student Self-Registration Portal (WU-SSRS)')}

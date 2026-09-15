@@ -154,7 +154,7 @@ export default function LookupPage() {
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
                     <div className="flex items-center gap-3.5">
                       <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#00486E] bg-white p-0.5 shadow-sm shrink-0">
-                        <img src="/logo1.png" alt="Wollega University" className="w-full h-full object-cover" />
+                        <img src="/logo1.png" alt="Wallaga University" className="w-full h-full object-cover" />
                       </div>
                       <div>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-[#D9251D]">

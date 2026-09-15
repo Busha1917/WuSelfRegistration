@@ -50,7 +50,7 @@ export default function NewsSection() {
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12">
         <SectionHeader
           category={t('portal.news.category', 'NEWS & ANNOUNCEMENTS')}
-          title={t('portal.news.title', "What's New at Wollega University")}
+          title={t('portal.news.title', "What's New at Wallaga University")}
           action={
             <Link
               to="/faq"

@@ -27,7 +27,7 @@ export default function PublicHeader() {
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#00486E] shadow-sm bg-white flex items-center justify-center p-0.5">
                 <img
                   src="/logo1.png"
-                  alt="Wollega University"
+                  alt="Wallaga University"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
               </div>
@@ -36,7 +36,7 @@ export default function PublicHeader() {
                   ወለጋ ዩኒቨርሲቲ
                 </span>
                 <span className="text-base sm:text-lg font-extrabold text-[#D9251D] tracking-tight leading-none">
-                  WOLLEGA UNIVERSITY
+                  Wallaga UNIVERSITY
                 </span>
                 <span className="text-[10px] tracking-widest uppercase font-semibold text-[#555555] mt-0.5">
                   {t('portal.brand.subtitle', 'Student Self-Registration Portal')}
@@ -54,11 +54,10 @@ export default function PublicHeader() {
                   <Link
                     key={item.to}
                     to={item.to}
-                    className={`px-3 py-2 text-sm font-medium transition-colors relative ${
-                      isActive
+                    className={`px-3 py-2 text-sm font-medium transition-colors relative ${isActive
                         ? 'text-[#0073AA] font-bold'
                         : 'text-[#333333] hover:text-[#0073AA]'
-                    }`}
+                      }`}
                   >
                     {item.label}
                     {isActive && (

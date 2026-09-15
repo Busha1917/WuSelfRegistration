@@ -8,7 +8,7 @@ export default function CampusLifeBanner() {
     <section className="relative min-h-[440px] flex items-center bg-gray-900 overflow-hidden">
       <img
         src="/image2.jpg"
-        alt="Wollega University Campus Life"
+        alt="Wallaga University Campus Life"
         className="absolute inset-0 w-full h-full object-cover object-center opacity-60"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
@@ -24,7 +24,7 @@ export default function CampusLifeBanner() {
           <p className="text-xs sm:text-sm text-gray-700 leading-relaxed mb-6">
             {t(
               'portal.campusLife.desc',
-              'From modern university dormitories and dining halls to high-speed digital research libraries and student sports clubs, Wollega University provides a complete ecosystem for intellectual and personal growth.'
+              'From modern university dormitories and dining halls to high-speed digital research libraries and student sports clubs, Wallaga University provides a complete ecosystem for intellectual and personal growth.'
             )}
           </p>
           <div className="flex flex-wrap items-center gap-3">

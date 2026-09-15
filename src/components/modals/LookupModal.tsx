@@ -95,7 +95,7 @@ export default function LookupModal({ open, onClose }: LookupModalProps) {
         )}
 
         <div className="pt-2 flex items-center justify-between text-xs text-gray-400 border-t border-gray-100">
-          <span>Official Wollega University Verification Records</span>
+          <span>Official Wallaga University Verification Records</span>
           <button type="button" onClick={handleClose} className="hover:text-gray-600 font-medium">
             Close
           </button>

@@ -314,11 +314,10 @@ export default function CalendarPage() {
               <button
                 key={tab.id}
                 onClick={() => setFilter(tab.id)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
-                  filter === tab.id
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${filter === tab.id
                     ? 'bg-[#0073AA] text-white shadow-sm'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>
@@ -397,7 +396,7 @@ export default function CalendarPage() {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              alert(t('portal.calendarPage.downloadAlert', 'Wollega University Academic Calendar 2026/2027 PDF downloaded.'));
+              alert(t('portal.calendarPage.downloadAlert', 'Wallaga University Academic Calendar 2026/2027 PDF downloaded.'));
             }}
             className="bg-[#0073AA] hover:bg-[#005C8A] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded shadow transition-all shrink-0 flex items-center gap-2"
           >

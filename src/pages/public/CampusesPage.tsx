@@ -29,7 +29,7 @@ const campusDetails: CampusData[] = [
     nameEn: 'Nekemte Main Campus',
     nameAm: 'ነቀምቴ ዋናው ግቢ',
     nameOm: 'Citaawaa Naqamtee',
-    locationEn: 'Nekemte City, East Wollega, Oromia (310 km west of Addis Ababa)',
+    locationEn: 'Nekemte City, East Wallaga, Oromia (310 km west of Addis Ababa)',
     locationAm: 'ነቀምቴ ከተማ፣ ምሥራቅ ወለጋ፣ ኦሮሚያ (ከአዲስ አበባ 310 ኪ.ሜ በስተምዕራብ)',
     locationOm: 'Magaalaa Naqamtee, Dhiha Wallaggaa, Oromiyaa (Finfinneerraa km 310)',
     establishedEn: 'Established 2007',
@@ -37,7 +37,7 @@ const campusDetails: CampusData[] = [
     establishedOm: 'Bara 2007 Hundeeffame',
     coverImage: '/image1.jpg',
     descEn:
-      'The administrative headquarters and largest academic center of Wollega University. Housing major schools of Technology, Health Sciences, Business, Natural Sciences, and Law with extensive modern research laboratories.',
+      'The administrative headquarters and largest academic center of Wallaga University. Housing major schools of Technology, Health Sciences, Business, Natural Sciences, and Law with extensive modern research laboratories.',
     descAm:
       'የወለጋ ዩኒቨርሲቲ ዋና መቀመጫ እና ትልቁ የትምህርት ማዕከል። የቴክኖሎጂ፣ የጤና ሳይንስ፣ የቢዝነስ፣ የተፈጥሮ ሳይንስ እና የህግ ትምህርት ቤቶችን ከዘመናዊ የምርምር ላቦራቶሪዎች ጋር ያካትታል።',
     descOm:
@@ -51,7 +51,7 @@ const campusDetails: CampusData[] = [
       'School of Law & Governance',
     ],
     facilities: [
-      'Wollega University Comprehensive Referral Hospital',
+      'Wallaga University Comprehensive Referral Hospital',
       'Central Digital Library & Innovation Hub',
       'University Stadium & Olympic Swimming Complex',
       'High-Performance Data Center with Dedicated Fiber',
@@ -64,7 +64,7 @@ const campusDetails: CampusData[] = [
     nameEn: 'Shambu Campus',
     nameAm: 'ሻምቡ ግቢ',
     nameOm: 'Citaawaa Shaambuu',
-    locationEn: 'Shambu Town, Horro Guduru Wollega, Oromia (Near Finchaa)',
+    locationEn: 'Shambu Town, Horro Guduru Wallaga, Oromia (Near Finchaa)',
     locationAm: 'ሻምቡ ከተማ፣ ሆሮ ጉዱሩ ወለጋ፣ ኦሮሚያ (ፊንጫ አቅራቢያ)',
     locationOm: 'Magaalaa Shaambuu, Horroo Guduruu Wallaggaa, Oromiyaa',
     establishedEn: 'Established 2011',
@@ -98,7 +98,7 @@ const campusDetails: CampusData[] = [
     nameEn: 'Gimbi Campus',
     nameAm: 'ጊምቢ ግቢ',
     nameOm: 'Citaawaa Gimbii',
-    locationEn: 'Gimbi Town, West Wollega, Oromia (Along Ethio-Sudan Highway)',
+    locationEn: 'Gimbi Town, West Wallaga, Oromia (Along Ethio-Sudan Highway)',
     locationAm: 'ጊምቢ ከተማ፣ ምዕራብ ወለጋ፣ ኦሮሚያ (በኢትዮ-ሱዳን አውራ ጎዳና)',
     locationOm: 'Magaalaa Gimbii, Dhiha Wallaggaa, Oromiyaa (Daandii Itoophiyaa-Sudaan)',
     establishedEn: 'Established 2014',
@@ -177,7 +177,7 @@ export default function CampusesPage() {
         <div className="absolute inset-0 z-0">
           <img
             src="/image1.jpg"
-            alt="Wollega Campuses"
+            alt="Wallaga Campuses"
             className="w-full h-full object-cover object-center opacity-20"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#002B40] via-[#00486E]/95 to-[#00486E]/90" />
@@ -206,7 +206,7 @@ export default function CampusesPage() {
             {t('portal.campusesPage.title', 'Our Campuses & Learning Environments')}
           </h1>
           <p className="text-sm sm:text-base text-gray-200 mt-3 max-w-3xl mx-auto leading-relaxed">
-            {t('portal.campusesPage.desc', 'Wollega University operates three integrated campuses in Nekemte, Shambu, and Gimbi, each tailored to distinct regional development, agricultural research, and technological advancement needs.')}
+            {t('portal.campusesPage.desc', 'Wallaga University operates three integrated campuses in Nekemte, Shambu, and Gimbi, each tailored to distinct regional development, agricultural research, and technological advancement needs.')}
           </p>
 
           {/* Quick Metrics Bar */}
@@ -244,11 +244,10 @@ export default function CampusesPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
-                  activeTab === tab.id
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${activeTab === tab.id
                     ? 'bg-[#0073AA] text-white shadow-sm'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>
