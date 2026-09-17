@@ -89,6 +89,7 @@ export default function DashboardLayout() {
   const navigate = useNavigate();
   const { addToast } = useToast();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
@@ -159,44 +160,55 @@ export default function DashboardLayout() {
 
       {/* ─── AAU Dark Navy Sidebar ─── */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen w-72 bg-[#002B40] text-white z-40 flex flex-col justify-between transition-transform duration-300 shadow-2xl lg:shadow-none lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+        className={`fixed lg:sticky top-0 left-0 h-screen ${
+          sidebarCollapsed ? 'w-24' : 'w-72'
+        } bg-[#002B40] text-white z-40 flex flex-col justify-between transition-all duration-300 shadow-2xl lg:shadow-none ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        }`}
       >
-        {/* Top University Branding Lockup */}
+        {/* Top University Branding Lockup & Sidebar Toggle */}
         <div>
-          <div className="p-5 border-b border-white/10 bg-[#002436]">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-white/40 shadow bg-white p-0.5 shrink-0 group-hover:scale-105 transition-transform">
+          <div className="p-3.5 border-b border-white/10 bg-[#002436] flex items-center justify-between transition-all">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <Link to="/" className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/40 shadow bg-white p-0.5 shrink-0 hover:scale-105 transition-transform" title="Wallaga University Home">
                 <img src="/logo1.png" alt="Wallaga University" className="w-full h-full object-cover" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-[11px] font-semibold text-[#66C2FF] font-heading leading-tight">ወለጋ ዩኒቨርሲቲ</div>
-                <div className="text-sm font-extrabold text-[#D9251D] tracking-tight font-heading leading-tight bg-white px-1.5 py-0.5 rounded-xs inline-block mt-0.5">
-                  Wallaga UNIVERSITY
+              </Link>
+              {!sidebarCollapsed && (
+                <div className="min-w-0">
+                  <div className="text-sm font-extrabold text-[#D9251D] tracking-tight font-heading leading-tight bg-white px-1.5 py-0.5 rounded-xs inline-block truncate">
+                    Wallaga UNIVERSITY
+                  </div>
                 </div>
-                <div className="text-[10px] text-gray-300 font-mono tracking-wider mt-1 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
-                  <span>Nekemte • Shambu • Gimbi</span>
-                </div>
-              </div>
-            </Link>
-
-            {/* Current Active Role Badge */}
-            <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
-              <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider ${currentRoleInfo.color}`}>
-                {currentRoleInfo.badge}
-              </span>
-              <span className="text-[11px] text-gray-400 font-mono">
-                AY 2026/27
-              </span>
+              )}
             </div>
+
+            {/* Toggle Button on the right side of the logo */}
+            <button
+              type="button"
+              onClick={() => {
+                if (window.innerWidth < 1024) {
+                  setSidebarOpen(false);
+                } else {
+                  setSidebarCollapsed(!sidebarCollapsed);
+                }
+              }}
+              className="p-1.5 rounded-md bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition-all cursor-pointer shrink-0 ml-1.5"
+              title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              <svg
+                className={`w-5 h-5 transition-transform duration-200 ${sidebarCollapsed ? 'rotate-180' : ''}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
           </div>
 
           {/* Nav List */}
-          <nav className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-210px)]">
-            <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-gray-400">
-              {getPortalTitle()}
-            </div>
+          <nav className="p-2.5 space-y-1 overflow-y-auto max-h-[calc(100vh-140px)]">
             {menuItems.map((item) => {
               const isActive = location.pathname === item.path || (item.path !== `/${currentRole}/dashboard` && location.pathname.startsWith(item.path));
               return (
@@ -204,53 +216,42 @@ export default function DashboardLayout() {
                   key={item.path}
                   to={item.path}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-sm text-xs sm:text-sm font-medium transition-all ${isActive
+                  title={t(item.labelKey, item.labelKey.split('.').pop() || '')}
+                  className={`flex items-center ${
+                    sidebarCollapsed ? 'justify-center px-2 py-2.5' : 'justify-between px-3.5 py-2.5'
+                  } rounded-sm text-xs sm:text-sm font-medium transition-all ${
+                    isActive
                       ? 'bg-[#0073AA] text-white font-bold shadow-sm'
                       : 'text-gray-300 hover:bg-white/10 hover:text-white'
-                    }`}
+                  }`}
                 >
-                  <div className="flex items-center gap-3 truncate">
+                  <div className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-3'} truncate`}>
                     <span className="text-base shrink-0">{item.icon}</span>
-                    <span className="truncate">{t(item.labelKey, item.labelKey.split('.').pop() || '')}</span>
+                    {!sidebarCollapsed && (
+                      <span className="truncate">{t(item.labelKey, item.labelKey.split('.').pop() || '')}</span>
+                    )}
                   </div>
-                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />}
+                  {!sidebarCollapsed && isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />}
                 </Link>
               );
             })}
           </nav>
         </div>
 
-        {/* Bottom Profile & Sign Out Footer */}
-        <div className="p-4 border-t border-white/10 bg-[#002436]">
-          <div className="flex items-center justify-between gap-3 mb-3">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-[#0073AA] border border-white/30 text-white font-bold text-sm flex items-center justify-center shrink-0 shadow-sm">
-                {user?.fullName?.charAt(0) || 'U'}
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-bold text-white truncate">{user?.fullName}</div>
-                <div className="text-[10px] text-gray-400 truncate">{user?.email}</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10">
-            <Link
-              to="/"
-              className="px-2 py-1.5 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white rounded text-[11px] font-semibold text-center transition-colors flex items-center justify-center gap-1"
-            >
-              <span>🏠</span>
-              <span>{t('nav.home', 'Home')}</span>
-            </Link>
+        {/* Sidebar Footer: Sign Out Only (Hidden when sidebar is collapsed) */}
+        {!sidebarCollapsed && (
+          <div className="p-3 border-t border-white/10 bg-[#002436]">
             <button
+              type="button"
               onClick={() => setShowLogoutConfirm(true)}
-              className="px-2 py-1.5 bg-[#D9251D]/80 hover:bg-[#D9251D] text-white rounded text-[11px] font-bold text-center transition-colors flex items-center justify-center gap-1 cursor-pointer"
+              title={t('auth.signOut', 'Sign Out')}
+              className="w-full px-3 py-2.5 gap-2 bg-[#D9251D]/80 hover:bg-[#D9251D] text-white rounded text-xs font-bold text-center transition-colors flex items-center justify-center cursor-pointer shadow-xs"
             >
-              <span>🚪</span>
+              <span className="text-base shrink-0">🚪</span>
               <span>{t('auth.signOut', 'Sign Out')}</span>
             </button>
           </div>
-        </div>
+        )}
       </aside>
 
       {/* ─── Main Content Canvas ─── */}
@@ -260,9 +261,17 @@ export default function DashboardLayout() {
           <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden p-2 rounded text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                type="button"
+                onClick={() => {
+                  if (window.innerWidth < 1024) {
+                    setSidebarOpen(!sidebarOpen);
+                  } else {
+                    setSidebarCollapsed(!sidebarCollapsed);
+                  }
+                }}
+                className="p-2 rounded text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
                 aria-label="Toggle Navigation Menu"
+                title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
