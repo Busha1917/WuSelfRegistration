@@ -28,6 +28,7 @@
     "assist": "Gargaarsa Arabbii",
     "semesterStats": "Ispaatistiksii Wareegamti",
     "logout": "Ba'i",
+    "settings": "Qindaa'ina",
     "notifications": "Beeksiinsa"
   },
   "public": {
@@ -125,7 +126,12 @@
     "forceChange": {
       "title": "Jechi Darbee Keetii Haqadhu",
       "description": "Safuu kanaaf, jechi darbee yeroo keetii dura haqadhu."
-    }
+    },
+    "signOut": "Ba'i",
+    "signOutConfirmTitle": "Mirkaneeffannaa Ba'uu",
+    "signOutConfirmMessage": "Dhuguma akkaawuntii keessan keessaa ba'uu barbaadduu?",
+    "signedOut": "Milkaa'inaan baatanittu.",
+    "signedInAs": "Akka fayyadamaatti seentaniittu"
   },
   "student": {
     "dashboard": {

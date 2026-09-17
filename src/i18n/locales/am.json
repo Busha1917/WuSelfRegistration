@@ -28,6 +28,7 @@
     "assist": "የተማሪ እርዳታ",
     "semesterStats": "የሰምስትር ስታቲስቲክስ",
     "logout": "ውጣ",
+    "settings": "ቅንብሮች",
     "notifications": "ማንቂያዎች"
   },
   "public": {
@@ -125,7 +126,12 @@
     "forceChange": {
       "title": "የይለፍ ቃልዎን ያድርጉ",
       "description": "ለደህንነት፣ ከመቀጠል በፊት ቆንጆ የይለፍ ቃልዎን ይ 바꾸ዎ።"
-    }
+    },
+    "signOut": "ውጣ",
+    "signOutConfirmTitle": "የመውጣት ማረጋገጫ",
+    "signOutConfirmMessage": "እርግጠኛ ነዎት ከመለያዎ መውጣት ይፈልጋሉ?",
+    "signedOut": "በተሳካ ሁኔታ ወጥተዋል።",
+    "signedInAs": "እንደ ተጠቃሚ ገብተዋል"
   },
   "student": {
     "dashboard": {

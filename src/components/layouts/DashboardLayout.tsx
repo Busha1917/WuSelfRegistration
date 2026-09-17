@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
+import ConfirmDialog from '@/components/shared/ConfirmDialog';
+import { useToast } from '@/components/ui/Toast';
+import DashboardFooter from '@/components/layouts/DashboardFooter';
 
 const roleMenus: Record<string, { labelKey: string; path: string; icon: string }[]> = {
   student: [
@@ -84,14 +87,55 @@ export default function DashboardLayout() {
   const { user, logout } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
+  const { addToast } = useToast();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
+        setProfileMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setProfileMenuOpen(false);
+      }
+    };
+    if (profileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [profileMenuOpen]);
 
   const currentRole = user?.role || 'student';
   const menuItems = roleMenus[currentRole] || roleMenus.student;
   const currentRoleInfo = roleInfo[currentRole] || roleInfo.student;
 
+  const getProfilePath = () => {
+    if (currentRole === 'student') return '/student/profile';
+    if (currentRole === 'admin') return '/admin/users';
+    if (currentRole === 'registrar') return '/registrar/dashboard';
+    if (currentRole === 'management') return '/management/dashboard';
+    if (currentRole === 'council') return '/council/assist';
+    return '/student/dashboard';
+  };
+
+  const getSettingsPath = () => {
+    if (currentRole === 'student') return '/student/profile';
+    if (currentRole === 'admin') return '/admin/config';
+    return getProfilePath();
+  };
+
   const handleLogout = () => {
     logout();
+    addToast(t('auth.signedOut', 'You have been signed out successfully.'), 'info');
     navigate('/login');
   };
 
@@ -101,11 +145,7 @@ export default function DashboardLayout() {
     return currentRoleInfo.portalNameEn;
   };
 
-  const getWelcomeGreeting = () => {
-    if (i18n.language === 'am') return 'እንኳን ደህና መጡ';
-    if (i18n.language === 'om') return 'Baga nagaan dhuftan';
-    return 'Welcome';
-  };
+
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] text-[#1A1A1A] flex font-sans">
@@ -203,11 +243,11 @@ export default function DashboardLayout() {
               <span>{t('nav.home', 'Home')}</span>
             </Link>
             <button
-              onClick={handleLogout}
-              className="px-2 py-1.5 bg-[#D9251D]/80 hover:bg-[#D9251D] text-white rounded text-[11px] font-bold text-center transition-colors flex items-center justify-center gap-1"
+              onClick={() => setShowLogoutConfirm(true)}
+              className="px-2 py-1.5 bg-[#D9251D]/80 hover:bg-[#D9251D] text-white rounded text-[11px] font-bold text-center transition-colors flex items-center justify-center gap-1 cursor-pointer"
             >
               <span>🚪</span>
-              <span>{t('nav.logout', 'Sign Out')}</span>
+              <span>{t('auth.signOut', 'Sign Out')}</span>
             </button>
           </div>
         </div>
@@ -240,22 +280,119 @@ export default function DashboardLayout() {
             </div>
 
             <div className="flex items-center gap-3 sm:gap-4">
-              <div className="hidden md:flex items-center gap-2 text-xs text-gray-500 bg-[#F4F6F8] px-3 py-1.5 rounded-full border border-gray-200">
-                <span className="text-gray-400">{getWelcomeGreeting()},</span>
-                <span className="font-bold text-[#00486E]">{user?.fullName?.split(' ')[0]}</span>
-              </div>
-
               {/* Language Switcher */}
               <LanguageSwitcher />
 
-              {/* Home link */}
-              <Link
-                to="/"
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-[#0073AA] hover:text-[#00486E] hover:underline"
-              >
-                <span>Portal Landing</span>
-                <span>↗</span>
-              </Link>
+              {/* Profile Icon Dropdown Menu */}
+              <div className="relative" ref={profileMenuRef}>
+                <button
+                  type="button"
+                  onClick={() => setProfileMenuOpen((prev) => !prev)}
+                  className="flex items-center gap-2 p-1 sm:px-2.5 sm:py-1 rounded-full hover:bg-gray-100 border border-gray-200 hover:border-gray-300 transition-all cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-[#0073AA]/20 bg-white shadow-2xs"
+                  aria-expanded={profileMenuOpen}
+                  aria-haspopup="true"
+                  aria-label="User Profile & Settings Menu"
+                >
+                  <div className="relative">
+                    <div className="w-8 h-8 rounded-full bg-[#00486E] text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                      {user?.fullName?.charAt(0)?.toUpperCase() || '👤'}
+                    </div>
+                    <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#10B981] border-2 border-white rounded-full" title="Active" />
+                  </div>
+
+                  <span className="hidden sm:inline-block text-xs font-bold text-[#00486E] max-w-[110px] truncate">
+                    {user?.fullName?.split(' ')[0] || 'User'}
+                  </span>
+
+                  <svg
+                    className={`w-3.5 h-3.5 text-gray-500 transition-transform duration-200 ${profileMenuOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu */}
+                {profileMenuOpen && (
+                  <div
+                    className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 py-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                    role="menu"
+                    aria-orientation="vertical"
+                  >
+                    {/* User Identity Header */}
+                    <div className="px-4 py-2.5 border-b border-gray-100 bg-[#F8F9FA] rounded-t-xl">
+                      <p className="text-[11px] text-gray-500 font-medium">
+                        {t('auth.signedInAs', 'Signed in as')}
+                      </p>
+                      <p className="text-xs font-bold text-[#002B40] truncate mt-0.5">
+                        {user?.fullName || 'User'}
+                      </p>
+                      <div className="flex items-center justify-between gap-2 mt-1">
+                        <span className="text-[10px] text-gray-500 truncate font-mono">
+                          {user?.email}
+                        </span>
+                        <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#0073AA]/10 text-[#0073AA] shrink-0">
+                          {currentRoleInfo.badge}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className="py-1">
+                      {/* Profile */}
+                      <Link
+                        to={getProfilePath()}
+                        onClick={() => setProfileMenuOpen(false)}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-[#F4F6F8] hover:text-[#00486E] transition-colors"
+                        role="menuitem"
+                      >
+                        <span className="text-base shrink-0">👤</span>
+                        <div className="flex-1 min-w-0">
+                          <span className="font-bold block">{t('nav.profile', 'Profile')}</span>
+                          <span className="block text-[10px] text-gray-400">View personal details & record</span>
+                        </div>
+                      </Link>
+
+                      {/* Setting */}
+                      <Link
+                        to={getSettingsPath()}
+                        onClick={() => setProfileMenuOpen(false)}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-[#F4F6F8] hover:text-[#00486E] transition-colors"
+                        role="menuitem"
+                      >
+                        <span className="text-base shrink-0">⚙️</span>
+                        <div className="flex-1 min-w-0">
+                          <span className="font-bold block">{t('nav.settings', 'Setting')}</span>
+                          <span className="block text-[10px] text-gray-400">Security & credentials</span>
+                        </div>
+                      </Link>
+                    </div>
+
+                    <div className="border-t border-gray-100 my-1" />
+
+                    {/* Logout */}
+                    <div className="py-0.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setProfileMenuOpen(false);
+                          setShowLogoutConfirm(true);
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-xs font-bold text-[#D9251D] hover:bg-red-50 transition-colors text-left cursor-pointer"
+                        role="menuitem"
+                      >
+                        <span className="text-base shrink-0">🚪</span>
+                        <div className="flex-1 min-w-0">
+                          <span className="font-bold block">{t('nav.logout', 'Logout')}</span>
+                          <span className="block text-[10px] text-red-400 font-normal">Sign out of your session</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </header>
@@ -264,7 +401,24 @@ export default function DashboardLayout() {
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[90rem] w-full mx-auto">
           <Outlet />
         </main>
+
+        {/* Wollega University Patent Footer */}
+        <DashboardFooter />
       </div>
+
+      {/* Sign Out Confirmation Modal */}
+      <ConfirmDialog
+        open={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        onConfirm={() => {
+          setShowLogoutConfirm(false);
+          handleLogout();
+        }}
+        title={t('auth.signOutConfirmTitle', 'Sign Out Confirmation')}
+        message={t('auth.signOutConfirmMessage', 'Are you sure you want to sign out of your account?')}
+        confirmLabel={t('auth.signOut', 'Sign Out')}
+        variant="destructive"
+      />
     </div>
   );
 }
