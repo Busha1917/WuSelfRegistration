@@ -107,11 +107,56 @@ export interface ProgramInfo {
   secondChoice?: string;
 }
 
+export interface ParentsInfo {
+  fatherFirstName: string;
+  fatherMiddleName: string;
+  fatherLastName: string;
+  fatherFirstNameAm?: string;
+  fatherMiddleNameAm?: string;
+  fatherLastNameAm?: string;
+  fatherPhone: string;
+  fatherOccupation: string;
+  fatherEmployer?: string;
+  motherFirstName: string;
+  motherMiddleName: string;
+  motherLastName: string;
+  motherFirstNameAm?: string;
+  motherMiddleNameAm?: string;
+  motherLastNameAm?: string;
+  motherPhone: string;
+  motherOccupation: string;
+  motherEmployer?: string;
+}
+
+export interface GuardianInfo {
+  guardianFirstName: string;
+  guardianMiddleName: string;
+  guardianLastName: string;
+  guardianFirstNameAm?: string;
+  guardianMiddleNameAm?: string;
+  guardianLastNameAm?: string;
+  relationship: string;
+  phone: string;
+  emergencyPhone?: string;
+  email?: string;
+  occupation?: string;
+  employer?: string;
+  incomeRange?: string;
+  region?: string;
+  zone?: string;
+  woreda?: string;
+  kebele?: string;
+  houseNo?: string;
+  contactPreference?: string;
+}
+
 export interface Application {
   id: string;
   studentId: string;
   status: ApplicationStatus;
   personalInfo: PersonalInfo;
+  parentsInfo?: ParentsInfo;
+  guardianInfo?: GuardianInfo;
   academicBackground: AcademicBackground;
   programInfo: ProgramInfo;
   documents: ApplicationDocument[];

@@ -2,20 +2,21 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
-import { applicationService, publicService } from '@/mocks/services';
+import { applicationService } from '@/mocks/services';
 import { useToast } from '@/components/ui/Toast';
-import type { Application, Campus, Program, AdmissionType, CampusId } from '@/types';
+import type { Application, AdmissionType, CampusId } from '@/types';
 import DashboardHero from '@/components/shared/DashboardHero';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import { Check, Eye } from 'lucide-react';
 
 const steps = [
-  { id: 0, label: 'Personal Information', sub: 'Bio-data & Residency' },
-  { id: 1, label: 'Academic Qualifications', sub: 'EHEEE & Grade 12 Scores' },
-  { id: 2, label: 'Campus & Program', sub: 'Department & Shift Selection' },
-  { id: 3, label: 'Verification Documents', sub: 'Transcripts & National ID' },
-  { id: 4, label: 'Review & Submit', sub: 'Final Dossier Verification' },
+  { id: 0, label: 'Personal Info', title: 'Personal Information', sub: 'Bio-data & Residency' },
+  { id: 1, label: 'Parents Info', title: 'Parents Information (Father & Mother Alone)', sub: 'Biological Parents Records' },
+  { id: 2, label: 'Legal Guardian', title: 'Legal Guardian Information (Guardian Alone)', sub: 'Designated Sponsor Alone' },
+  { id: 3, label: 'Academic Details', title: 'Academic Qualifications', sub: 'EHEEE & Grade 12 Scores' },
+  { id: 4, label: 'Documents', title: 'Verification Documents', sub: 'Transcripts & National ID' },
+  { id: 5, label: 'Review & Submit', title: 'Review & Submission', sub: 'Final Dossier Verification' },
 ];
 
 export default function ApplicationPage() {
@@ -27,8 +28,6 @@ export default function ApplicationPage() {
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [application, setApplication] = useState<Application | null>(null);
-  const [campuses, setCampuses] = useState<Campus[]>([]);
-  const [programs, setPrograms] = useState<Program[]>([]);
   const [agreed, setAgreed] = useState(false);
 
   const [personalInfo, setPersonalInfo] = useState({
@@ -50,6 +49,50 @@ export default function ApplicationPage() {
     kebele: 'Kebele 04',
     houseNo: 'House No. 245',
     address: 'Nekemte Town, Wallaga, Ethiopia',
+  });
+
+  const [parentsInfo, setParentsInfo] = useState({
+    fatherFirstName: 'Tolessa',
+    fatherMiddleName: 'Gemechu',
+    fatherLastName: 'Wodajo',
+    fatherFirstNameAm: 'ቶሌሳ',
+    fatherMiddleNameAm: 'ገመቹ',
+    fatherLastNameAm: 'ወዳጆ',
+    fatherPhone: '+251-917-889-900',
+    fatherOccupation: 'farmer',
+    fatherEmployer: 'Wallaga Agricultural Union',
+
+    motherFirstName: 'Chaltu',
+    motherMiddleName: 'Bekele',
+    motherLastName: 'Dinsa',
+    motherFirstNameAm: 'ጫልቱ',
+    motherMiddleNameAm: 'በቀለ',
+    motherLastNameAm: 'ዲንሳ',
+    motherPhone: '+251-912-334-455',
+    motherOccupation: 'merchant',
+    motherEmployer: 'Commercial Trade & Store Nekemte',
+  });
+
+  const [guardianInfo, setGuardianInfo] = useState({
+    guardianFirstName: 'Dabala',
+    guardianMiddleName: 'Tolessa',
+    guardianLastName: 'Gemechu',
+    guardianFirstNameAm: 'ደበላ',
+    guardianMiddleNameAm: 'ቶሌሳ',
+    guardianLastNameAm: 'ገመቹ',
+    relationship: 'brother',
+    phone: '+251-922-445-566',
+    emergencyPhone: '+251-911-554-433',
+    email: 'dabala.tolessa@gmail.com',
+    occupation: 'gov_employee',
+    employer: 'Oromia Education Bureau',
+    incomeRange: '7000_15000',
+    region: 'Oromia',
+    zone: 'East Wallaga',
+    woreda: 'Nekemte City',
+    kebele: 'Kebele 04',
+    houseNo: 'House No. 245',
+    contactPreference: 'call_anytime',
   });
 
   const [academic, setAcademic] = useState({
@@ -109,21 +152,19 @@ export default function ApplicationPage() {
   const [previewDoc, setPreviewDoc] = useState<{ file: File; name: string; size: string } | null>(null);
 
   useEffect(() => {
-    publicService.getCampuses().then(setCampuses);
-    publicService.getPrograms().then(setPrograms);
     if (user) {
       applicationService.getApplicationByStudentId(user.id).then((app) => {
         if (app) {
           setApplication(app);
           if (app.personalInfo) setPersonalInfo((prev) => ({ ...prev, ...(app.personalInfo as any) }));
+          if ((app as any).parentsInfo) setParentsInfo((prev) => ({ ...prev, ...((app as any).parentsInfo) }));
+          if ((app as any).guardianInfo) setGuardianInfo((prev) => ({ ...prev, ...((app as any).guardianInfo) }));
           if (app.academicBackground) setAcademic((prev) => ({ ...prev, ...(app.academicBackground as any) }));
           if (app.programInfo) setProgramInfo((prev) => ({ ...prev, ...(app.programInfo as any) }));
         }
       });
     }
   }, [user]);
-
-  const filteredPrograms = programs.filter((p) => p.campusId === programInfo.campusId);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -143,16 +184,20 @@ export default function ApplicationPage() {
       if (application) {
         await applicationService.updateApplication(application.id, {
           personalInfo: personalInfo as any,
+          parentsInfo: parentsInfo as any,
+          guardianInfo: guardianInfo as any,
           academicBackground: academic as any,
           programInfo: programInfo as any,
-        });
+        } as any);
       } else {
         const app = await applicationService.createApplication({
           studentId: user?.id,
           personalInfo: personalInfo as any,
+          parentsInfo: parentsInfo as any,
+          guardianInfo: guardianInfo as any,
           academicBackground: academic as any,
           programInfo: programInfo as any,
-        });
+        } as any);
         setApplication(app);
       }
       addToast('Application draft saved successfully. You can return at any time.', 'success');
@@ -164,7 +209,7 @@ export default function ApplicationPage() {
   };
 
   const handleSubmit = async () => {
-    if (!agreed && step === 4) {
+    if (!agreed && step === steps.length - 1) {
       addToast('Please confirm the institutional declaration before final submission.', 'warning');
       return;
     }
@@ -173,17 +218,21 @@ export default function ApplicationPage() {
       if (application) {
         await applicationService.updateApplication(application.id, {
           personalInfo: personalInfo as any,
+          parentsInfo: parentsInfo as any,
+          guardianInfo: guardianInfo as any,
           academicBackground: academic as any,
           programInfo: programInfo as any,
-        });
+        } as any);
         await applicationService.submitApplication(application.id);
       } else {
         const app = await applicationService.createApplication({
           studentId: user?.id,
           personalInfo: personalInfo as any,
+          parentsInfo: parentsInfo as any,
+          guardianInfo: guardianInfo as any,
           academicBackground: academic as any,
           programInfo: programInfo as any,
-        });
+        } as any);
         await applicationService.submitApplication(app.id);
       }
       addToast('Application successfully submitted to the Office of the University Registrar!', 'success');
@@ -205,7 +254,7 @@ export default function ApplicationPage() {
         description={
           <div className="space-y-3 mt-2 text-gray-200">
             <p className="text-xs sm:text-sm leading-relaxed max-w-3xl">
-              Complete your institutional admission dossier across the five structured sections below. Please ensure your personal information and biodata match your Ethiopian National Digital ID (Fayda) and Ministry of Education entrance examination records.
+              Complete your institutional admission dossier across the structured sections below. Please ensure your personal information and biodata match your Ethiopian National Digital ID (Fayda) and Ministry of Education entrance examination records.
             </p>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-300 pt-0.5">
               <span className="inline-flex items-center gap-1.5">
@@ -222,28 +271,38 @@ export default function ApplicationPage() {
       />
 
       {/* ─── Stepper Progress (Modern Connected Minimalist Stepper) ─── */}
-      <div className="bg-white rounded-lg border border-gray-200 shadow-xs py-4 sm:py-5 px-4 sm:px-6 overflow-x-auto">
-        <div className="w-[75%] min-w-[560px] mx-auto flex items-start justify-between">
+      <div className="bg-white rounded-lg border border-gray-200 shadow-xs py-5 px-4 sm:px-6 overflow-x-auto">
+        <div className="w-[85%] md:w-[75%] min-w-[650px] mx-auto flex items-start justify-between">
           {steps.map((s, idx) => {
             const isCompleted = step > idx;
             const isCurrent = step === idx;
             const isLast = idx === steps.length - 1;
 
             return (
-              <div key={s.id} className="flex items-start flex-1 last:flex-none">
+              <div key={s.id} className="flex-1 relative flex flex-col items-center">
+                {/* Connecting Line between Step Circles */}
+                {!isLast && (
+                  <div
+                    className="absolute top-[18px] sm:top-[20px] -translate-y-1/2 left-[calc(50%+28px)] w-[calc(100%-56px)] h-[3px] rounded-full transition-all duration-300 z-0"
+                    style={{
+                      backgroundColor: isCompleted ? '#0073AA' : '#CBD5E1',
+                    }}
+                  />
+                )}
+
                 {/* Step Node */}
                 <button
                   type="button"
                   onClick={() => setStep(idx)}
-                  className="group flex flex-col items-center cursor-pointer focus:outline-hidden transition-all text-center select-none shrink-0"
+                  className="relative z-10 group flex flex-col items-center cursor-pointer focus:outline-hidden transition-all text-center select-none"
                 >
                   {/* Step Circle */}
                   <div
                     className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       isCurrent
-                        ? 'border-2 sm:border-[2.5px] border-[#0073AA] text-[#0073AA] bg-white ring-3 ring-blue-100 shadow-xs'
+                        ? 'border-2 sm:border-[2.5px] border-[#0073AA] text-[#0073AA] bg-white ring-4 ring-blue-100 shadow-xs'
                         : isCompleted
-                          ? 'border-2 sm:border-[2.5px] border-[#0073AA] text-[#0073AA] bg-blue-50/50 hover:bg-blue-100/60'
+                          ? 'border-2 sm:border-[2.5px] border-[#0073AA] text-[#0073AA] bg-blue-50/70 hover:bg-blue-100/80 shadow-xs'
                           : 'border-2 border-slate-300 text-slate-400 bg-white group-hover:border-slate-400 group-hover:text-slate-600'
                     }`}
                   >
@@ -258,7 +317,7 @@ export default function ApplicationPage() {
 
                   {/* Step Label */}
                   <span
-                    className={`mt-2 text-xs tracking-tight transition-colors duration-200 text-center leading-snug whitespace-nowrap ${
+                    className={`mt-2 text-xs tracking-tight transition-colors duration-200 text-center leading-tight max-w-[90px] sm:max-w-[105px] ${
                       isCurrent
                         ? 'font-bold text-[#0073AA]'
                         : isCompleted
@@ -269,17 +328,6 @@ export default function ApplicationPage() {
                     {s.label}
                   </span>
                 </button>
-
-                {/* Horizontal Divider / Connector */}
-                {!isLast && (
-                  <div className="flex-1 mx-2 sm:mx-4 mt-[17px] sm:mt-[19px] flex items-center">
-                    <div
-                      className={`w-full h-[2px] rounded-full transition-all duration-300 ${
-                        isCompleted ? 'bg-[#0073AA]' : 'bg-slate-200'
-                      }`}
-                    />
-                  </div>
-                )}
               </div>
             );
           })}
@@ -287,21 +335,7 @@ export default function ApplicationPage() {
       </div>
 
       {/* ─── Form Step Content ─── */}
-      <div className="bg-white rounded-sm border border-gray-200 shadow-xs overflow-hidden">
-        <div className="bg-[#F8F9FA] px-6 py-4 border-b border-gray-200 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
-              Section {step + 1} of 5
-            </span>
-            <h2 className="text-base sm:text-lg font-black text-[#00486E]">
-              {steps[step].label}
-            </h2>
-          </div>
-          <span className="text-xs font-bold text-[#00486E] bg-blue-50 border border-blue-200 px-3 py-1 rounded">
-            {steps[step].sub}
-          </span>
-        </div>
-
+      <div className="bg-white rounded-lg border border-gray-200 shadow-xs overflow-hidden">
         <div className="p-6 sm:p-8">
           {/* STEP 0: PERSONAL INFORMATION */}
           {step === 0 && (
@@ -322,13 +356,13 @@ export default function ApplicationPage() {
                   required
                 />
                 <Input
-                  label="Father / Surname (English)"
+                  label="Middle / Father Name (English)"
                   value={personalInfo.lastName}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, lastName: e.target.value })}
                   required
                 />
                 <Input
-                  label="Grandfather Name (English)"
+                  label="Last / Grandfather Name (English)"
                   value={personalInfo.grandFatherName}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, grandFatherName: e.target.value })}
                   required
@@ -429,7 +463,7 @@ export default function ApplicationPage() {
                   onChange={(e) => setPersonalInfo({ ...personalInfo, houseNo: e.target.value })}
                 />
                 <Input
-                  label="Full Residential Postal Address"
+                  label="Residential Postal Address"
                   value={personalInfo.address}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, address: e.target.value })}
                 />
@@ -437,8 +471,395 @@ export default function ApplicationPage() {
             </div>
           )}
 
-          {/* STEP 1: ACADEMIC QUALIFICATIONS */}
+          {/* STEP 1: PARENTS INFORMATION (FATHER & MOTHER ALONE) */}
           {step === 1 && (
+            <div className="space-y-8">
+              <div className="bg-blue-50/60 border-l-4 border-l-[#0073AA] p-4 rounded-r text-xs text-[#00486E]">
+                <p className="font-bold">Biological Parents Official Records (Father & Mother Alone)</p>
+                <p className="text-gray-600 mt-0.5">
+                  Provide verified contact and identity records for your biological parents (father and mother). Each name must be entered separately as First Name, Middle Name, and Last Name.
+                </p>
+              </div>
+
+              {/* Sub-Card A: Father's Information */}
+              <div className="bg-gray-50/60 border border-gray-200 rounded-lg p-5 space-y-4">
+                <div className="flex items-center gap-2 border-b border-gray-200/80 pb-2">
+                  <span className="text-base">👨</span>
+                  <h3 className="text-xs font-black text-[#002B40] uppercase tracking-wider">A. Father's Details (የአባት መረጃ)</h3>
+                </div>
+                <div className="space-y-4">
+                  {/* Father Name (English): First, Middle, Last */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="Father's First / Given Name (English)"
+                      value={parentsInfo.fatherFirstName}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherFirstName: e.target.value })}
+                      required
+                      placeholder="e.g. Tolessa"
+                    />
+                    <Input
+                      label="Father's Middle / Father Name (English)"
+                      value={parentsInfo.fatherMiddleName}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherMiddleName: e.target.value })}
+                      required
+                      placeholder="e.g. Gemechu"
+                    />
+                    <Input
+                      label="Father's Last / Grandfather Name (English)"
+                      value={parentsInfo.fatherLastName}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherLastName: e.target.value })}
+                      required
+                      placeholder="e.g. Wodajo"
+                    />
+                  </div>
+
+                  {/* Father Local Script Names: First, Middle, Last */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="የአባት የመጀመሪያ ስም (በአማርኛ / Afaan Oromoo)"
+                      value={parentsInfo.fatherFirstNameAm || ''}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherFirstNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ ቶሌሳ"
+                    />
+                    <Input
+                      label="የአባት የአባት ስም (በአማርኛ / Afaan Oromoo)"
+                      value={parentsInfo.fatherMiddleNameAm || ''}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherMiddleNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ ገመቹ"
+                    />
+                    <Input
+                      label="የአባት የአያት ስም (በአማርኛ / Afaan Oromoo)"
+                      value={parentsInfo.fatherLastNameAm || ''}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherLastNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ ወዳጆ"
+                    />
+                  </div>
+
+                  {/* Father Contact & Livelihood */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="Father's Primary Mobile Phone"
+                      type="tel"
+                      value={parentsInfo.fatherPhone}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherPhone: e.target.value })}
+                      required
+                      placeholder="+251-9XX-XXX-XXX"
+                    />
+                    <Select
+                      label="Father's Occupation / Livelihood"
+                      value={parentsInfo.fatherOccupation}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherOccupation: e.target.value })}
+                      options={[
+                        { value: 'farmer', label: 'Farmer / Agriculture & Livestock' },
+                        { value: 'gov_employee', label: 'Civil Servant / Government Official' },
+                        { value: 'private', label: 'Private Sector Professional' },
+                        { value: 'business', label: 'Merchant / Commercial Trader' },
+                        { value: 'self_employed', label: 'Self-Employed / Artisan' },
+                        { value: 'retired', label: 'Pensioner / Retired' },
+                        { value: 'other', label: 'Other Profession' },
+                      ]}
+                    />
+                    <Input
+                      label="Father's Employer / Workplace (Optional)"
+                      value={parentsInfo.fatherEmployer}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, fatherEmployer: e.target.value })}
+                      placeholder="e.g. Wallaga Agricultural Union"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Sub-Card B: Mother's Information */}
+              <div className="bg-gray-50/60 border border-gray-200 rounded-lg p-5 space-y-4">
+                <div className="flex items-center gap-2 border-b border-gray-200/80 pb-2">
+                  <span className="text-base">👩</span>
+                  <h3 className="text-xs font-black text-[#002B40] uppercase tracking-wider">B. Mother's Details (የእናት መረጃ)</h3>
+                </div>
+                <div className="space-y-4">
+                  {/* Mother Name (English): First, Middle, Last */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="Mother's First / Given Name (English)"
+                      value={parentsInfo.motherFirstName}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherFirstName: e.target.value })}
+                      required
+                      placeholder="e.g. Chaltu"
+                    />
+                    <Input
+                      label="Mother's Middle / Father Name (English)"
+                      value={parentsInfo.motherMiddleName}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherMiddleName: e.target.value })}
+                      required
+                      placeholder="e.g. Bekele"
+                    />
+                    <Input
+                      label="Mother's Last / Grandfather Name (English)"
+                      value={parentsInfo.motherLastName}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherLastName: e.target.value })}
+                      required
+                      placeholder="e.g. Dinsa"
+                    />
+                  </div>
+
+                  {/* Mother Local Script Names: First, Middle, Last */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="የእናት የመጀመሪያ ስም (በአማርኛ / Afaan Oromoo)"
+                      value={parentsInfo.motherFirstNameAm || ''}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherFirstNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ ጫልቱ"
+                    />
+                    <Input
+                      label="የእናት የአባት ስም (በአማርኛ / Afaan Oromoo)"
+                      value={parentsInfo.motherMiddleNameAm || ''}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherMiddleNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ በቀለ"
+                    />
+                    <Input
+                      label="የእናት የአያት ስም (በአማርኛ / Afaan Oromoo)"
+                      value={parentsInfo.motherLastNameAm || ''}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherLastNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ ዲንሳ"
+                    />
+                  </div>
+
+                  {/* Mother Contact & Livelihood */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="Mother's Primary Mobile Phone"
+                      type="tel"
+                      value={parentsInfo.motherPhone}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherPhone: e.target.value })}
+                      required
+                      placeholder="+251-9XX-XXX-XXX"
+                    />
+                    <Select
+                      label="Mother's Occupation / Livelihood"
+                      value={parentsInfo.motherOccupation}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherOccupation: e.target.value })}
+                      options={[
+                        { value: 'merchant', label: 'Merchant / Commercial Trade' },
+                        { value: 'farmer', label: 'Agriculture & Farming' },
+                        { value: 'gov_employee', label: 'Civil Servant / Government Employee' },
+                        { value: 'private', label: 'Private Sector Professional' },
+                        { value: 'self_employed', label: 'Self-Employed / Artisan' },
+                        { value: 'homemaker', label: 'Homemaker' },
+                        { value: 'other', label: 'Other Profession' },
+                      ]}
+                    />
+                    <Input
+                      label="Mother's Employer / Enterprise (Optional)"
+                      value={parentsInfo.motherEmployer}
+                      onChange={(e) => setParentsInfo({ ...parentsInfo, motherEmployer: e.target.value })}
+                      placeholder="e.g. Commercial Store Nekemte"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 2: LEGAL GUARDIAN INFORMATION (GUARDIAN ALONE) */}
+          {step === 2 && (
+            <div className="space-y-6">
+              <div className="bg-blue-50/60 border-l-4 border-l-[#0073AA] p-4 rounded-r text-xs text-[#00486E]">
+                <p className="font-bold">Legal Guardian & Sponsor Records (Guardian Alone)</p>
+                <p className="text-gray-600 mt-0.5">
+                  Provide verified contact and identity information for your designated legal custodian or sponsor. Each name must be entered separately as First Name, Middle Name, and Last Name.
+                </p>
+              </div>
+
+              <div className="bg-gray-50/60 border border-gray-200 rounded-lg p-5 space-y-4">
+                <div className="flex items-center gap-2 border-b border-gray-200/80 pb-2">
+                  <span className="text-base">🛡️</span>
+                  <h3 className="text-xs font-black text-[#002B40] uppercase tracking-wider">Designated Legal Guardian Details (የሞግዚት መረጃ)</h3>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Guardian Name (English): First, Middle, Last */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="Guardian's First / Given Name (English)"
+                      value={guardianInfo.guardianFirstName}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, guardianFirstName: e.target.value })}
+                      required
+                      placeholder="e.g. Dabala"
+                    />
+                    <Input
+                      label="Guardian's Middle / Father Name (English)"
+                      value={guardianInfo.guardianMiddleName}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, guardianMiddleName: e.target.value })}
+                      required
+                      placeholder="e.g. Tolessa"
+                    />
+                    <Input
+                      label="Guardian's Last / Grandfather Name (English)"
+                      value={guardianInfo.guardianLastName}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, guardianLastName: e.target.value })}
+                      required
+                      placeholder="e.g. Gemechu"
+                    />
+                  </div>
+
+                  {/* Guardian Local Script Names: First, Middle, Last */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="የሞግዚት የመጀመሪያ ስም (በአማርኛ / Afaan Oromoo)"
+                      value={guardianInfo.guardianFirstNameAm || ''}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, guardianFirstNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ ደበላ"
+                    />
+                    <Input
+                      label="የሞግዚት የአባት ስም (በአማርኛ / Afaan Oromoo)"
+                      value={guardianInfo.guardianMiddleNameAm || ''}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, guardianMiddleNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ ቶሌሳ"
+                    />
+                    <Input
+                      label="የሞግዚት የአያት ስም (በአማርኛ / Afaan Oromoo)"
+                      value={guardianInfo.guardianLastNameAm || ''}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, guardianLastNameAm: e.target.value })}
+                      placeholder="ምሳሌ፡ ገመቹ"
+                    />
+                  </div>
+
+                  {/* Relationship & Contact */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Select
+                      label="Relationship to Student"
+                      value={guardianInfo.relationship}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, relationship: e.target.value })}
+                      options={[
+                        { value: 'guardian', label: 'Designated Legal Guardian' },
+                        { value: 'brother', label: 'Adult Brother' },
+                        { value: 'sister', label: 'Adult Sister' },
+                        { value: 'uncle', label: 'Uncle' },
+                        { value: 'aunt', label: 'Aunt' },
+                        { value: 'grandparent', label: 'Grandparent' },
+                        { value: 'sponsor', label: 'Official Institutional / Church Sponsor' },
+                        { value: 'other', label: 'Other Legal Custodian' },
+                      ]}
+                    />
+                    <Input
+                      label="Guardian's Primary Mobile Phone"
+                      type="tel"
+                      value={guardianInfo.phone}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, phone: e.target.value })}
+                      required
+                      placeholder="+251-9XX-XXX-XXX"
+                    />
+                    <Input
+                      label="Alternative / Emergency Phone"
+                      type="tel"
+                      value={guardianInfo.emergencyPhone}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, emergencyPhone: e.target.value })}
+                      placeholder="+251-9XX-XXX-XXX"
+                    />
+                  </div>
+
+                  {/* Regional Residence Jurisdiction */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Select
+                      label="Permanent Residential Region"
+                      value={guardianInfo.region}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, region: e.target.value })}
+                      options={[
+                        { value: 'Oromia', label: 'Oromia Region' },
+                        { value: 'Addis Ababa', label: 'Addis Ababa City Administration' },
+                        { value: 'Amhara', label: 'Amhara Region' },
+                        { value: 'Benishangul-Gumuz', label: 'Benishangul-Gumuz Region' },
+                        { value: 'Dire Dawa', label: 'Dire Dawa City Administration' },
+                        { value: 'Gambella', label: 'Gambella Region' },
+                        { value: 'Harari', label: 'Harari Region' },
+                        { value: 'Sidama', label: 'Sidama Region' },
+                        { value: 'Somali', label: 'Somali Region' },
+                        { value: 'South Ethiopia', label: 'South Ethiopia Regional State' },
+                        { value: 'Central Ethiopia', label: 'Central Ethiopia Regional State' },
+                        { value: 'Tigray', label: 'Tigray Region' },
+                        { value: 'Afar', label: 'Afar Region' },
+                      ]}
+                    />
+                    <Input
+                      label="Administrative Zone / Sub-City"
+                      value={guardianInfo.zone}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, zone: e.target.value })}
+                      required
+                      placeholder="e.g. East Wallaga"
+                    />
+                    <Input
+                      label="Woreda / Town Council"
+                      value={guardianInfo.woreda}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, woreda: e.target.value })}
+                      required
+                      placeholder="e.g. Nekemte City"
+                    />
+                  </div>
+
+                  {/* Detailed Locality & Emergency Protocols */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Input
+                      label="Kebele / Local Ward"
+                      value={guardianInfo.kebele}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, kebele: e.target.value })}
+                      required
+                      placeholder="e.g. Kebele 04"
+                    />
+                    <Input
+                      label="House Number / Neighborhood"
+                      value={guardianInfo.houseNo}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, houseNo: e.target.value })}
+                      placeholder="e.g. House No. 245"
+                    />
+                    <Select
+                      label="Preferred Emergency Contact Channel"
+                      value={guardianInfo.contactPreference}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, contactPreference: e.target.value })}
+                      options={[
+                        { value: 'call_anytime', label: 'Direct Phone Call (Anytime 24/7)' },
+                        { value: 'call_work_hours', label: 'Phone Call (Working Hours Only)' },
+                        { value: 'sms_text', label: 'SMS Text Notification Preferred' },
+                        { value: 'email_written', label: 'Email Correspondence' },
+                      ]}
+                    />
+                  </div>
+
+                  {/* Livelihood & Workplace */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Select
+                      label="Guardian's Occupation / Livelihood"
+                      value={guardianInfo.occupation}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, occupation: e.target.value })}
+                      options={[
+                        { value: 'gov_employee', label: 'Civil Servant / Government Official' },
+                        { value: 'private', label: 'Private Sector Professional' },
+                        { value: 'business', label: 'Merchant / Commercial Trader' },
+                        { value: 'farmer', label: 'Farmer / Agriculture & Livestock' },
+                        { value: 'self_employed', label: 'Self-Employed / Artisan' },
+                        { value: 'retired', label: 'Pensioner / Retired' },
+                        { value: 'other', label: 'Other Legal Occupation' },
+                      ]}
+                    />
+                    <Input
+                      label="Guardian's Employer / Enterprise (Optional)"
+                      value={guardianInfo.employer}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, employer: e.target.value })}
+                      placeholder="e.g. Oromia Education Bureau"
+                    />
+                    <Input
+                      label="Guardian Contact Email (Optional)"
+                      type="email"
+                      value={guardianInfo.email}
+                      onChange={(e) => setGuardianInfo({ ...guardianInfo, email: e.target.value })}
+                      placeholder="e.g. guardian@example.com"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3: ACADEMIC QUALIFICATIONS */}
+          {step === 3 && (
             <div className="space-y-6">
               <div className="bg-blue-50/60 border-l-4 border-l-[#0073AA] p-4 rounded-r text-xs text-[#00486E]">
                 <p className="font-bold">Ministry of Education National Examination Records</p>
@@ -565,94 +986,8 @@ export default function ApplicationPage() {
             </div>
           )}
 
-          {/* STEP 2: CAMPUS & PROGRAM */}
-          {step === 2 && (
-            <div className="space-y-6">
-              <div className="bg-blue-50/60 border-l-4 border-l-[#0073AA] p-4 rounded-r text-xs text-[#00486E]">
-                <p className="font-bold">Campus & Modality Allocation</p>
-                <p className="text-gray-600 mt-0.5">
-                  Choose your designated Wallaga University campus and preferred academic program. Program availability depends on campus capacity and institutional Senate guidelines.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <Select
-                  label="Institutional Campus"
-                  value={programInfo.campusId}
-                  onChange={(e) => setProgramInfo({ ...programInfo, campusId: e.target.value as CampusId })}
-                  options={
-                    campuses.length > 0
-                      ? campuses.map((c) => ({ value: c.id, label: `${c.name} (${c.location})` }))
-                      : [
-                        { value: 'main', label: 'Main Campus (Nekemte) - Administration & Science' },
-                        { value: 'shambu', label: 'Shambu Campus - Eastern Academic Center' },
-                        { value: 'gimbi', label: 'Gimbi Campus - Western Educational Hub' },
-                      ]
-                  }
-                />
-                <Select
-                  label="Program of Study (First Choice)"
-                  value={programInfo.programId}
-                  onChange={(e) =>
-                    setProgramInfo({
-                      ...programInfo,
-                      programId: e.target.value,
-                      firstChoice: e.target.value,
-                    })
-                  }
-                  options={
-                    filteredPrograms.length > 0
-                      ? filteredPrograms.map((p) => ({ value: p.id, label: `${p.name} (${p.duration})` }))
-                      : [
-                        { value: 'cs-bsc', label: 'Computer Science (B.Sc.)' },
-                        { value: 'se-bsc', label: 'Software Engineering (B.Sc.)' },
-                        { value: 'ee-bsc', label: 'Electrical & Computer Engineering (B.Sc.)' },
-                        { value: 'med-md', label: 'Medicine & Health Sciences (MD)' },
-                        { value: 'law-llb', label: 'School of Law (LL.B.)' },
-                      ]
-                  }
-                />
-                <Input
-                  label="Second Choice Alternative Program (Optional)"
-                  value={programInfo.secondChoice || ''}
-                  onChange={(e) => setProgramInfo({ ...programInfo, secondChoice: e.target.value })}
-                  placeholder="e.g. Information Technology (B.Sc.)"
-                />
-                <Select
-                  label="Admission Modality / Shift"
-                  value={programInfo.admissionType}
-                  onChange={(e) =>
-                    setProgramInfo({ ...programInfo, admissionType: e.target.value as AdmissionType })
-                  }
-                  options={[
-                    { value: 'regular', label: 'Regular (Government Sponsored)' },
-                    { value: 'weekend', label: 'Weekend Self-Sponsored (Continuing Education)' },
-                    { value: 'night', label: 'Evening / Night Program' },
-                    { value: 'distance_summer', label: 'Distance & Summer In-Service' },
-                    { value: 'masters', label: 'Postgraduate Masters & Specialty' },
-                  ]}
-                />
-                <Input
-                  label="Intake Academic Year"
-                  type="number"
-                  value={programInfo.intakeYear}
-                  onChange={(e) => setProgramInfo({ ...programInfo, intakeYear: Number(e.target.value) })}
-                />
-                <Select
-                  label="Intake Semester"
-                  value={programInfo.intakeSemester}
-                  onChange={(e) => setProgramInfo({ ...programInfo, intakeSemester: e.target.value as '1' | '2' })}
-                  options={[
-                    { value: '1', label: 'Semester I (Autumn / Meskerem)' },
-                    { value: '2', label: 'Semester II (Spring / Yekatit)' },
-                  ]}
-                />
-              </div>
-            </div>
-          )}
-
-          {/* STEP 3: VERIFICATION DOCUMENTS */}
-          {step === 3 && (
+          {/* STEP 4: VERIFICATION DOCUMENTS */}
+          {step === 4 && (
             <div className="space-y-6">
               <div className="bg-blue-50/60 border-l-4 border-l-[#0073AA] p-4 rounded-r text-xs text-[#00486E]">
                 <p className="font-bold">Required Institutional Documentation</p>
@@ -772,8 +1107,8 @@ export default function ApplicationPage() {
             </div>
           )}
 
-          {/* STEP 4: REVIEW & SUBMISSION */}
-          {step === 4 && (
+          {/* STEP 5: REVIEW & SUBMISSION */}
+          {step === 5 && (
             <div className="space-y-6">
               <div className="bg-blue-50/60 border-l-4 border-l-[#0073AA] p-4 rounded-r text-xs text-[#00486E]">
                 <p className="font-bold">Official Application Verification</p>
@@ -782,9 +1117,9 @@ export default function ApplicationPage() {
                 </p>
               </div>
 
-              {/* 3 Review Cards in 1 Row */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-                {/* Personal Information Summary */}
+              {/* Review Cards (Row 1: 3 Cards) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {/* 1. Personal Information Summary */}
                 <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
@@ -833,7 +1168,98 @@ export default function ApplicationPage() {
                   </div>
                 </div>
 
-                {/* Academic Qualifications Summary */}
+                {/* 2. Parents Summary (Father & Mother Alone) */}
+                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+                      <h4 className="font-extrabold text-xs text-[#00486E] uppercase tracking-wider">
+                        Parents (Father & Mother)
+                      </h4>
+                      <button
+                        onClick={() => setStep(1)}
+                        className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
+                      >
+                        Edit ✏️
+                      </button>
+                    </div>
+                    <dl className="space-y-2 text-xs">
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Father's Name:</dt>
+                        <dd className="text-gray-700 font-medium">{parentsInfo.fatherFirstName} {parentsInfo.fatherMiddleName} {parentsInfo.fatherLastName}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Father Contact & Work:</dt>
+                        <dd className="text-gray-700">{parentsInfo.fatherPhone} • <span className="capitalize">{parentsInfo.fatherOccupation.replace('_', ' ')}</span></dd>
+                      </div>
+                      <div className="pt-1 border-t border-gray-200/60">
+                        <dt className="font-extrabold text-[#002B40]">Mother's Name:</dt>
+                        <dd className="text-gray-700 font-medium">{parentsInfo.motherFirstName} {parentsInfo.motherMiddleName} {parentsInfo.motherLastName}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Mother Contact & Work:</dt>
+                        <dd className="text-gray-700">{parentsInfo.motherPhone} • <span className="capitalize">{parentsInfo.motherOccupation.replace('_', ' ')}</span></dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Parents Workplace / Sector:</dt>
+                        <dd className="text-gray-700 truncate">{parentsInfo.fatherEmployer || parentsInfo.motherEmployer || 'Agriculture & Private Enterprise'}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+
+                {/* 3. Legal Guardian Summary (Guardian Alone) */}
+                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+                      <h4 className="font-extrabold text-xs text-[#00486E] uppercase tracking-wider">
+                        Legal Guardian (Alone)
+                      </h4>
+                      <button
+                        onClick={() => setStep(2)}
+                        className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
+                      >
+                        Edit ✏️
+                      </button>
+                    </div>
+                    <dl className="space-y-2 text-xs">
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Guardian Name (English):</dt>
+                        <dd className="text-gray-700 font-medium">{guardianInfo.guardianFirstName} {guardianInfo.guardianMiddleName} {guardianInfo.guardianLastName}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Amharic / Afaan Oromoo:</dt>
+                        <dd className="text-gray-700 font-medium">{guardianInfo.guardianFirstNameAm || ''} {guardianInfo.guardianMiddleNameAm || ''} {guardianInfo.guardianLastNameAm || ''}</dd>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <dt className="font-extrabold text-[#002B40]">Relationship:</dt>
+                          <dd className="text-gray-700 capitalize">{guardianInfo.relationship}</dd>
+                        </div>
+                        <div>
+                          <dt className="font-extrabold text-[#002B40]">Livelihood:</dt>
+                          <dd className="text-gray-700 capitalize">{guardianInfo.occupation?.replace('_', ' ') || 'Civil Servant'}</dd>
+                        </div>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Primary Phone:</dt>
+                        <dd className="text-gray-700 font-mono">{guardianInfo.phone}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Emergency Phone:</dt>
+                        <dd className="text-gray-700 font-mono">{guardianInfo.emergencyPhone || 'Not specified'}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Residence / Town:</dt>
+                        <dd className="text-gray-700">{guardianInfo.woreda}, {guardianInfo.zone}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              {/* Review Cards (Row 2: 3 Cards) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {/* 4. Academic Qualifications Summary */}
                 <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
@@ -841,7 +1267,7 @@ export default function ApplicationPage() {
                         Academic Background
                       </h4>
                       <button
-                        onClick={() => setStep(1)}
+                        onClick={() => setStep(3)}
                         className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
                       >
                         Edit ✏️
@@ -880,44 +1306,81 @@ export default function ApplicationPage() {
                   </div>
                 </div>
 
-                {/* Program Choice Summary */}
+                {/* 5. Institutional Admissions & Placement Allocation */}
                 <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
                       <h4 className="font-extrabold text-xs text-[#00486E] uppercase tracking-wider">
-                        Program & Placement
+                        Admissions & Placement
                       </h4>
-                      <button
-                        onClick={() => setStep(2)}
-                        className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
-                      >
-                        Edit ✏️
-                      </button>
+                      <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
+                        Central Placement
+                      </span>
                     </div>
                     <dl className="space-y-2 text-xs">
                       <div>
-                        <dt className="font-extrabold text-[#002B40]">Designated Campus:</dt>
-                        <dd className="font-bold text-[#00486E] uppercase">{programInfo.campusId} Campus</dd>
+                        <dt className="font-extrabold text-[#002B40]">Placement Authority:</dt>
+                        <dd className="font-bold text-[#00486E]">Ministry of Education (MoE) & WU Senate</dd>
                       </div>
                       <div>
-                        <dt className="font-extrabold text-[#002B40]">Primary Program:</dt>
-                        <dd className="font-bold text-[#00486E]">{programInfo.firstChoice || programInfo.programId}</dd>
+                        <dt className="font-extrabold text-[#002B40]">Admission Modality:</dt>
+                        <dd className="text-gray-700">Regular Undergraduate Degree (Direct Government Allocation)</dd>
                       </div>
                       <div>
-                        <dt className="font-extrabold text-[#002B40]">Alternative Program:</dt>
-                        <dd className="text-gray-700">{programInfo.secondChoice || 'None specified'}</dd>
+                        <dt className="font-extrabold text-[#002B40]">Department & Campus:</dt>
+                        <dd className="text-gray-700">Allocated post-registration by University Admissions Office</dd>
                       </div>
                       <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <dt className="font-extrabold text-[#002B40]">Modality:</dt>
-                          <dd className="text-gray-700 capitalize">{programInfo.admissionType}</dd>
+                          <dt className="font-extrabold text-[#002B40]">Academic Year:</dt>
+                          <dd className="text-gray-700">AY 2026/2027</dd>
                         </div>
                         <div>
-                          <dt className="font-extrabold text-[#002B40]">Intake:</dt>
-                          <dd className="text-gray-700">AY {programInfo.intakeYear} (Sem {programInfo.intakeSemester})</dd>
+                          <dt className="font-extrabold text-[#002B40]">Intake Semester:</dt>
+                          <dd className="text-gray-700">Semester I (Autumn)</dd>
                         </div>
                       </div>
                     </dl>
+                  </div>
+                </div>
+
+                {/* 6. Legal Submission Declaration & Institutional Dossier */}
+                <div className="bg-amber-50/70 border border-amber-200 rounded p-5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2 border-b border-amber-200/80 pb-2">
+                      <h4 className="font-extrabold text-xs text-amber-900 uppercase tracking-wider">
+                        Applicant Declaration
+                      </h4>
+                      <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
+                        Registrar Ready
+                      </span>
+                    </div>
+                    <dl className="space-y-1.5 text-xs mb-3 text-amber-950/90">
+                      <div>
+                        <dt className="font-extrabold">Institutional Dossier:</dt>
+                        <dd className="font-mono text-[11px] text-amber-900">WU/2026/REG-{user?.id ? user.id.slice(0, 6) : '84920'}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold">National Verification:</dt>
+                        <dd className="text-emerald-700 font-bold flex items-center gap-1">
+                          <span>✓</span> Fayda & MoE Check Passed
+                        </dd>
+                      </div>
+                    </dl>
+                    <p className="text-[11px] text-amber-900/90 leading-relaxed mb-3 border-t border-amber-200/60 pt-2">
+                      I hereby certify that all bio-data, academic transcripts, and parent/guardian information provided are truthful, accurate, and official.
+                    </p>
+                    <label className="flex items-start gap-2.5 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={agreed}
+                        onChange={(e) => setAgreed(e.target.checked)}
+                        className="mt-0.5 w-4 h-4 text-[#00486E] border-gray-300 rounded focus:ring-[#00486E]"
+                      />
+                      <span className="text-xs font-bold text-[#002B40]">
+                        I confirm and agree to institutional terms
+                      </span>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -929,7 +1392,7 @@ export default function ApplicationPage() {
                     Attached Verification Documents ({documents.length})
                   </h4>
                   <button
-                    onClick={() => setStep(3)}
+                    onClick={() => setStep(4)}
                     className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
                   >
                     Manage Files ✏️
@@ -953,24 +1416,6 @@ export default function ApplicationPage() {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* Legal Declaration */}
-              <div className="bg-amber-50/70 border border-amber-200 rounded p-4">
-                <label className="flex items-start gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={agreed}
-                    onChange={(e) => setAgreed(e.target.checked)}
-                    className="mt-1 w-4 h-4 text-[#00486E] border-gray-300 rounded focus:ring-[#00486E]"
-                  />
-                  <div className="text-xs text-gray-800">
-                    <span className="font-bold block text-[#00486E]">
-                      Institutional Declaration & Authenticity Guarantee
-                    </span>
-                    I hereby solemnly declare under penalty of academic disqualification and legal liability that all information, certificates, scores, and personal documentation provided in this application are authentic and true copies of official records. I agree to abide by the Senate Legislation and Student Code of Conduct of Wallaga University.
-                  </div>
-                </label>
               </div>
             </div>
           )}

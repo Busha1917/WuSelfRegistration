@@ -11,7 +11,6 @@ const roleMenus: Record<string, { labelKey: string; path: string; icon: string }
   student: [
     { labelKey: 'nav.dashboard', path: '/student/dashboard', icon: '📊' },
     { labelKey: 'nav.applications', path: '/student/application', icon: '📝' },
-    { labelKey: 'nav.documents', path: '/student/documents', icon: '📄' },
     { labelKey: 'nav.status', path: '/student/status', icon: '🔍' },
     { labelKey: 'nav.idCard', path: '/student/id-card', icon: '🪪' },
     { labelKey: 'nav.placement', path: '/student/placement', icon: '🏫' },
