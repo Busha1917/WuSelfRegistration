@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/stores/authStore';
 import { applicationService, semesterService } from '@/mocks/services';
 import type { RegistrationStats } from '@/types';
 import DashboardHero from '@/components/shared/DashboardHero';
 
 export default function RegistrarDashboard() {
-  const { t } = useTranslation();
+  const { user } = useAuthStore();
   const [stats, setStats] = useState<RegistrationStats | null>(null);
   const [semStats, setSemStats] = useState<RegistrationStats | null>(null);
 
@@ -17,23 +17,25 @@ export default function RegistrarDashboard() {
 
   const totalApplications = (stats?.submitted || 0) + (stats?.underReview || 0) + (stats?.approved || 0) + (stats?.rejected || 0);
 
+  const registrarCampus = user?.campusId === 'shambu' ? 'Shambu' : user?.campusId === 'gimbi' ? 'Gimbi' : 'Nekemte';
+
   return (
     <div className="space-y-6">
       {/* ─── Hero ─── */}
       <DashboardHero
-        badge="REGISTRAR DIRECTORATE • CENTRAL ADMISSION DESK"
-        title={t('registrar.dashboard.title', 'Registrar Management Suite')}
-        description="Centralized academic enrollment control for freshmen admissions, credential clearances, semester re-registrations, and Senate matriculation reports across all three campuses."
+        badge="REGISTRAR PORTAL • AY 2026/2027"
+        title={`Welcome, ${user?.fullName || 'Registrar Officer'}`}
+        description="Centralized academic enrollment control for freshmen admissions, credential clearances, semester re-registrations, and Senate matriculation reports."
         stats={[
-          { label: 'Pending Queue', value: (stats?.pending || 0) + (semStats?.pending || 0), highlight: true },
+          { label: 'Campus', value: registrarCampus },
+          { label: 'Pending Queue', value: (stats?.pending || 0) + (semStats?.pending || 0) || 18, highlight: true },
           { label: 'Total Enrolled', value: stats?.approved || '4,280' },
-          { label: 'Campuses', value: '3 Active' },
         ]}
         actions={
           <div className="flex flex-wrap items-center gap-3">
             <Link
               to="/registrar/queue"
-              className="bg-[#D9251D] hover:bg-[#B71C1C] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5"
+              className="bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5"
             >
               <span>Review Freshmen Queue</span>
               <span>↗</span>

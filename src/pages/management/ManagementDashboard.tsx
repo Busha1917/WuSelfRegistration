@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/stores/authStore';
 import { applicationService } from '@/mocks/services';
 import type { RegistrationStats } from '@/types';
 import DashboardHero from '@/components/shared/DashboardHero';
@@ -22,6 +23,7 @@ const AAU_COLORS = ['#00486E', '#0073AA', '#D9251D', '#16A34A', '#D97706'];
 
 export default function ManagementDashboard() {
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const { addToast } = useToast();
   const [stats, setStats] = useState<RegistrationStats | null>(null);
 
@@ -40,26 +42,26 @@ export default function ManagementDashboard() {
     <div className="space-y-6 pb-12">
       {/* ─── Hero ─── */}
       <DashboardHero
-        badge="Wallaga UNIVERSITY SENATE • EXECUTIVE MANAGEMENT INTELLIGENCE"
-        title={t('management.dashboard.title', 'Executive Admissions & Institutional Overview')}
-        description="High-level governance intelligence console for the University President, Academic Vice President, and Senate Deans. Monitors campus enrollment velocity, program capacity fulfillment, and admissions equity."
+        badge="EXECUTIVE SENATE PORTAL • AY 2026/2027"
+        title={`Welcome, ${user?.fullName || 'Executive Leadership'}`}
+        description="High-level governance intelligence console for the University President, Academic Vice President, and Senate Deans."
         stats={[
-          { label: 'Total Applications', value: stats?.total || 205 },
-          { label: 'Matriculated Ratio', value: '84.6%', highlight: true },
-          { label: 'Governance Mode', value: 'Read-Only Oversight' },
+          { label: 'Campus', value: '3 Active' },
+          { label: 'Applications', value: stats?.total || 205 },
+          { label: 'Enrollment', value: '84.6%', highlight: true },
         ]}
         actions={
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={handleSenateReport}
-              className="bg-[#D9251D] hover:bg-[#B51E17] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5"
+              className="bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <span>Download Senate Briefing</span>
               <span>📄</span>
             </button>
             <button
               onClick={() => addToast('Campus capacity audit refreshed.', 'info')}
-              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded transition-all flex items-center gap-1.5"
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <span>Refresh Telemetry</span>
               <span>🔄</span>

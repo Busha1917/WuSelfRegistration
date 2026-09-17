@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/stores/authStore';
 import { publicService } from '@/mocks/services';
 import type { LookupResult } from '@/types';
 import DashboardHero from '@/components/shared/DashboardHero';
@@ -8,6 +9,7 @@ import { useToast } from '@/components/ui/Toast';
 
 export default function CouncilAssist() {
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const { addToast } = useToast();
   const [query, setQuery] = useState('Busha');
   const [result, setResult] = useState<LookupResult | null>(null);
@@ -45,30 +47,32 @@ export default function CouncilAssist() {
     }, 1000);
   };
 
+  const councilCampus = user?.campusId === 'shambu' ? 'Shambu' : user?.campusId === 'gimbi' ? 'Gimbi' : 'Nekemte';
+
   return (
     <div className="space-y-6 pb-12">
       {/* ─── Hero ─── */}
       <DashboardHero
-        badge="Wallaga UNIVERSITY STUDENT UNION (WU-SU) • PEER ADVOCACY & HELP DESK"
-        title={t('council.assist.title', 'Student Support & Placement Assistance Center')}
-        description="Official peer-support portal operated by the Student Representative Council across Nekemte, Shambu, and Gimbi campuses. Assist freshmen and continuing candidates in locating their academic sections, dormitories, and orientation schedules."
+        badge="STUDENT UNION PORTAL • AY 2026/2027"
+        title={`Welcome, ${user?.fullName || 'Student Union Officer'}`}
+        description="Official peer-support portal operated by the Student Representative Council to assist students with campus section, dorm, and orientation schedules."
         stats={[
-          { label: 'Campus Help Desks', value: 'Nekemte • Shambu • Gimbi' },
-          { label: 'Freshmen Assisted', value: '340+ Candidates', highlight: true },
-          { label: 'Union Emergency Line', value: '+251-571-11-04-00' },
+          { label: 'Campus Desk', value: councilCampus },
+          { label: 'Assisted', value: '340+ Candidates', highlight: true },
+          { label: 'Helpline', value: 'Ext. 400' },
         ]}
         actions={
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => addToast('Freshman Campus Navigation Guide (PDF) downloaded.', 'info')}
-              className="bg-[#0073AA] hover:bg-[#005B88] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5"
+              className="bg-[#0073AA] hover:bg-[#005B88] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <span>Download Orientation Guide</span>
               <span>📘</span>
             </button>
             <button
               onClick={() => addToast('Council accommodation assistance form opened.', 'info')}
-              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded transition-all flex items-center gap-1.5"
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <span>Log Welfare Inquiry</span>
               <span>📝</span>

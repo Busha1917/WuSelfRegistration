@@ -10,8 +10,9 @@ export default function Textarea({ label, error, className = '', id, ...props }:
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={textareaId} className="block text-sm font-medium text-wu-ink mb-1">
-          {label}
+        <label htmlFor={textareaId} className="block text-xs sm:text-sm font-extrabold text-[#002B40] mb-1.5">
+          <span>{label}</span>
+          {props.required && <span className="text-[#D9251D] ml-1 font-bold">*</span>}
         </label>
       )}
       <textarea

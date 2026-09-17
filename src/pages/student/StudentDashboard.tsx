@@ -54,17 +54,23 @@ export default function StudentDashboard() {
     },
   ];
 
+  const studentCampus = user?.campusId === 'shambu' ? 'Shambu' : user?.campusId === 'gimbi' ? 'Gimbi' : 'Nekemte';
+  const studentSemester = (user as any)?.intakeSemester === '2' ? 'Sem II' : 'Sem I';
+  const studentStatus = application?.status 
+    ? (application.status === 'approved' ? 'Enrolled' : application.status === 'under_review' ? 'In Review' : application.status === 'submitted' ? 'Submitted' : 'Draft')
+    : 'Enrolled';
+
   return (
     <div className="space-y-6">
       {/* ─── AAU Navy Hero ─── */}
       <DashboardHero
         badge="STUDENT SELF-SERVICE PORTAL • AY 2026/2027"
-        title={`Welcome, ${user?.fullName || 'Student'}`}
+        title={`Welcome, ${user?.fullName || 'Alemayehu Bezabeh'}`}
         description="Access your admission verification, uploaded certificate clearances, classroom cohort assignment, and semester enrollment from your personal academic dashboard."
         stats={[
-          { label: 'Campus', value: 'Nekemte' },
-          { label: 'Semester', value: 'Sem I' },
-          { label: 'Status', value: 'Enrolled', highlight: true },
+          { label: 'Campus', value: studentCampus },
+          { label: 'Semester', value: studentSemester },
+          { label: 'Status', value: studentStatus, highlight: true },
         ]}
         actions={
           <div className="flex flex-wrap items-center gap-3">
@@ -72,7 +78,7 @@ export default function StudentDashboard() {
               to="/student/status"
               className="bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all inline-flex items-center gap-1.5"
             >
-              <span>{t('nav.status', 'Track Admission Status')}</span>
+              <span>Application Status</span>
               <span>↗</span>
             </Link>
             <Link
@@ -80,7 +86,7 @@ export default function StudentDashboard() {
               className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded transition-all inline-flex items-center gap-1.5"
             >
               <span>🪪</span>
-              <span>{t('nav.idCard', 'View ID Card')}</span>
+              <span>ID Card</span>
             </Link>
           </div>
         }

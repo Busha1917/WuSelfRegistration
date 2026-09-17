@@ -11,8 +11,9 @@ export default function Input({ label, error, helperText, className = '', id, ..
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={inputId} className="block text-sm font-medium text-wu-ink mb-1">
-          {label}
+        <label htmlFor={inputId} className="block text-xs sm:text-sm font-extrabold text-[#002B40] mb-1.5">
+          <span>{label}</span>
+          {props.required && <span className="text-[#D9251D] ml-1 font-bold">*</span>}
         </label>
       )}
       <input

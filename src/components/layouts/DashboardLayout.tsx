@@ -260,24 +260,6 @@ export default function DashboardLayout() {
         <header className="bg-white border-b border-gray-200 sticky top-0 z-20 shadow-xs">
           <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  if (window.innerWidth < 1024) {
-                    setSidebarOpen(!sidebarOpen);
-                  } else {
-                    setSidebarCollapsed(!sidebarCollapsed);
-                  }
-                }}
-                className="p-2 rounded text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
-                aria-label="Toggle Navigation Menu"
-                title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-
               <div>
                 <span className="text-[11px] font-bold text-[#D9251D] uppercase tracking-wider block">
                   {currentRoleInfo.badge}

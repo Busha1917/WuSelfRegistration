@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/stores/authStore';
 import { applicationService, adminService } from '@/mocks/services';
 import type { RegistrationStats, User } from '@/types';
 import DashboardHero from '@/components/shared/DashboardHero';
 import StatusBadge from '@/components/shared/StatusBadge';
 
 export default function AdminDashboard() {
-  const { t } = useTranslation();
+  const { user } = useAuthStore();
   const [stats, setStats] = useState<RegistrationStats | null>(null);
   const [users, setUsers] = useState<User[]>([]);
 
@@ -20,19 +20,19 @@ export default function AdminDashboard() {
     <div className="space-y-6">
       {/* ─── Hero ─── */}
       <DashboardHero
-        badge="INSTITUTIONAL ICT & INFRASTRUCTURE ADMINISTRATION"
-        title={t('admin.dashboard.title', 'System Administrator Control Center')}
-        description="Unified administration console for user access privileges, Ministry of Education batch data ingestion, security audit telemetry, and campus system configurations."
+        badge="SYSTEM ADMIN PORTAL • AY 2026/2027"
+        title={`Welcome, ${user?.fullName || 'System Administrator'}`}
+        description="Unified administration console for user access privileges, Ministry of Education batch data ingestion, and system configurations."
         stats={[
-          { label: 'Total Users', value: users.length || '48' },
-          { label: 'Applications', value: stats?.total || '205', highlight: true },
-          { label: 'System Health', value: '100% OK' },
+          { label: 'Total Users', value: users.length || 48 },
+          { label: 'Applications', value: stats?.total || 205 },
+          { label: 'System Health', value: '100% OK', highlight: true },
         ]}
         actions={
           <div className="flex flex-wrap items-center gap-3">
             <Link
               to="/admin/users"
-              className="bg-[#6D28D9] hover:bg-[#5B21B6] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5"
+              className="bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5"
             >
               <span>Manage User Directory</span>
               <span>↗</span>

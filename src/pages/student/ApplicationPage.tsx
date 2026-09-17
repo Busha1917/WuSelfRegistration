@@ -8,6 +8,7 @@ import type { Application, Campus, Program, AdmissionType, CampusId } from '@/ty
 import DashboardHero from '@/components/shared/DashboardHero';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
+import { Check, Eye } from 'lucide-react';
 
 const steps = [
   { id: 0, label: 'Personal Information', sub: 'Bio-data & Residency' },
@@ -33,31 +34,37 @@ export default function ApplicationPage() {
   const [personalInfo, setPersonalInfo] = useState({
     firstName: user?.fullName ? user.fullName.split(' ')[0] : 'Busha',
     lastName: user?.fullName ? user.fullName.split(' ')[1] || 'Tolessa' : 'Tolessa',
+    grandFatherName: 'Gemechu',
     firstNameAm: 'ቡሻ',
     lastNameAm: 'ቶሌሳ',
+    grandFatherNameAm: 'ገመቹ',
     dateOfBirth: '2004-05-14',
     gender: 'male' as 'male' | 'female' | 'other',
     nationality: 'Ethiopian',
     phone: '+251-911-234-567',
+    emergencyPhone: '+251-922-345-678',
     email: user?.email || 'student@wu.edu.et',
     region: 'Oromia',
     zone: 'East Wallaga',
     woreda: 'Nekemte City',
     kebele: 'Kebele 04',
+    houseNo: 'House No. 245',
     address: 'Nekemte Town, Wallaga, Ethiopia',
   });
 
   const [academic, setAcademic] = useState({
     previousSchool: 'Nekemte Comprehensive Secondary & Preparatory School',
+    schoolLocation: 'Nekemte, East Wallaga',
+    registrationNumber: 'EHEEE/2023/84920',
     examType: 'Ethiopian Higher Education Entrance Examination (EHEEE)',
     examYear: 2023,
     examScore: 485,
     subjects: [
-      { name: 'Mathematics', grade: 'A (88%)' },
-      { name: 'English Language', grade: 'A (82%)' },
-      { name: 'Physics', grade: 'A (85%)' },
-      { name: 'Chemistry', grade: 'B (78%)' },
-      { name: 'Civics & Ethical Education', grade: 'A (91%)' },
+      { name: 'Mathematics', grade: 'A (88%)', stream: 'Natural Science' },
+      { name: 'English Language', grade: 'A (82%)', stream: 'Common Core' },
+      { name: 'Physics', grade: 'A (85%)', stream: 'Natural Science' },
+      { name: 'Chemistry', grade: 'B (78%)', stream: 'Natural Science' },
+      { name: 'Civics & Ethical Education', grade: 'A (91%)', stream: 'Common Core' },
     ],
   });
 
@@ -73,21 +80,33 @@ export default function ApplicationPage() {
 
   const [documents, setDocuments] = useState<{ file: File; name: string; size: string }[]>([
     {
-      file: new File([''], 'EHEEE_Official_Certificate_2023.pdf', { type: 'application/pdf' }),
-      name: 'EHEEE_Official_Certificate_2023.pdf',
-      size: '1.4 MB',
-    },
-    {
-      file: new File([''], 'Ethiopian_National_Digital_ID_Fayda.pdf', { type: 'application/pdf' }),
-      name: 'Ethiopian_National_Digital_ID_Fayda.pdf',
+      file: new File([''], 'National_ID_Fayda_Biometric.pdf', { type: 'application/pdf' }),
+      name: 'National_ID_Fayda_Biometric.pdf',
       size: '850 KB',
     },
     {
-      file: new File([''], 'Official_Grade_9_12_Transcript.pdf', { type: 'application/pdf' }),
-      name: 'Official_Grade_9_12_Transcript.pdf',
+      file: new File([''], 'Official_Transcript_Grade_9_to_12.pdf', { type: 'application/pdf' }),
+      name: 'Official_Transcript_Grade_9_to_12.pdf',
       size: '3.2 MB',
     },
+    {
+      file: new File([''], 'Ministry_Certificate_Grade_8.pdf', { type: 'application/pdf' }),
+      name: 'Ministry_Certificate_Grade_8.pdf',
+      size: '1.1 MB',
+    },
+    {
+      file: new File([''], 'Matric_Certificate_Grade_10_EGSECE.pdf', { type: 'application/pdf' }),
+      name: 'Matric_Certificate_Grade_10_EGSECE.pdf',
+      size: '1.5 MB',
+    },
+    {
+      file: new File([''], 'University_Entrance_Result_Grade_12_EHEEE.pdf', { type: 'application/pdf' }),
+      name: 'University_Entrance_Result_Grade_12_EHEEE.pdf',
+      size: '1.4 MB',
+    },
   ]);
+
+  const [previewDoc, setPreviewDoc] = useState<{ file: File; name: string; size: string } | null>(null);
 
   useEffect(() => {
     publicService.getCampuses().then(setCampuses);
@@ -178,74 +197,90 @@ export default function ApplicationPage() {
 
   return (
     <div className="space-y-6 pb-12">
-      {/* ─── Hero ─── */}
+      {/* ─── Hero (Clean & Minimized Descriptive Section) ─── */}
       <DashboardHero
-        badge="FDRE MINISTRY OF EDUCATION • OFFICIAL ADMISSIONS PORTAL"
-        title={t('student.application.title', 'Undergraduate & Postgraduate Admission Dossier')}
-        description="Complete all five sections of your institutional admission dossier. Ensure your bio-data corresponds with your Ethiopian National Digital ID (Fayda) and Ministry of Education entrance examination records."
-        stats={[
-          { label: 'Academic Year', value: '2026 / 2027' },
-          { label: 'Application Status', value: application?.status ? application.status.toUpperCase() : 'IN PROGRESS', highlight: true },
-          { label: 'Campus Choices', value: 'Nekemte • Shambu • Gimbi' },
-        ]}
-        actions={
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              onClick={handleSaveDraft}
-              disabled={loading}
-              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded transition-all flex items-center gap-1.5"
-            >
-              <span>Save Progress</span>
-              <span>💾</span>
-            </button>
-            <button
-              onClick={() => navigate('/student/documents')}
-              className="bg-[#0073AA] hover:bg-[#005B88] text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded shadow-sm transition-all flex items-center gap-1.5"
-            >
-              <span>Document Repository</span>
-              <span>📂</span>
-            </button>
+        badge="ADMISSIONS PORTAL • AY 2026/2027"
+        title={t('student.application.title', 'Student Admission Application Form')}
+        compact
+        description={
+          <div className="space-y-3 mt-2 text-gray-200">
+            <p className="text-xs sm:text-sm leading-relaxed max-w-3xl">
+              Complete your institutional admission dossier across the five structured sections below. Please ensure your personal information and biodata match your Ethiopian National Digital ID (Fayda) and Ministry of Education entrance examination records.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-300 pt-0.5">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EDC935]" />
+                <span><strong>Status:</strong> {application?.status ? application.status.replace('_', ' ').toUpperCase() : 'IN PROGRESS'}</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
+                <span>Progress is saved as you navigate between steps</span>
+              </span>
+            </div>
           </div>
         }
       />
 
-      {/* ─── Stepper Progress ─── */}
-      <div className="bg-white rounded-sm border border-gray-200 shadow-xs p-4 sm:p-6">
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      {/* ─── Stepper Progress (Modern Connected Minimalist Stepper) ─── */}
+      <div className="bg-white rounded-lg border border-gray-200 shadow-xs py-4 sm:py-5 px-4 sm:px-6 overflow-x-auto">
+        <div className="w-[75%] min-w-[560px] mx-auto flex items-start justify-between">
           {steps.map((s, idx) => {
             const isCompleted = step > idx;
             const isCurrent = step === idx;
+            const isLast = idx === steps.length - 1;
+
             return (
-              <button
-                key={s.id}
-                onClick={() => setStep(idx)}
-                className={`text-left p-3 rounded transition-all border ${isCurrent
-                    ? 'bg-[#00486E] border-[#00486E] text-white shadow-xs'
-                    : isCompleted
-                      ? 'bg-blue-50/60 border-blue-200 text-[#00486E] hover:bg-blue-100/50'
-                      : 'bg-gray-50 border-gray-200 text-gray-400 hover:bg-gray-100'
-                  }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span
-                    className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${isCurrent
-                        ? 'bg-[#D9251D] text-white'
+              <div key={s.id} className="flex items-start flex-1 last:flex-none">
+                {/* Step Node */}
+                <button
+                  type="button"
+                  onClick={() => setStep(idx)}
+                  className="group flex flex-col items-center cursor-pointer focus:outline-hidden transition-all text-center select-none shrink-0"
+                >
+                  {/* Step Circle */}
+                  <div
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      isCurrent
+                        ? 'border-2 sm:border-[2.5px] border-[#0073AA] text-[#0073AA] bg-white ring-3 ring-blue-100 shadow-xs'
                         : isCompleted
-                          ? 'bg-[#00486E] text-white'
-                          : 'bg-gray-200 text-gray-500'
-                      }`}
+                          ? 'border-2 sm:border-[2.5px] border-[#0073AA] text-[#0073AA] bg-blue-50/50 hover:bg-blue-100/60'
+                          : 'border-2 border-slate-300 text-slate-400 bg-white group-hover:border-slate-400 group-hover:text-slate-600'
+                    }`}
                   >
-                    {isCompleted ? '✓' : idx + 1}
+                    {isCompleted ? (
+                      <Check className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.5]" />
+                    ) : isLast ? (
+                      <Eye className={`w-4 h-4 sm:w-4.5 sm:h-4.5 ${isCurrent ? 'stroke-[2.5]' : 'stroke-[2]'}`} />
+                    ) : (
+                      <span className="text-xs sm:text-sm font-bold">{idx + 1}</span>
+                    )}
+                  </div>
+
+                  {/* Step Label */}
+                  <span
+                    className={`mt-2 text-xs tracking-tight transition-colors duration-200 text-center leading-snug whitespace-nowrap ${
+                      isCurrent
+                        ? 'font-bold text-[#0073AA]'
+                        : isCompleted
+                          ? 'font-bold text-[#00486E]'
+                          : 'font-semibold text-slate-500 group-hover:text-slate-700'
+                    }`}
+                  >
+                    {s.label}
                   </span>
-                  <span className="text-[10px] font-bold tracking-wider uppercase opacity-75">
-                    Step {idx + 1}
-                  </span>
-                </div>
-                <p className="font-bold text-xs leading-tight line-clamp-1">{s.label}</p>
-                <p className={`text-[11px] mt-0.5 line-clamp-1 ${isCurrent ? 'text-blue-100' : 'text-gray-500'}`}>
-                  {s.sub}
-                </p>
-              </button>
+                </button>
+
+                {/* Horizontal Divider / Connector */}
+                {!isLast && (
+                  <div className="flex-1 mx-2 sm:mx-4 mt-[17px] sm:mt-[19px] flex items-center">
+                    <div
+                      className={`w-full h-[2px] rounded-full transition-all duration-300 ${
+                        isCompleted ? 'bg-[#0073AA]' : 'bg-slate-200'
+                      }`}
+                    />
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
@@ -278,7 +313,8 @@ export default function ApplicationPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {/* Row 1: English Full Name */}
                 <Input
                   label="First / Given Name (English)"
                   value={personalInfo.firstName}
@@ -292,6 +328,14 @@ export default function ApplicationPage() {
                   required
                 />
                 <Input
+                  label="Grandfather Name (English)"
+                  value={personalInfo.grandFatherName}
+                  onChange={(e) => setPersonalInfo({ ...personalInfo, grandFatherName: e.target.value })}
+                  required
+                />
+
+                {/* Row 2: Local Script Names */}
+                <Input
                   label="የመጀመሪያ ስም (በአማርኛ / Afaan Oromoo)"
                   value={personalInfo.firstNameAm || ''}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, firstNameAm: e.target.value })}
@@ -303,6 +347,14 @@ export default function ApplicationPage() {
                   onChange={(e) => setPersonalInfo({ ...personalInfo, lastNameAm: e.target.value })}
                   placeholder="ምሳሌ፡ ቶሌሳ"
                 />
+                <Input
+                  label="የአያት ስም (በአማርኛ / Afaan Oromoo)"
+                  value={personalInfo.grandFatherNameAm || ''}
+                  onChange={(e) => setPersonalInfo({ ...personalInfo, grandFatherNameAm: e.target.value })}
+                  placeholder="ምሳሌ፡ ገመቹ"
+                />
+
+                {/* Row 3: Identity Demographics */}
                 <Input
                   label="Date of Birth (Gregorian / Ethiopian)"
                   type="date"
@@ -324,11 +376,20 @@ export default function ApplicationPage() {
                   value={personalInfo.nationality}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, nationality: e.target.value })}
                 />
+
+                {/* Row 4: Contact Information */}
                 <Input
                   label="Mobile Phone (+251)"
                   type="tel"
                   value={personalInfo.phone}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, phone: e.target.value })}
+                  required
+                />
+                <Input
+                  label="Emergency Contact Phone"
+                  type="tel"
+                  value={personalInfo.emergencyPhone}
+                  onChange={(e) => setPersonalInfo({ ...personalInfo, emergencyPhone: e.target.value })}
                   required
                 />
                 <Input
@@ -338,6 +399,8 @@ export default function ApplicationPage() {
                   onChange={(e) => setPersonalInfo({ ...personalInfo, email: e.target.value })}
                   required
                 />
+
+                {/* Row 5: Regional Administrative Jurisdiction */}
                 <Input
                   label="Regional State (ክልል)"
                   value={personalInfo.region}
@@ -353,18 +416,23 @@ export default function ApplicationPage() {
                   value={personalInfo.woreda}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, woreda: e.target.value })}
                 />
+
+                {/* Row 6: Local Residence */}
                 <Input
-                  label="Kebele / House No."
+                  label="Kebele / Village"
                   value={personalInfo.kebele}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, kebele: e.target.value })}
                 />
-                <div className="md:col-span-2">
-                  <Input
-                    label="Full Residential Postal Address"
-                    value={personalInfo.address}
-                    onChange={(e) => setPersonalInfo({ ...personalInfo, address: e.target.value })}
-                  />
-                </div>
+                <Input
+                  label="House / Door Number"
+                  value={personalInfo.houseNo}
+                  onChange={(e) => setPersonalInfo({ ...personalInfo, houseNo: e.target.value })}
+                />
+                <Input
+                  label="Full Residential Postal Address"
+                  value={personalInfo.address}
+                  onChange={(e) => setPersonalInfo({ ...personalInfo, address: e.target.value })}
+                />
               </div>
             </div>
           )}
@@ -379,15 +447,25 @@ export default function ApplicationPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="md:col-span-2">
-                  <Input
-                    label="Previous Secondary & Preparatory School"
-                    value={academic.previousSchool}
-                    onChange={(e) => setAcademic({ ...academic, previousSchool: e.target.value })}
-                    required
-                  />
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <Input
+                  label="Previous Secondary & Preparatory School"
+                  value={academic.previousSchool}
+                  onChange={(e) => setAcademic({ ...academic, previousSchool: e.target.value })}
+                  required
+                />
+                <Input
+                  label="School Town / Region"
+                  value={academic.schoolLocation}
+                  onChange={(e) => setAcademic({ ...academic, schoolLocation: e.target.value })}
+                  placeholder="e.g. Nekemte, East Wallaga"
+                />
+                <Input
+                  label="MoE Exam Registration Number"
+                  value={academic.registrationNumber}
+                  onChange={(e) => setAcademic({ ...academic, registrationNumber: e.target.value })}
+                  placeholder="e.g. EHEEE/2023/84920"
+                />
                 <Input
                   label="National Examination System"
                   value={academic.examType}
@@ -399,16 +477,14 @@ export default function ApplicationPage() {
                   value={academic.examYear}
                   onChange={(e) => setAcademic({ ...academic, examYear: Number(e.target.value) })}
                 />
-                <div className="md:col-span-2">
-                  <Input
-                    label="Cumulative National Examination Score (Total out of 600 / 700)"
-                    type="number"
-                    step="0.01"
-                    value={academic.examScore}
-                    onChange={(e) => setAcademic({ ...academic, examScore: Number(e.target.value) })}
-                    required
-                  />
-                </div>
+                <Input
+                  label="Cumulative National Examination Score"
+                  type="number"
+                  step="0.01"
+                  value={academic.examScore}
+                  onChange={(e) => setAcademic({ ...academic, examScore: Number(e.target.value) })}
+                  required
+                />
               </div>
 
               <div>
@@ -421,10 +497,10 @@ export default function ApplicationPage() {
                     onClick={() =>
                       setAcademic({
                         ...academic,
-                        subjects: [...academic.subjects, { name: '', grade: '' }],
+                        subjects: [...academic.subjects, { name: '', grade: '', stream: 'General' }],
                       })
                     }
-                    className="text-xs font-bold text-[#0073AA] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-[#0073AA] hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <span>+ Add Subject</span>
                   </button>
@@ -432,7 +508,7 @@ export default function ApplicationPage() {
 
                 <div className="space-y-3">
                   {academic.subjects.map((sub, idx) => (
-                    <div key={idx} className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                    <div key={idx} className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
                       <Input
                         label={idx === 0 ? 'Subject Name' : undefined}
                         value={sub.name}
@@ -442,6 +518,16 @@ export default function ApplicationPage() {
                           setAcademic({ ...academic, subjects: s });
                         }}
                         placeholder="e.g. Mathematics, English, Physics"
+                      />
+                      <Input
+                        label={idx === 0 ? 'Curriculum Stream / Department' : undefined}
+                        value={sub.stream || ''}
+                        onChange={(e) => {
+                          const s = [...academic.subjects];
+                          s[idx].stream = e.target.value;
+                          setAcademic({ ...academic, subjects: s });
+                        }}
+                        placeholder="e.g. Natural Science"
                       />
                       <div className="flex items-center gap-2">
                         <div className="flex-1">
@@ -465,7 +551,7 @@ export default function ApplicationPage() {
                                 subjects: academic.subjects.filter((_, i) => i !== idx),
                               });
                             }}
-                            className="mt-1 text-red-500 hover:text-red-700 text-sm p-2 rounded hover:bg-red-50"
+                            className={`${idx === 0 ? 'mt-6' : 'mt-1'} text-red-500 hover:text-red-700 text-sm p-2 rounded hover:bg-red-50 cursor-pointer`}
                             title="Remove Subject"
                           >
                             ✕
@@ -489,7 +575,7 @@ export default function ApplicationPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <Select
                   label="Institutional Campus"
                   value={programInfo.campusId}
@@ -526,6 +612,12 @@ export default function ApplicationPage() {
                       ]
                   }
                 />
+                <Input
+                  label="Second Choice Alternative Program (Optional)"
+                  value={programInfo.secondChoice || ''}
+                  onChange={(e) => setProgramInfo({ ...programInfo, secondChoice: e.target.value })}
+                  placeholder="e.g. Information Technology (B.Sc.)"
+                />
                 <Select
                   label="Admission Modality / Shift"
                   value={programInfo.admissionType}
@@ -555,12 +647,6 @@ export default function ApplicationPage() {
                     { value: '2', label: 'Semester II (Spring / Yekatit)' },
                   ]}
                 />
-                <Input
-                  label="Second Choice Alternative Program (Optional)"
-                  value={programInfo.secondChoice || ''}
-                  onChange={(e) => setProgramInfo({ ...programInfo, secondChoice: e.target.value })}
-                  placeholder="e.g. Information Technology (B.Sc.)"
-                />
               </div>
             </div>
           )}
@@ -575,8 +661,48 @@ export default function ApplicationPage() {
                 </p>
               </div>
 
+              {/* Document Requirement Cards (3 Per Row) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* 1. National ID */}
+                <div className="bg-white border border-gray-200 rounded p-4 shadow-2xs border-t-4 border-t-[#0073AA]">
+                  <span className="text-2xl mb-1 block">🆔</span>
+                  <h4 className="text-xs font-extrabold text-[#002B40] uppercase tracking-wider">1. National ID (Fayda)</h4>
+                  <p className="text-[11px] text-gray-500 mt-1">Ethiopian Digital ID (Fayda) biometric slip, national passport, or valid Kebele citizenship card.</p>
+                </div>
+                {/* 2. Official Transcript (9-12) */}
+                <div className="bg-white border border-gray-200 rounded p-4 shadow-2xs border-t-4 border-t-[#10B981]">
+                  <span className="text-2xl mb-1 block">📋</span>
+                  <h4 className="text-xs font-extrabold text-[#002B40] uppercase tracking-wider">2. Official Transcript (Grades 9–12)</h4>
+                  <p className="text-[11px] text-gray-500 mt-1">Certified academic records and complete grade transcripts covering secondary Grades 9th through 12th.</p>
+                </div>
+                {/* 3. Ministry (8th Grade) */}
+                <div className="bg-white border border-gray-200 rounded p-4 shadow-2xs border-t-4 border-t-[#F59E0B]">
+                  <span className="text-2xl mb-1 block">📜</span>
+                  <h4 className="text-xs font-extrabold text-[#002B40] uppercase tracking-wider">3. Ministry Certificate (8th Grade)</h4>
+                  <p className="text-[11px] text-gray-500 mt-1">Official Regional Bureau of Education Grade 8 Primary School Leaving Certificate.</p>
+                </div>
+                {/* 4. Matric (10th Grade) */}
+                <div className="bg-white border border-gray-200 rounded p-4 shadow-2xs border-t-4 border-t-[#8B5CF6]">
+                  <span className="text-2xl mb-1 block">🎓</span>
+                  <h4 className="text-xs font-extrabold text-[#002B40] uppercase tracking-wider">4. Matric Certificate (10th Grade)</h4>
+                  <p className="text-[11px] text-gray-500 mt-1">Ethiopian General Secondary Education Certificate Examination (EGSECE) official score slip.</p>
+                </div>
+                {/* 5. University Entrance (12th Grade) */}
+                <div className="bg-white border border-gray-200 rounded p-4 shadow-2xs border-t-4 border-t-[#D9251D]">
+                  <span className="text-2xl mb-1 block">🏛️</span>
+                  <h4 className="text-xs font-extrabold text-[#002B40] uppercase tracking-wider">5. Entrance Exam (12th Grade)</h4>
+                  <p className="text-[11px] text-gray-500 mt-1">Ethiopian Higher Education Entrance Examination (EHEEE) university placement score sheet.</p>
+                </div>
+                {/* 6. Optional Supporting */}
+                <div className="bg-white border border-gray-200 rounded p-4 shadow-2xs border-t-4 border-t-slate-400">
+                  <span className="text-2xl mb-1 block">📎</span>
+                  <h4 className="text-xs font-extrabold text-[#002B40] uppercase tracking-wider">Additional Supporting (Optional)</h4>
+                  <p className="text-[11px] text-gray-500 mt-1">Medical accommodations, affirmative action verification, or athletic / special talent records.</p>
+                </div>
+              </div>
+
               {/* Drag and drop zone */}
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 sm:p-12 text-center bg-gray-50/50 hover:bg-white hover:border-[#00486E] transition-all cursor-pointer">
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 sm:p-10 text-center bg-gray-50/50 hover:bg-white hover:border-[#00486E] transition-all cursor-pointer">
                 <input
                   type="file"
                   multiple
@@ -595,7 +721,7 @@ export default function ApplicationPage() {
                   <p className="text-xs text-gray-500 mt-1">
                     Accepts official PDF grade slips, EHEEE certificates, Kebele ID scans (Max: 10 MB)
                   </p>
-                  <span className="inline-block mt-4 bg-[#00486E] text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded shadow-xs">
+                  <span className="inline-block mt-4 bg-[#00486E] text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded shadow-xs cursor-pointer">
                     Select Digital Files
                   </span>
                 </label>
@@ -603,32 +729,45 @@ export default function ApplicationPage() {
 
               {/* Uploaded Documents List */}
               <div className="space-y-3">
-                <h3 className="font-black text-xs text-gray-400 uppercase tracking-wider">
+                <h3 className="font-extrabold text-xs text-[#002B40] uppercase tracking-wider">
                   Attached Verification Files ({documents.length})
                 </h3>
-                {documents.map((doc, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between bg-white border border-gray-200 rounded p-3.5 shadow-xs"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded bg-blue-50 text-[#00486E] font-bold flex items-center justify-center text-sm border border-blue-100">
-                        PDF
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {documents.map((doc, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between bg-white border border-gray-200 rounded p-3.5 shadow-xs"
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-9 h-9 rounded bg-blue-50 text-[#00486E] font-extrabold flex items-center justify-center text-xs border border-blue-100 shrink-0">
+                          PDF
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-[#00486E] truncate">{doc.name}</p>
+                          <p className="text-[10px] text-gray-500">{doc.size} • Verified</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs sm:text-sm font-bold text-[#00486E]">{doc.name}</p>
-                        <p className="text-[11px] text-gray-500">{doc.size} • Verified Format</p>
+                      <div className="flex items-center gap-1.5 shrink-0 ml-2">
+                        <button
+                          type="button"
+                          onClick={() => setPreviewDoc(doc)}
+                          title="View Document Attachment"
+                          className="w-8 h-8 text-[#0073AA] hover:text-white hover:bg-[#0073AA] bg-blue-50 border border-blue-200 rounded transition-all cursor-pointer flex items-center justify-center shadow-2xs"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setDocuments(documents.filter((_, i) => i !== idx))}
+                          title="Remove Attachment"
+                          className="w-8 h-8 text-red-600 hover:text-white hover:bg-red-600 bg-red-50 border border-red-200 rounded transition-all cursor-pointer flex items-center justify-center shadow-2xs text-xs font-bold"
+                        >
+                          ✕
+                        </button>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setDocuments(documents.filter((_, i) => i !== idx))}
-                      className="text-xs font-bold text-red-600 hover:text-red-800 bg-red-50 px-3 py-1.5 rounded transition-all"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           )}
@@ -643,113 +782,176 @@ export default function ApplicationPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* 3 Review Cards in 1 Row */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 {/* Personal Information Summary */}
-                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5">
-                  <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
-                    <h4 className="font-black text-xs text-[#00486E] uppercase tracking-wider">
-                      Applicant Bio-Data
-                    </h4>
-                    <button
-                      onClick={() => setStep(0)}
-                      className="text-xs font-bold text-[#0073AA] hover:underline"
-                    >
-                      Edit ✏️
-                    </button>
+                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+                      <h4 className="font-extrabold text-xs text-[#00486E] uppercase tracking-wider">
+                        Applicant Bio-Data
+                      </h4>
+                      <button
+                        onClick={() => setStep(0)}
+                        className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
+                      >
+                        Edit ✏️
+                      </button>
+                    </div>
+                    <dl className="space-y-2 text-xs">
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Full Name (English):</dt>
+                        <dd className="text-gray-700 font-medium">{personalInfo.firstName} {personalInfo.lastName} {personalInfo.grandFatherName}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Amharic Script:</dt>
+                        <dd className="text-gray-700 font-medium">{personalInfo.firstNameAm} {personalInfo.lastNameAm} {personalInfo.grandFatherNameAm}</dd>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <dt className="font-extrabold text-[#002B40]">Date of Birth:</dt>
+                          <dd className="text-gray-700">{personalInfo.dateOfBirth}</dd>
+                        </div>
+                        <div>
+                          <dt className="font-extrabold text-[#002B40]">Gender:</dt>
+                          <dd className="text-gray-700 capitalize">{personalInfo.gender}</dd>
+                        </div>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Contact Telephone:</dt>
+                        <dd className="text-gray-700">{personalInfo.phone}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Email Address:</dt>
+                        <dd className="text-gray-700">{personalInfo.email}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Region & Woreda:</dt>
+                        <dd className="text-gray-700">{personalInfo.region}, {personalInfo.woreda}</dd>
+                      </div>
+                    </dl>
                   </div>
-                  <dl className="grid grid-cols-2 gap-y-2 text-xs">
-                    <dt className="text-gray-500">Full Name:</dt>
-                    <dd className="font-bold text-[#00486E]">{personalInfo.firstName} {personalInfo.lastName}</dd>
-                    <dt className="text-gray-500">Amharic Name:</dt>
-                    <dd className="font-bold text-[#00486E]">{personalInfo.firstNameAm} {personalInfo.lastNameAm}</dd>
-                    <dt className="text-gray-500">Date of Birth:</dt>
-                    <dd className="font-medium text-gray-800">{personalInfo.dateOfBirth}</dd>
-                    <dt className="text-gray-500">Gender & Nationality:</dt>
-                    <dd className="font-medium text-gray-800 capitalize">{personalInfo.gender} • {personalInfo.nationality}</dd>
-                    <dt className="text-gray-500">Contact Telephone:</dt>
-                    <dd className="font-medium text-gray-800">{personalInfo.phone}</dd>
-                    <dt className="text-gray-500">Email Address:</dt>
-                    <dd className="font-medium text-gray-800">{personalInfo.email}</dd>
-                    <dt className="text-gray-500">Region & Woreda:</dt>
-                    <dd className="font-medium text-gray-800">{personalInfo.region}, {personalInfo.woreda}</dd>
-                  </dl>
                 </div>
 
                 {/* Academic Qualifications Summary */}
-                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5">
-                  <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
-                    <h4 className="font-black text-xs text-[#00486E] uppercase tracking-wider">
-                      Academic Background
-                    </h4>
-                    <button
-                      onClick={() => setStep(1)}
-                      className="text-xs font-bold text-[#0073AA] hover:underline"
-                    >
-                      Edit ✏️
-                    </button>
+                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+                      <h4 className="font-extrabold text-xs text-[#00486E] uppercase tracking-wider">
+                        Academic Background
+                      </h4>
+                      <button
+                        onClick={() => setStep(1)}
+                        className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
+                      >
+                        Edit ✏️
+                      </button>
+                    </div>
+                    <dl className="space-y-2 text-xs">
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Preparatory School:</dt>
+                        <dd className="text-gray-700 font-medium">{academic.previousSchool}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">School Location:</dt>
+                        <dd className="text-gray-700">{academic.schoolLocation}</dd>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <dt className="font-extrabold text-[#002B40]">Exam System:</dt>
+                          <dd className="text-gray-700">{academic.examType}</dd>
+                        </div>
+                        <div>
+                          <dt className="font-extrabold text-[#002B40]">Exam Year:</dt>
+                          <dd className="text-gray-700">{academic.examYear}</dd>
+                        </div>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Cumulative Exam Score:</dt>
+                        <dd className="font-black text-green-700 bg-green-50 px-2 py-0.5 rounded inline-block w-fit mt-0.5">
+                          {academic.examScore} / 700
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Subjects Breakdown:</dt>
+                        <dd className="text-gray-700">{academic.subjects.length} subjects registered</dd>
+                      </div>
+                    </dl>
                   </div>
-                  <dl className="grid grid-cols-2 gap-y-2 text-xs">
-                    <dt className="text-gray-500">Preparatory School:</dt>
-                    <dd className="font-bold text-[#00486E] col-span-2">{academic.previousSchool}</dd>
-                    <dt className="text-gray-500">Exam Category:</dt>
-                    <dd className="font-medium text-gray-800">{academic.examType}</dd>
-                    <dt className="text-gray-500">Year of Exam:</dt>
-                    <dd className="font-medium text-gray-800">{academic.examYear}</dd>
-                    <dt className="text-gray-500">Total Score:</dt>
-                    <dd className="font-black text-green-700 bg-green-50 px-2 py-0.5 rounded inline-block w-fit">
-                      {academic.examScore} / 700
-                    </dd>
-                    <dt className="text-gray-500">Subject Count:</dt>
-                    <dd className="font-medium text-gray-800">{academic.subjects.length} subjects registered</dd>
-                  </dl>
                 </div>
 
                 {/* Program Choice Summary */}
-                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5">
-                  <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
-                    <h4 className="font-black text-xs text-[#00486E] uppercase tracking-wider">
-                      Program & Campus Placement
-                    </h4>
-                    <button
-                      onClick={() => setStep(2)}
-                      className="text-xs font-bold text-[#0073AA] hover:underline"
-                    >
-                      Edit ✏️
-                    </button>
+                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+                      <h4 className="font-extrabold text-xs text-[#00486E] uppercase tracking-wider">
+                        Program & Placement
+                      </h4>
+                      <button
+                        onClick={() => setStep(2)}
+                        className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
+                      >
+                        Edit ✏️
+                      </button>
+                    </div>
+                    <dl className="space-y-2 text-xs">
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Designated Campus:</dt>
+                        <dd className="font-bold text-[#00486E] uppercase">{programInfo.campusId} Campus</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Primary Program:</dt>
+                        <dd className="font-bold text-[#00486E]">{programInfo.firstChoice || programInfo.programId}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-extrabold text-[#002B40]">Alternative Program:</dt>
+                        <dd className="text-gray-700">{programInfo.secondChoice || 'None specified'}</dd>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <dt className="font-extrabold text-[#002B40]">Modality:</dt>
+                          <dd className="text-gray-700 capitalize">{programInfo.admissionType}</dd>
+                        </div>
+                        <div>
+                          <dt className="font-extrabold text-[#002B40]">Intake:</dt>
+                          <dd className="text-gray-700">AY {programInfo.intakeYear} (Sem {programInfo.intakeSemester})</dd>
+                        </div>
+                      </div>
+                    </dl>
                   </div>
-                  <dl className="grid grid-cols-2 gap-y-2 text-xs">
-                    <dt className="text-gray-500">Selected Campus:</dt>
-                    <dd className="font-bold text-[#00486E] uppercase">{programInfo.campusId} Campus</dd>
-                    <dt className="text-gray-500">Primary Program:</dt>
-                    <dd className="font-bold text-[#00486E]">{programInfo.firstChoice || programInfo.programId}</dd>
-                    <dt className="text-gray-500">Modality / Shift:</dt>
-                    <dd className="font-medium text-gray-800 capitalize">{programInfo.admissionType}</dd>
-                    <dt className="text-gray-500">Academic Intake:</dt>
-                    <dd className="font-medium text-gray-800">AY {programInfo.intakeYear} • Semester {programInfo.intakeSemester}</dd>
-                  </dl>
                 </div>
+              </div>
 
-                {/* Documents Summary */}
-                <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5">
-                  <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
-                    <h4 className="font-black text-xs text-[#00486E] uppercase tracking-wider">
-                      Uploaded Documents
-                    </h4>
-                    <button
-                      onClick={() => setStep(3)}
-                      className="text-xs font-bold text-[#0073AA] hover:underline"
-                    >
-                      Edit ✏️
-                    </button>
-                  </div>
-                  <ul className="space-y-2 text-xs">
-                    {documents.map((d, i) => (
-                      <li key={i} className="flex items-center justify-between text-gray-700">
-                        <span className="font-medium">📄 {d.name}</span>
-                        <span className="text-[10px] bg-gray-200 px-1.5 py-0.5 rounded text-gray-600">{d.size}</span>
-                      </li>
-                    ))}
-                  </ul>
+              {/* Uploaded Documents Summary in 3 columns */}
+              <div className="bg-[#F8F9FA] rounded border border-gray-200 p-5">
+                <div className="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+                  <h4 className="font-extrabold text-xs text-[#00486E] uppercase tracking-wider">
+                    Attached Verification Documents ({documents.length})
+                  </h4>
+                  <button
+                    onClick={() => setStep(3)}
+                    className="text-xs font-bold text-[#0073AA] hover:underline cursor-pointer"
+                  >
+                    Manage Files ✏️
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {documents.map((d, i) => (
+                    <div key={i} className="flex items-center justify-between bg-white border border-gray-200 rounded p-2.5 shadow-2xs">
+                      <span className="font-bold text-xs text-[#00486E] truncate">📄 {d.name}</span>
+                      <div className="flex items-center gap-1.5 shrink-0 ml-2">
+                        <span className="text-[10px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-600 font-bold">{d.size}</span>
+                        <button
+                          type="button"
+                          onClick={() => setPreviewDoc(d)}
+                          title="View Document"
+                          className="w-6 h-6 text-[#0073AA] hover:text-white hover:bg-[#0073AA] bg-blue-50 border border-blue-200 rounded transition-all cursor-pointer flex items-center justify-center"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -821,6 +1023,96 @@ export default function ApplicationPage() {
           </div>
         </div>
       </div>
+
+      {/* ─── Document Preview Modal ─── */}
+      {previewDoc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gray-200">
+            {/* Modal Header */}
+            <div className="bg-[#00486E] text-white px-6 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white">
+                  <Eye className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold truncate max-w-md">{previewDoc.name}</h3>
+                  <p className="text-[11px] text-blue-200">Official Verification Attachment • {previewDoc.size}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPreviewDoc(null)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer text-base"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Body / Document Preview Canvas */}
+            <div className="p-6 bg-[#F8F9FA] max-h-[70vh] overflow-y-auto">
+              <div className="bg-white rounded-lg border-2 border-gray-200 p-6 sm:p-8 shadow-xs text-center space-y-4 relative overflow-hidden">
+                {/* Watermark */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5 select-none">
+                  <span className="text-6xl font-black rotate-[-30deg] uppercase text-gray-900">
+                    WALLAGA UNIVERSITY
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+                  <div className="text-left">
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#0073AA] block">
+                      Wollega University Admissions Dossier
+                    </span>
+                    <h4 className="text-sm font-black text-[#002B40]">{previewDoc.name}</h4>
+                  </div>
+                  <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <span>✓</span> Verified Authenticated
+                  </span>
+                </div>
+
+                {/* Simulated Document Viewer */}
+                <div className="py-8 px-4 bg-gray-50 border border-dashed border-gray-300 rounded-md">
+                  <div className="w-16 h-16 rounded-full bg-blue-100 text-[#0073AA] flex items-center justify-center text-3xl mx-auto mb-3">
+                    📜
+                  </div>
+                  <h5 className="font-bold text-sm text-[#002B40]">Document Attachment Preview</h5>
+                  <p className="text-xs text-gray-500 mt-1 max-w-sm mx-auto">
+                    This file has been securely uploaded and validated against institutional admissions criteria.
+                  </p>
+                  <div className="mt-4 flex flex-wrap justify-center gap-3 text-xs text-gray-600 font-medium">
+                    <span className="bg-white border px-3 py-1 rounded shadow-2xs"><strong>Format:</strong> PDF / Image</span>
+                    <span className="bg-white border px-3 py-1 rounded shadow-2xs"><strong>File Size:</strong> {previewDoc.size}</span>
+                    <span className="bg-white border px-3 py-1 rounded shadow-2xs"><strong>Verification:</strong> Institutional Hash Valid</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="bg-white px-6 py-3 border-t border-gray-200 flex items-center justify-between">
+              <span className="text-xs text-gray-500">Dossier ID: WU-2026-DOC-VERIFIED</span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    addToast(`Downloading ${previewDoc.name}...`, 'info');
+                  }}
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-4 py-2 rounded transition-colors cursor-pointer"
+                >
+                  Download File
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewDoc(null)}
+                  className="bg-[#0073AA] hover:bg-[#005C8A] text-white text-xs font-bold px-5 py-2 rounded transition-colors cursor-pointer"
+                >
+                  Close Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
